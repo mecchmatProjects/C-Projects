@@ -1,0 +1,121 @@
+Point 1 coordinate system transformations:
+ Point3D Cartesian, x=0.000000, y=0.000000, z=0.000000
+ Point3D Cylindrical, rho=0.000000, phi=0.000000, z=0.000000
+ Point3D Spherical, r=0.000000, theta=1.570796, phi=0.000000
+
+---------------------------------
+Point 2 coordinate system transformations:
+ Point3D Cartesian, x=0.000000, y=0.000000, z=1.000000
+ Point3D Cylindrical, rho=0.000000, phi=0.000000, z=1.000000
+ Point3D Spherical, r=1.000000, theta=0.000000, phi=0.000000
+
+---------------------------------
+Sum of Point1 and Point2:
+ Point3D Cartesian, x=0.000000, y=0.000000, z=1.000000
+
+---------------------------------
+Figure rotation around vector(Point1,Point2):
+
+0 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000
+}); 
+Points:(
+ Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000)]
+
+---------------------------------
+10 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=0.811160, y=1.158456, z=0.000000
+ B= Point3D Cartesian, x=1.101375, y=5.271335, z=7.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=0.811160, y=1.158456, z=0.000000
+ B= Point3D Cartesian, x=1.101375, y=5.271335, z=7.000000
+}); 
+Points:(
+ Point3D Cartesian, x=0.811160, y=1.158456, z=0.000000
+ Point3D Cartesian, x=1.101375, y=5.271335, z=7.000000)]
+
+---------------------------------
+45 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=0.000000, y=1.414214, z=0.000000
+ B= Point3D Cartesian, x=-2.121320, y=4.949747, z=7.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=0.000000, y=1.414214, z=0.000000
+ B= Point3D Cartesian, x=-2.121320, y=4.949747, z=7.000000
+}); 
+Points:(
+ Point3D Cartesian, x=0.000000, y=1.414214, z=0.000000
+ Point3D Cartesian, x=-2.121320, y=4.949747, z=7.000000)]
+
+---------------------------------
+90 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=-1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=-5.000000, y=2.000000, z=7.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=-1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=-5.000000, y=2.000000, z=7.000000
+}); 
+Points:(
+ Point3D Cartesian, x=-1.000000, y=1.000000, z=0.000000
+ Point3D Cartesian, x=-5.000000, y=2.000000, z=7.000000)]
+
+---------------------------------
+180 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=-1.000000, y=-1.000000, z=0.000000
+ B= Point3D Cartesian, x=-2.000000, y=-5.000000, z=7.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=-1.000000, y=-1.000000, z=0.000000
+ B= Point3D Cartesian, x=-2.000000, y=-5.000000, z=7.000000
+}); 
+Points:(
+ Point3D Cartesian, x=-1.000000, y=-1.000000, z=0.000000
+ Point3D Cartesian, x=-2.000000, y=-5.000000, z=7.000000)]
+
+---------------------------------
+360 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000
+}); 
+Points:(
+ Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000)]
+
+---------------------------------
+Projection figure onto a plane with normal vector (pointA,pointB), plane passes through pointA
+ Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=0.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=0.000000
+}); 
+Points:(
+ Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ Point3D Cartesian, x=2.000000, y=5.000000, z=0.000000)]

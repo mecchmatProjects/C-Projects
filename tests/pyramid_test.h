@@ -1,0 +1,6 @@
+#ifndef GEOMETRY3D_PYRAMID_TEST_H
+#define GEOMETRY3D_PYRAMID_TEST_H
+
+int test_volume();
+
+#endif //GEOMETRY3D_PYRAMID_TEST_H

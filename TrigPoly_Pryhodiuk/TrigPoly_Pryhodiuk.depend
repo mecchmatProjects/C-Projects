@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1558987864 source:c:\users\valya\codeblock\trigpoly_pryhodiuk\src\trigpoly.c
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"C:\Users\Valya\CodeBlock\TrigPoly_Pryhodiuk\headers\TrigPoly_struct.h"
+
+1557916000 c:\users\valya\codeblock\trigpoly_pryhodiuk\headers\trigpoly_struct.h
+	<stdio.h>
+
+1558992591 source:c:\users\valya\codeblock\trigpoly_pryhodiuk\tests\test_trigpoly.c
+	"../headers/TrigPoly.h"
+
+1558992632 c:\users\valya\codeblock\trigpoly_pryhodiuk\headers\trigpoly.h
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+

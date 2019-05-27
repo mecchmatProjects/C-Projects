@@ -1,0 +1,121 @@
+Point 1 coordinate system transformations:
+ Point3D Cartesian, x=2.000000, y=3.000000, z=0.000000
+ Point3D Cylindrical, rho=3.605551, phi=0.982794, z=0.000000
+ Point3D Spherical, r=3.605551, theta=1.570796, phi=0.982794
+
+---------------------------------
+Point 2 coordinate system transformations:
+ Point3D Cartesian, x=1.000000, y=5.000000, z=5.000000
+ Point3D Cylindrical, rho=5.099020, phi=1.373401, z=5.000000
+ Point3D Spherical, r=7.141428, theta=0.795203, phi=1.373401
+
+---------------------------------
+Sum of Point1 and Point2:
+ Point3D Cartesian, x=7.000000, y=8.000000, z=5.000000
+
+---------------------------------
+Figure rotation around vector(Point1,Point2):
+
+0 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000
+}); 
+Points:(
+ Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000)]
+
+---------------------------------
+10 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=0.825783, y=1.144339, z=-0.092579
+ B= Point3D Cartesian, x=1.599100, y=5.506552, z=6.717199
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=0.825783, y=1.144339, z=-0.092579
+ B= Point3D Cartesian, x=1.599100, y=5.506552, z=6.717199
+}); 
+Points:(
+ Point3D Cartesian, x=0.825783, y=1.144339, z=-0.092579
+ Point3D Cartesian, x=1.599100, y=5.506552, z=6.717199)]
+
+---------------------------------
+45 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=0.051846, y=1.372130, z=-0.338483
+ B= Point3D Cartesian, x=-0.425694, y=6.569852, z=5.886921
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=0.051846, y=1.372130, z=-0.338483
+ B= Point3D Cartesian, x=-0.425694, y=6.569852, z=5.886921
+}); 
+Points:(
+ Point3D Cartesian, x=0.051846, y=1.372130, z=-0.338483
+ Point3D Cartesian, x=-0.425694, y=6.569852, z=5.886921)]
+
+---------------------------------
+90 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=-0.946204, y=0.979538, z=-0.381056
+ B= Point3D Cartesian, x=-3.441649, y=5.970428, z=5.523499
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=-0.946204, y=0.979538, z=-0.381056
+ B= Point3D Cartesian, x=-3.441649, y=5.970428, z=5.523499
+}); 
+Points:(
+ Point3D Cartesian, x=-0.946204, y=0.979538, z=-0.381056
+ Point3D Cartesian, x=-3.441649, y=5.970428, z=5.523499)]
+
+---------------------------------
+180 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=-1.066667, y=-0.866667, z=0.333333
+ B= Point3D Cartesian, x=-4.866667, y=0.733333, z=7.333333
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=-1.066667, y=-0.866667, z=0.333333
+ B= Point3D Cartesian, x=-4.866667, y=0.733333, z=7.333333
+}); 
+Points:(
+ Point3D Cartesian, x=-1.066667, y=-0.866667, z=0.333333
+ Point3D Cartesian, x=-4.866667, y=0.733333, z=7.333333)]
+
+---------------------------------
+360 degrees absolute rotation:
+Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ B= Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000
+}); 
+Points:(
+ Point3D Cartesian, x=1.000000, y=1.000000, z=0.000000
+ Point3D Cartesian, x=2.000000, y=5.000000, z=7.000000)]
+
+---------------------------------
+Projection figure onto a plane with normal vector (point_A,point_B), plane passes through point_A
+ Figure:[
+Edges:(Edge 3D:{
+ A= Point3D Cartesian, x=0.900000, y=1.200000, z=0.500000
+ B= Point3D Cartesian, x=3.300000, y=2.400000, z=0.500000
+}
+  Edge 3D:{
+ A= Point3D Cartesian, x=0.900000, y=1.200000, z=0.500000
+ B= Point3D Cartesian, x=3.300000, y=2.400000, z=0.500000
+}); 
+Points:(
+ Point3D Cartesian, x=0.900000, y=1.200000, z=0.500000
+ Point3D Cartesian, x=3.300000, y=2.400000, z=0.500000)]

@@ -1,0 +1,3 @@
+/home/stas/CLionProjects/DVector(DMatrix)_Kostiukovych/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/stas/CLionProjects/DVector(DMatrix)_Kostiukovych/cmake-build-debug/CMakeFiles/DVector_DMatrix__Kostiukovych.dir
+/home/stas/CLionProjects/DVector(DMatrix)_Kostiukovych/cmake-build-debug/CMakeFiles/edit_cache.dir

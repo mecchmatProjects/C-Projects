@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/DVector_DMatrix__Kostiukovych.dir/Dmatrix_tests.c.o CMakeFiles/DVector_DMatrix__Kostiukovych.dir/src/Dmatrix.c.o  -o DVector_DMatrix__Kostiukovych 

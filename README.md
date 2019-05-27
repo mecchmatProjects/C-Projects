@@ -1,2 +1,2 @@
 # C-Projects
-C-Projects for Math package
+C-Projects for DPoly package

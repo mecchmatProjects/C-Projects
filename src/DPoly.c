@@ -745,10 +745,10 @@ static void _dpoly_divmod_helper(dpoly* lhs, const dpoly* rhs, dpoly* div) {
     while (lhead >= 0 && lhs->coefficients[lhead] == 0.) {
         --lhead;
     }
-    /* if lhs is zero then both the quotient and remainder are 0 */
-    if (lhead < 0) {
+    /* if order of lhs is less than the order of rhs than div is 0, mod is lhs */
+    if (lhead < rhead) {
         if (div) {
-            dpoly_zero(div, 0);
+            dpoly_zero(div, 1);
         }
         return;
     }

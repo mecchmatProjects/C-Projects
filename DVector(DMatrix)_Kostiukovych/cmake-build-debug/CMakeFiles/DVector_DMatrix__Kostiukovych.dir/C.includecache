@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/stas/CLionProjects/DVector(DMatrix)_Kostiukovych/Dmatrix_tests.c
+src/Dmatrix.h
+/home/stas/CLionProjects/DVector(DMatrix)_Kostiukovych/src/Dmatrix.h
+
+/home/stas/CLionProjects/DVector(DMatrix)_Kostiukovych/src/Dmatrix.c
+Dmatrix.h
+/home/stas/CLionProjects/DVector(DMatrix)_Kostiukovych/src/Dmatrix.h
+
+/home/stas/CLionProjects/DVector(DMatrix)_Kostiukovych/src/Dmatrix.h
+stdio.h
+-
+malloc.h
+-
+math.h
+-
+

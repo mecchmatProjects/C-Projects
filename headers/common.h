@@ -34,53 +34,28 @@ THE SOFTWARE.
 
 #include <string.h>
 
-typedef DType double; /* Double real type for application */ 
+typedef double DTYPE ; /* Double real type for application */
 
-typedef IType int;    /* Integer type for application */
+typedef int ITYPE;    /* Integer type for application */
 
-typedef NType unsigned; /* Unsigned type for application */ 
+typedef size_t UTYPE; /* Unsigned type for application */
 
 //TODO: v.b.: correct it with limits and float
-#define EQ_EPS 0.000001 // epsilon : presision of arithmetics
+#define EQ_EPS 0.000001 // epsilon : precision of arithmetics
 
-#define MAX((a),(b))       (a)<(b)?(a):(b)
-#define MIN((a),(b))       (a)>(b)?(a):(b)
+#define MAX(a, b)       (a)>(b)?(a):(b)
+#define MIN(a, b)       (a)<(b)?(a):(b)
 
-#define  PD_EQL((a),(b))   fabs((a)-(b)) < EQ_EPS
+#define PD_EQL(a, b)   fabs((a)-(b)) < EQ_EPS
 
 
 /* Basic types definitions */
 
-/* Point type as vector of two reals */  
-typedef struct DPoint_
-{
-	union  //classical and vector representation
-	{
-		struct
-		{
-			DType x;
-			DType y;
-		};
-		DType ptr[2];
-	};
-} DPoint;
-
-
-typedef struct DLine_
-{
-	DType a;
-	DType b;
-	DType c;
-} DLine;
-
-
-// real function R^1 -> R^1
-typedef R1R_Finc (*DType)(Dtype); 
-
-
-void* memzero(void* ptr, size_t n)
+/*void* memzero(void* ptr, size_t n)
 {
 	memset(ptr, 0, n);
-}
+}*/
 
-#endif /* __COMMON__ end */
+#endif 
+
+/* __COMMON__ end */

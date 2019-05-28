@@ -52,8 +52,8 @@ typedef struct{
 
 typedef struct{
     ntype N;
-    VectorND v1, v2;
-}AngleND; // Angle between two vectors in N dimensions
+    ftype *components;
+}AngleND;
 
 
 extern ftype* input_coordinates(ntype N);
@@ -120,16 +120,21 @@ extern VectorND mult(VectorND *vectors);
 
 //other helpful functions
 extern VectorND normal(PlaneND pl);
-extern double get_triangle_square(PointND p1, PointND p2, PointND p3);
+extern ftype determinant(ftype **matr, ntype n);
 
 //functions intersect
 extern LineND intersect_planes(PlaneND *planes);
 extern PointND intersect_line_plane(LineND l1, PlaneND p1);
 
+//other functions
+extern VectorND get_vector(PointND p1, PointND p2);
+extern double get_triangle_square(PointND p1, PointND p2, PointND p3);
+
 //functions with PyramidND
+extern ftype osnova_area(PyramidND p);
 extern ftype volumeND(PyramidND p);
 extern ftype* side_squaresND(PyramidND p);
-extern ftype squareND(PyramidND p);
+extern ftype areaND(PyramidND p);
 extern PointND weight_center(PyramidND p);
 
 //functions with PyramidND and PlaneND
@@ -169,6 +174,7 @@ extern char* f_read();
 extern char* i_read();
 
 //functions which generate random objects
+extern ftype* generate_coordinates(ntype N);
 extern PointND generate_point(ntype N);
 extern SegmentND generate_segment(ntype N);
 extern PyramidND generate_pyramid(ntype N);

@@ -13,6 +13,7 @@
 #define F_SEGMENT 2
 #define F_PLANE 3
 #define F_PYRAMID 4
+#define F_ANGLE 5
 
 typedef unsigned int ntype;
 typedef float ftype;
@@ -49,6 +50,11 @@ typedef struct{
     PointND *points;
 }PlaneND;
 
+typedef struct{
+    ntype N;
+    VectorND v1, v2;
+}AngleND; // Angle between two vectors in N dimensions
+
 
 extern ftype* input_coordinates(ntype N);
 
@@ -59,6 +65,8 @@ extern PyramidND input_pyramid();
 extern VectorND input_vector();
 extern LineND input_line();
 extern PlaneND input_plane();
+extern AngleND input_angle();
+
 //output to console functions
 extern void output_point(PointND point, ntype type, ntype width, ntype precision);
 extern void output_segment(SegmentND segment, ntype type, ntype width, ntype precision);
@@ -66,6 +74,7 @@ extern void output_pyramid(PyramidND point, ntype type, ntype width, ntype preci
 extern void output_line(LineND line, ntype type, ntype width, ntype precision);
 extern void output_plane(PlaneND plane, ntype type, ntype width, ntype precision);
 extern void output_vector(VectorND vect, ntype type, ntype width, ntype precision);
+extern void output_angle(AngleND angle, ntype type, ntype width, ntype precision);
 
 //read from binary file functions
 extern ntype inputBinaryFile_point(char* file, PointND *p);
@@ -74,6 +83,7 @@ extern ntype inputBinaryFile_pyramid(char* file, PyramidND *pyramid);
 extern ntype inputBinaryFile_line(char* file, LineND *line);
 extern ntype inputBinaryFile_plane(char* file, PlaneND *plane);
 extern ntype inputBinaryFile_vector(char* file, VectorND *vect);
+extern ntype inputBinaryFile_angle(char* file, AngleND *angle);
 
 //write to binary file functions
 extern ntype outputBinaryFile_point(char* file, PointND p);
@@ -82,6 +92,25 @@ extern ntype outputBinaryFile_pyramid(char* file, PyramidND pyramid);
 extern ntype outputBinaryFile_line(char* file, LineND line);
 extern ntype outputBinaryFile_plane(char* file, PlaneND plane);
 extern ntype outputBinaryFile_vector(char* file, VectorND vect);
+extern ntype outputBinaryFile_angle(char* file, AngleND angle);
+
+//read from text file functions
+extern ntype inputTextFile_point(char* file, PointND *p);
+extern ntype inputTextFile_segment(char* file, SegmentND *s);
+extern ntype inputTextFile_pyramid(char* file, PyramidND *pyramid);
+extern ntype inputTextFile_line(char* file, LineND *line);
+extern ntype inputTextFile_plane(char* file, PlaneND *plane);
+extern ntype inputTextFile_vector(char* file, VectorND *vect);
+extern ntype inputTextFile_angle(char* file, AngleND *angle);
+
+//write to text file functions
+extern ntype outputTextFile_point(char* file, PointND p, ntype type, ntype width, ntype precision);
+extern ntype outputTextFile_segment(char* file, SegmentND s, ntype type, ntype width, ntype precision);
+extern ntype outputTextFile_pyramid(char* file, PyramidND pyramid, ntype type, ntype width, ntype precision);
+extern ntype outputTextFile_line(char* file, LineND line, ntype type, ntype width, ntype precision);
+extern ntype outputTextFile_plane(char* file, PlaneND plane, ntype type, ntype width, ntype precision);
+extern ntype outputTextFile_vector(char* file, VectorND vect, ntype type, ntype width, ntype precision);
+extern ntype outputTextFile_angle(char* file, AngleND angle, ntype type, ntype width, ntype precision);
 
 //functions with vectors
 extern VectorND add(VectorND v1, VectorND v2);
@@ -95,9 +124,22 @@ extern double get_triangle_square(PointND p1, PointND p2, PointND p3);
 
 //functions intersect
 extern LineND intersect_planes(PlaneND *planes);
+extern PointND intersect_line_plane(LineND l1, PlaneND p1);
 
 //functions with PyramidND
+extern ftype volumeND(PyramidND p);
 extern ftype* side_squaresND(PyramidND p);
+extern ftype squareND(PyramidND p);
+extern PointND weight_center(PyramidND p);
+
+//functions with PyramidND and PlaneND
+extern PointND** get_figures(PyramidND pyram, PlaneND plane);
+extern ftype* get_squares(PyramidND pyram, PlaneND plane);
+extern ftype* get_volumes(PyramidND pyram, PlaneND plane);
+
+//functions turn on angle
+extern PointND turn_point(PointND p, AngleND ang);
+extern PyramidND turn_pyramid(PyramidND p, AngleND ang);
 
 //functions with vector and ftype
 extern VectorND mul(VectorND vect, ftype num);
@@ -133,5 +175,6 @@ extern PyramidND generate_pyramid(ntype N);
 extern VectorND generate_vector(ntype N);
 extern LineND generate_line(ntype N);
 extern PlaneND generate_plane(ntype N);
+extern AngleND generate_angle(ntype N);
 
 #endif

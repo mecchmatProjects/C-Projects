@@ -4,6 +4,7 @@
 #include"GeomND.h"
 #include"GeomND.c"
 #define filename "Geom_output.txt"
+#define filename_txt "Geom_output.dat"
 
 void console_test() {
     PointND p1, p2, p3;
@@ -35,6 +36,8 @@ void console_test() {
     printf("\nrez = %d", rez);
     inputBinaryFile_segment(filename, &ss);
     output_segment(ss, FLOAT, 3, 4);
+    outputTextFile_point(filename_txt, p2, 1, 8, 4);
+    inputTextFile_point(filename_txt, &p2);
 }
 
 int main()

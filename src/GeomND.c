@@ -184,6 +184,29 @@ PlaneND input_plane()
     return PLANE;
 }
 
+AngleND input_angle()
+{
+    char* arr;
+    AngleND angle;
+    printf("Angle ND; N = ");
+    arr = i_read();
+    while (arr[0]=='N' || atoi(arr)<=0)
+    {
+        printf("Enter a natural number! ");
+        arr = i_read();
+    }
+    angle.N = atoi(arr);
+    free(arr);
+    angle.v1.N = angle.N;
+    angle.v2.N = angle.N;
+    printf("\nv1 coordinates: ");
+    angle.v1.coordinates = input_coordinates(angle.N);
+    printf("v2 coordinates: ");
+    angle.v2.coordinates = input_coordinates(angle.N);
+    return angle;
+
+}
+
 //output to console functions
 void output_point(PointND point, ntype type, ntype width, ntype precision)
 {
@@ -236,6 +259,13 @@ void output_vector(VectorND vect, ntype type, ntype width, ntype precision)
     output_coordinates(vect_to_point(vect), type, width, precision);
 };
 
+void output_angle(AngleND angle, ntype type, ntype width, ntype precision)
+{
+    printf("Angle%dD:\nv1: ", angle.N);
+    output_coordinates(vect_to_point(angle.v1), type, width, precision);
+    printf("\nv2: ");
+    output_coordinates(vect_to_point(angle.v2), type, width, precision);
+}
 
 //read from binary file functions
 ntype inputBinaryFile_point(char* file, PointND *p)
@@ -279,6 +309,16 @@ ntype inputBinaryFile_point(char* file, PointND *p)
             else if (m==F_PYRAMID)
             {
                 for (int i=0; i<N+1; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+            else if (m==F_ANGLE)
+            {
+                for (int i=0; i<2; i++)
                 {
                     for (int j=0; j<N; j++)
                     {
@@ -337,6 +377,16 @@ ntype inputBinaryFile_segment(char* file, SegmentND *s)
             else if (m==F_PYRAMID)
             {
                 for (int i=0; i<N+1; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+            else if (m==F_ANGLE)
+            {
+                for (int i=0; i<2; i++)
                 {
                     for (int j=0; j<N; j++)
                     {
@@ -403,10 +453,23 @@ ntype inputBinaryFile_pyramid(char* file, PyramidND *pyramid)
                     }
                 }
             }
+            else if (m==F_ANGLE)
+            {
+                for (int i=0; i<2; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
         }
         pyramid->N = N;
-        pyramid->points = (PointND*)malloc(N*sizeof(PointND));
-        for (int i=0; i<N; i++)
+        int num;
+        fread(&num, sizeof(int), 1, f);
+        pyramid->NUM = num;
+        pyramid->points = (PointND*)malloc(num*sizeof(PointND));
+        for (int i=0; i<num; i++)
         {
             pyramid->points[i].N = N;
         }
@@ -414,7 +477,7 @@ ntype inputBinaryFile_pyramid(char* file, PyramidND *pyramid)
         printf("======N = %d", N);
         pyramid->apex.coordinates = (float*)malloc((pyramid->N)*sizeof(ftype));
         fread(pyramid->apex.coordinates, sizeof(ftype), pyramid->N, f);
-        for (int i=0; i<N; i++)
+        for (int i=0; i<pyramid->NUM; i++)
         {
             pyramid->points[i].coordinates = (float*)malloc((pyramid->N)*sizeof(ftype));
             fread(pyramid->points[i].coordinates, sizeof(ftype), pyramid->N, f);
@@ -466,6 +529,16 @@ ntype inputBinaryFile_line(char* file, LineND *line)
             else if (m==F_PYRAMID)
             {
                 for (int i=0; i<N+1; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+            else if (m==F_ANGLE)
+            {
+                for (int i=0; i<2; i++)
                 {
                     for (int j=0; j<N; j++)
                     {
@@ -535,6 +608,16 @@ ntype inputBinaryFile_plane(char* file, PlaneND *plane)
                     }
                 }
             }
+            else if (m==F_ANGLE)
+            {
+                for (int i=0; i<2; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
         }
         plane->N = N;
         plane->points = (PointND*)malloc(N*sizeof(PointND));
@@ -547,6 +630,143 @@ ntype inputBinaryFile_plane(char* file, PlaneND *plane)
             plane->points[i].coordinates = (float*)malloc((plane->N)*sizeof(ftype));
             fread(plane->points[i].coordinates, sizeof(ftype), plane->N, f);
         }
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype inputBinaryFile_vector(char* file, VectorND *vect)
+{
+    FILE *f;
+    ntype m=0, N;
+    float fl_num;
+    f = fopen(file, "rb");
+    if (f!=NULL)
+    {
+        fseek(f, 0, SEEK_SET);
+        //printf("f %d", p.N);
+        while (m!=F_VECTOR)
+        {
+            fread(&m, sizeof(int), 1, f);
+            fread(&N, sizeof(int), 1, f);
+            if (m==1)
+            {
+
+            }
+            else if (m==F_LINE)
+            {
+                for (int i=0; i<2; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+            else if (m==F_PLANE)
+            {
+                for (int i=0; i<N; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+            else if (m==F_PYRAMID)
+            {
+                for (int i=0; i<N+1; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+            else if (m==F_ANGLE)
+            {
+                for (int i=0; i<2; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+        }
+        vect->N = N;
+        vect->coordinates = (float*)malloc(vect->N*sizeof(float));
+        fread(vect->coordinates, sizeof(ftype), vect->N, f);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype inputBinaryFile_angle(char* file, AngleND *angle)
+{
+    FILE *f;
+    ntype m=0, N;
+    float fl_num;
+    f = fopen(file, "rb");
+    if (f!=NULL)
+    {
+        fseek(f, 0, SEEK_SET);
+        //printf("f %d", p.N);
+        while (m!=F_ANGLE)
+        {
+            fread(&m, sizeof(int), 1, f);
+            fread(&N, sizeof(int), 1, f);
+            if (m==1)
+            {
+                for (int i=0; i<N; i++)
+                {
+                    fread(&fl_num, sizeof(float), 1, f);
+                }
+            }
+            else if (m==F_LINE)
+            {
+                for (int i=0; i<2; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+            else if (m==F_PLANE)
+            {
+                for (int i=0; i<N; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+            else if (m==F_PYRAMID)
+            {
+                for (int i=0; i<N+1; i++)
+                {
+                    for (int j=0; j<N; j++)
+                    {
+                        fread(&fl_num, sizeof(float), 1, f);
+                    }
+                }
+            }
+        }
+        angle->N = N;
+        angle->v1.coordinates = (float*)malloc(angle->N*sizeof(float));
+        fread(angle->v1.coordinates, sizeof(ftype), angle->N, f);
+        angle->v2.coordinates = (float*)malloc(angle->N*sizeof(float));
+        fread(angle->v2.coordinates, sizeof(ftype), angle->N, f);
         fclose(f);
         return 1;
     }
@@ -587,6 +807,403 @@ ntype outputBinaryFile_segment(char* file, SegmentND s)
         fwrite(&s.N, sizeof(int), 1, f);
         fwrite(s.point1.coordinates, sizeof(ftype), s.N, f);
         fwrite(s.point2.coordinates, sizeof(ftype), s.N, f);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputBinaryFile_pyramid(char* file, PyramidND pyramid)
+{
+    FILE *f;
+    ntype m=F_PYRAMID;
+    f = fopen(file, "ab");
+    if (f!=NULL)
+    {
+        fwrite(&m, sizeof(int), 1, f);
+        fwrite(&pyramid.N, sizeof(int), 1, f);
+        fwrite(&pyramid.NUM, sizeof(int), 1, f);
+        fwrite(pyramid.apex.coordinates, sizeof(ftype), pyramid.N, f);
+        for (int i=0; i<pyramid.NUM; i++)
+        {
+            fwrite(pyramid.points[i].coordinates, sizeof(ftype), pyramid.N, f);
+        }
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputBinaryFile_line(char* file, LineND line)
+{
+    FILE *f;
+    ntype m=F_LINE;
+    f = fopen(file, "ab");
+    if (f!=NULL)
+    {
+        fwrite(&m, sizeof(int), 1, f);
+        fwrite(&line.N, sizeof(int), 1, f);
+        fwrite(line.point1.coordinates, sizeof(ftype), line.N, f);
+        fwrite(line.point2.coordinates, sizeof(ftype), line.N, f);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputBinaryFile_plane(char* file, PlaneND plane)
+{
+    FILE *f;
+    ntype m=F_PLANE;
+    f = fopen(file, "ab");
+    if (f!=NULL)
+    {
+        fwrite(&m, sizeof(int), 1, f);
+        fwrite(&plane.N, sizeof(int), 1, f);
+        for (int i=0; i<plane.N; i++)
+        {
+            fwrite(plane.points[i].coordinates, sizeof(ftype), plane.N, f);
+        }
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputBinaryFile_vector(char* file, VectorND vect)
+{
+    FILE *f;
+    ntype m=F_VECTOR;
+    f = fopen(file, "ab");
+    if (f!=NULL)
+    {
+        fwrite(&m, sizeof(int), 1, f);
+        fwrite(&vect.N, sizeof(int), 1, f);
+        fwrite(vect.coordinates, sizeof(ftype), vect.N, f);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputBinaryFile_angle(char* file, AngleND angle)
+{
+    FILE *f;
+    ntype m=F_ANGLE;
+    f = fopen(file, "ab");
+    if (f!=NULL)
+    {
+        fwrite(&m, sizeof(int), 1, f);
+        fwrite(&angle.N, sizeof(int), 1, f);
+        fwrite(angle.v1.coordinates, sizeof(ftype), angle.N, f);
+        fwrite(angle.v2.coordinates, sizeof(ftype), angle.N, f);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+//read from text file functions
+ntype inputTextFile_point(char* file, PointND *p)
+{
+    FILE *f;
+    f = fopen(file, "rt");
+    if (f!=NULL)
+    {
+        fscanf(f, "Point%dD", p->N);
+        for (int i=0; i<p->N; i++)
+        {
+            fscanf(f, "%f ", p->coordinates[i]);
+        }
+
+        fclose(f);
+        return 1;
+    }
+    else {return 0;}
+};
+
+ntype inputTextFile_segment(char* file, SegmentND *s)
+{
+    FILE *f;
+    f = fopen(file, "rt");
+    if (f!=NULL)
+    {
+        fscanf(f, "Segment%dD", s->N);
+        for (int i=0; i<s->N; i++)
+        {
+            fscanf(f, "%f ", s->point1.coordinates[i]);
+        }
+        for (int i=0; i<s->N; i++)
+        {
+            fscanf(f, "%f ", s->point2.coordinates[i]);
+        }
+        fclose(f);
+        return 1;
+    }
+    else {return 0;}
+};
+
+ntype inputTextFile_pyramid(char* file, PyramidND *pyramid)
+{
+    FILE *f;
+    f = fopen(file, "rt");
+    if (f!=NULL)
+    {
+        fscanf(f, "Pyramid%dD", pyramid->N);
+        fscanf(f, " %d ", pyramid->NUM);
+        pyramid->apex.N = pyramid->N;
+        for (int i=0; i<pyramid->N; i++)
+        {
+            fscanf(f, "%f ", pyramid->apex.coordinates[i]);
+        }
+        for (int i=0; i<pyramid->NUM; i++)
+        {
+            pyramid->points[i].N = pyramid->N;
+            for (int j=0; j<pyramid->N; j++)
+            {
+                fscanf(f, "%f ", pyramid->points[i].coordinates[j]);
+            }
+        }
+
+        fclose(f);
+        return 1;
+    }
+    else {return 0;}
+};
+
+ntype inputTextFile_line(char* file, LineND *line)
+{
+    FILE *f;
+    f = fopen(file, "rt");
+    if (f!=NULL)
+    {
+        fscanf(f, "Line%dD", line->N);
+        for (int i=0; i<line->N; i++)
+        {
+            fscanf(f, "%f ", line->point1.coordinates[i]);
+        }
+        for (int i=0; i<line->N; i++)
+        {
+            fscanf(f, "%f ", line->point2.coordinates[i]);
+        }
+        fclose(f);
+        return 1;
+    }
+    else {return 0;}
+};
+
+ntype inputTextFile_plane(char* file, PlaneND *plane)
+{
+    FILE *f;
+    f = fopen(file, "rt");
+    if (f!=NULL)
+    {
+        fscanf(f, "Plane%dD", plane->N);
+        for (int k=0; k<plane->N; k++)
+        {
+            for (int i=0; i<plane->N; i++)
+            {
+                fscanf(f, "%f ", plane->points[k].coordinates[i]);
+            }
+        }
+        fclose(f);
+        return 1;
+    }
+    else {return 0;}
+};
+
+ntype inputTextFile_vector(char* file, VectorND *vect)
+{
+    FILE *f;
+    f = fopen(file, "rt");
+    if (f!=NULL)
+    {
+        fscanf(f, "Vector%dD", vect->N);
+        for (int i=0; i<vect->N; i++)
+        {
+            fscanf(f, "%f ", vect->coordinates[i]);
+        }
+        fclose(f);
+        return 1;
+    }
+    else {return 0;}
+};
+
+ntype inputTextFile_angle(char* file, AngleND *angle)
+{
+    FILE *f;
+    f = fopen(file, "rt");
+    if (f!=NULL)
+    {
+        fscanf(f, "Angle%dD", angle->N);
+        for (int i=0; i<angle->N; i++)
+        {
+            fscanf(f, "%f ", angle->v1.coordinates[i]);
+        }
+        for (int i=0; i<angle->N; i++)
+        {
+            fscanf(f, "%f ", angle->v2.coordinates[i]);
+        }
+        fclose(f);
+        return 1;
+    }
+    else {return 0;}
+};
+
+//write to text file functions
+void output_coordinates_to_text_file(FILE* f, PointND point, ntype type, ntype width, ntype precision)
+{
+    char modes[3][4] = {"f ", "g ", "e "};
+    char out[96] = "%", buf[64];
+    sprintf(buf, "%d.%d", width, precision);
+    strcat(out, buf);
+    strcat(out, modes[type]);
+    for (ntype i=0; i<point.N; i++)
+    {
+        fprintf(f, out, point.coordinates[i]);
+    }
+    printf("\n");
+}
+
+ntype outputTextFile_point(char* file, PointND p, ntype type, ntype width, ntype precision)
+{
+    FILE *f;
+    f = fopen(file, "at");
+    if (f!=NULL)
+    {
+        fprintf(f, "\nPoint%dD: ",p.N);
+        output_coordinates_to_text_file(f, p, type, width, precision);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputTextFile_segment(char* file, SegmentND s, ntype type, ntype width, ntype precision)
+{
+    FILE *f;
+    f = fopen(file, "at");
+    if (f!=NULL)
+    {
+        fprintf(f, "\nSegment%dD: ",s.N);
+        output_coordinates_to_text_file(f, s.point1, type, width, precision);
+        output_coordinates_to_text_file(f, s.point2, type, width, precision);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputTextFile_pyramid(char* file, PyramidND pyramid, ntype type, ntype width, ntype precision)
+{
+    FILE *f;
+    f = fopen(file, "at");
+    if (f!=NULL)
+    {
+        fprintf(f, "\nPyramid%dD: ",pyramid.N);
+        fprintf(f, " %d ", pyramid.NUM);
+        output_coordinates_to_text_file(f, pyramid.apex, type, width, precision);
+        for (int i=0; i<pyramid.NUM; i++)
+        {
+            output_coordinates_to_text_file(f, pyramid.points[i], type, width, precision);
+        }
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputTextFile_line(char* file, LineND line, ntype type, ntype width, ntype precision)
+{
+    FILE *f;
+    f = fopen(file, "at");
+    if (f!=NULL)
+    {
+        fprintf(f, "\nLine%dD: ",line.N);
+        output_coordinates_to_text_file(f, line.point1, type, width, precision);
+        output_coordinates_to_text_file(f, line.point2, type, width, precision);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputTextFile_plane(char* file, PlaneND plane, ntype type, ntype width, ntype precision)
+{
+    FILE *f;
+    f = fopen(file, "at");
+    if (f!=NULL)
+    {
+        fprintf(f, "\nPlane%dD: ",plane.N);
+        for (int i=0; i<plane.N; i++)
+        {
+            output_coordinates_to_text_file(f, plane.points[i], type, width, precision);
+        }
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputTextFile_vector(char* file, VectorND vect, ntype type, ntype width, ntype precision)
+{
+    FILE *f;
+    f = fopen(file, "at");
+    if (f!=NULL)
+    {
+        fprintf(f, "\nVector%dD: ", vect.N);
+        output_coordinates_to_text_file(f, vect_to_point(vect), type, width, precision);
+        fclose(f);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+};
+
+ntype outputTextFile_angle(char* file, AngleND angle, ntype type, ntype width, ntype precision)
+{
+    FILE *f;
+    f = fopen(file, "at");
+    if (f!=NULL)
+    {
+        fprintf(f, "\nAngle%dD: ", angle.N);
+        output_coordinates_to_text_file(f, vect_to_point(angle.v1), type, width, precision);
+        output_coordinates_to_text_file(f, vect_to_point(angle.v2), type, width, precision);
         fclose(f);
         return 1;
     }
@@ -879,6 +1496,23 @@ double get_triangle_square(PointND p1, PointND p2, PointND p3)
 }
 
 //functions with PyramidND
+ftype osnova_area(PyramidND p)
+{
+    ftype area;
+
+    return area;
+}
+ftype volumeND(PyramidND p)
+{
+    ftype vol, osn, height;
+    PointND point=p.points[0];
+    osn = osnova_area(p);
+
+    vol = osn*height/p.N;
+
+    return vol;
+};
+
 ftype* side_areasND(PyramidND p)
 {
     ftype* squares = (ftype*)malloc(p.NUM*sizeof(ftype));
@@ -888,6 +1522,72 @@ ftype* side_areasND(PyramidND p)
         squares[i] = get_triangle_square(p.apex, p.points[i-1], p.points[i]);
     }
     return squares;
+};
+
+
+
+ftype areaND(PyramidND p)
+{
+    ftype rez;
+    rez = osnova_area(p);
+    ftype *ars = side_areasND(p);
+    for (ntype i=0; i<p.NUM; i++)
+    {
+        rez += ars[i];
+    }
+    return rez;
+};
+
+PointND weight_center(PyramidND p)
+{
+    PointND center;
+
+    return center;
+};
+
+//functions with PyramidND and PlaneND
+PointND** get_figures(PyramidND pyram, PlaneND plane)
+{
+    PointND **figures;
+
+    return figures;
+};
+
+ftype* get_squares(PyramidND pyram, PlaneND plane)
+{
+    ftype* squares;
+
+    return squares;
+};
+
+ftype* get_volumes(PyramidND pyram, PlaneND plane)
+{
+    ftype* volumes;
+
+    return volumes;
+};
+
+//functions turn on angle
+PointND turn_point(PointND p, AngleND ang)
+{
+    PointND new_point;
+    new_point.N = p.N;
+
+
+    return new_point;
+};
+
+PyramidND turn_pyramid(PyramidND p, AngleND ang)
+{
+    PyramidND new_pyr;
+    new_pyr.N = p.N;
+    new_pyr.NUM = p.NUM;
+    new_pyr.apex = turn_point(p.apex, ang);
+    for (int i=0; i<p.NUM; i++)
+    {
+        new_pyr.points[i] = turn_point(p.points[i], ang);
+    }
+    return new_pyr;
 };
 
 //functions with vector and ftype
@@ -1320,4 +2020,14 @@ PlaneND generate_plane(ntype N)
     return plane;
 };
 
+AngleND generate_angle(ntype N)
+{
+    AngleND angle;
+    angle.N = N;
+    angle.v1.N = angle.N;
+    angle.v2.N = angle.N;
+    angle.v1.coordinates = generate_coordinates(N);
+    angle.v2.coordinates = generate_coordinates(N);
+    return angle;
+};
 

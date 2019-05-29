@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1559147101 source:c:\users\Баев Даниил\desktop\cproject1\baev_hist\main.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<math.h>
+	"hist.h"
+
+1559147038 c:\users\Баев Даниил\desktop\cproject1\baev_hist\hist.h
+
+1559147042 source:c:\users\Баев Даниил\desktop\cproject1\baev_hist\hist.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<math.h>
+	"hist.h"
+

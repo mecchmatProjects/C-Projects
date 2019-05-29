@@ -7,6 +7,7 @@ Done by Zelenko Petro & Goryslavets Dmytro Statistics 2 curs
 Email:  zelenko.peter369@gmail.com & d.goryslavets@ukr.net
 Date 26.05.2019 */
 
+
 int test1()//input number from string
 {
     Tlong x;
@@ -81,7 +82,7 @@ int test7()//addition two long
     destroy(&c);
     return res;
 }
-int test8()//
+int test8()//subtraction two long
 {
     Tlong x, y, c;
     input_from_str(&x, "855955565584849194941819194", 10);
@@ -95,7 +96,7 @@ int test8()//
     destroy(&c);
     return res;
 }
-int test9()
+int test9()//subtraction two long
 {
     Tlong x, y, c;
     input_from_str(&x, "16000000000", 10);
@@ -109,7 +110,7 @@ int test9()
     destroy(&c);
     return res;
 }
-int test10()
+int test10()//multiply two long
 {
     Tlong x, y, c;
     input_from_str(&x, "5000", 10);
@@ -123,7 +124,7 @@ int test10()
     destroy(&c);
     return res;
 }
-int test11()
+int test11()//multiply two long with different sign
 {
     Tlong x, y, c;
     input_from_str(&x, "-5000", 10);
@@ -137,7 +138,7 @@ int test11()
     destroy(&c);
     return res;
 }
-int test12()
+int test12()//multiply two long(one is zero)
 {
     Tlong x, y, c;
     input_from_str(&x, "-5000", 10);
@@ -151,7 +152,7 @@ int test12()
     destroy(&c);
     return res;
 }
-int test13()
+int test13()//division two long(first is zero)
 {
     Tlong x, y, c;
     input_from_str(&x, "0", 10);
@@ -165,7 +166,7 @@ int test13()
     destroy(&c);
     return res;
 }
-int test14()
+int test14()//division two long
 {
     Tlong x, y, c;
     input_from_str(&x, "15000000000", 10);
@@ -179,7 +180,7 @@ int test14()
     destroy(&c);
     return res;
 }
-int test15()
+int test15()//remaining from dividing
 {
     Tlong x, y, c;
     input_from_str(&x, "15000000000", 10);
@@ -193,7 +194,7 @@ int test15()
     destroy(&c);
     return res;
 }
-int test16()
+int test16()//remaining from dividing one short one long
 {
     Tlong x, c;
     long long y=10;
@@ -206,7 +207,7 @@ int test16()
     destroy(&c);
     return res;
 }
-int test17()
+int test17()//division one long one short
 {
     Tlong x, y, c;
     input_from_str(&x, "15000000000", 10);
@@ -220,7 +221,7 @@ int test17()
     destroy(&c);
     return res;
 }
-int test18()
+int test18()//nsd two long
 {
     Tlong x, y, c;
     input_from_str(&x, "30", 10);
@@ -234,7 +235,7 @@ int test18()
     destroy(&c);
     return res;
 }
-int test19()
+int test19()//nsd two long
 {
     Tlong x, y, c;
     input_from_str(&x, "123123123", 10);
@@ -248,7 +249,7 @@ int test19()
     destroy(&c);
     return res;
 }
-int test20()
+int test20()//nsk two long
 {
     Tlong x, y, c;
     input_from_str(&x, "30", 10);
@@ -262,7 +263,7 @@ int test20()
     destroy(&c);
     return res;
 }
-int test21()
+int test21()//nsk two long
 {
     Tlong x, y, c;
     input_from_str(&x, "123123123", 10);
@@ -276,7 +277,7 @@ int test21()
     destroy(&c);
     return res;
 }
-int test22()
+int test22()//compare in modules
 {
     Tlong x, y;
     input_from_str(&x, "123123123123", 10);
@@ -288,7 +289,7 @@ int test22()
     destroy(&y);
     return res;
 }
-int test23()
+int test23()////compare in modules
 {
     Tlong x, y;
     input_from_str(&x, "123123123123", 10);
@@ -300,7 +301,7 @@ int test23()
     destroy(&y);
     return res;
 }
-int test24()
+int test24()//compare two long
 {
     Tlong x, y;
     input_from_str(&x, "123123123", 10);
@@ -312,7 +313,7 @@ int test24()
     destroy(&y);
     return res;
 }
-int test25()
+int test25()//update testing
 {
     Tlong x;
     input_from_str(&x,"115",10);
@@ -323,7 +324,7 @@ int test25()
     destroy(&x);
     return res;
 }
-int test26()
+int test26()//append testing
 {
     Tlong x;
     input_from_str(&x,"115",10);
@@ -334,7 +335,7 @@ int test26()
     destroy(&x);
     return res;
 }
-int test27()
+int test27()//convert testing
 {
     Tlong x;
     convert(123123);
@@ -344,7 +345,7 @@ int test27()
     destroy(&x);
     return res;
 }
-int test28()
+int test28()//compare long and short
 {
     Tlong x,y;
     input_from_str(&x,"115",10);
@@ -354,7 +355,7 @@ int test28()
     destroy(&x);
     return res;
 }
-int test29()
+int test29()//division short on long
 {
     Tlong x,y;
     input_from_str(&x,"115",10);
@@ -366,7 +367,7 @@ int test29()
     destroy(&y);
     return res;
 }
-int test30()
+int test30()//division short on long
 {
     Tlong x,y;
     input_from_str(&x,"230",10);

@@ -1,21 +1,18 @@
-#ifndef BIGNUMBER_H
-#define BIGNUMBER_H
-
+#include "BigNumber.c"
 /* File  BigNumber.h
 Realization of BigNumber
 Done by Zelenko Petro & Goryslavets Dmytro Statistics 2 curs
 Email:  zelenko.peter369@gmail.com & d.goryslavets@ukr.net
 Date 26.05.2019 */
 /*constant of max length of number*/
-#define nmax 50
-
+extern const int nmax;
 /*Structure of number */
-typedef struct
+/*typedef struct
 {
     unsigned int* num; // pointer on array of coefficient
     int len;          // length of array
     short sign;      // sign of number(can be: +1, -1)
-}Tlong;
+}Tlong;*/
 
 extern char *substring(const char *string, int position, int length); // make a cut of string from position with length length
 
@@ -86,4 +83,3 @@ extern int outputBinaryFile(char* file, Tlong* x);//output in a binary file in t
 extern int outputTextFile(char* file, Tlong *a, int width, int heigh);//output to a text file bitwise with the ability to select the width and height of the table
 
 extern int destroy(Tlong *x);//release of memory
-#endif

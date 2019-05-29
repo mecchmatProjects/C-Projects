@@ -2,20 +2,19 @@
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
-#include "BigNumber.h"
 /* File  BigNumber.c
 Realization of BugNumber
 Done by Zelenko Petro & Goryslavets Dmytro Statistics 2 curs
 Email:  zelenko.peter369@gmail.com & d.goryslavets@ukr.net
 Date 26.05.2019 */
 
-// const int nmax = 50;
-// typedef struct
-// {
-//     unsigned int* num; // pointer on array of coefficient
-//     int len;          // length of array
-//     short sign;      // sign of number(can be: +1, -1)
-// }Tlong;
+const int nmax = 50;
+typedef struct
+{
+    unsigned int* num; // pointer on array of coefficient
+    int len;          // length of array
+    short sign;      // sign of number(can be: +1, -1)
+}Tlong;
 
 
 char *substring(const char *string, int position, int length) // make a cut of string from position with length length

@@ -1526,7 +1526,21 @@ PointND turn_point(PointND p, AngleND ang)
 {
     PointND new_point;
     new_point.N = p.N;
-
+    new_point.components=(ftype*)malloc((new_point.N-1)*sizeof(ftype));
+    for (ntype i=0; i<p.N; i++)
+    {
+        new_point.coordinates[i]=p.coordinates[i];
+    }
+    for (ntype i=0; i<new_point.N-1; i++)
+    {
+        ntype x = new_point.coordinates[i];
+        ntype y = new_point.coordinates[i+1];
+        ntype r = sqrt(x*x+y*y);
+        ntype x1 = r*cos(acos(x/r)+ang.components[i]);
+        ntype y1 = r*sin(asin(y/r)+ang.components[i]);
+        new_point.components[i]=x1;
+        new_point.components[i+1]=y1;
+    }
     return new_point;
 }
 

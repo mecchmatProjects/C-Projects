@@ -71,12 +71,125 @@ struct DVector Interpolate(const struct Input_Data *inputData){
         return erroneous;
     }
 
-    struct DVector res = {4};
-    res.coordinates = (floating_point *) calloc(res.dim, sizeof(floating_point));
+    floating_point **matrix = (floating_point **) malloc(sizeof(floating_point) * 16);
+    for (int i = 0; i < 4; ++i) {
+        matrix[i] = (floating_point *) malloc(sizeof(floating_point) * 4);
+    }// matrix for finding a..d,
+    // left side of linear system
+    floating_point *vector = (floating_point *) malloc(sizeof(floating_point) * 4);
+    for (integer i = 0; i < 4; ++i) {
+        vector[0] = 0;
+    }// vector-column in augmented matrix,
+    // right side of linear system
+    floating_point *sum_xn = (floating_point *) calloc(6, sizeof(floating_point));
+    for (integer i = 0; i < 6; ++i) {
+        sum_xn[i] = 0;
+    }// sum of x^i from dataset, sum_xn[i] = sum of x^(i+1),
+    // components of matrix on the left side of the linear system
 
-    // тут должен был быть код, но я не успела. закоммичу потом, если успею...
+    for (integer i = 0; i < inputData->n; ++i) {
+        for (integer j = 0; j < 6; ++j) {
+            sum_xn[j] += power(inputData->x->coordinates[i], j + 1);
+        }
+
+        for (integer j = 0; j < 4; ++j) {
+            vector[j] += inputData->y->coordinates[i] *
+                    power(inputData->x->coordinates[i], 3 - j);
+        }
+    }
+
+    // define matrix for system
+    // I really don't know how to that better
+    matrix[0][0] = sum_xn[5];
+
+    matrix[1][0] = sum_xn[4];
+    matrix[0][1] = sum_xn[4];
+
+    matrix[2][0] = sum_xn[3];
+    matrix[1][1] = sum_xn[3];
+    matrix[0][2] = sum_xn[3];
+
+    matrix[3][0] = sum_xn[2];
+    matrix[2][1] = sum_xn[2];
+    matrix[1][2] = sum_xn[2];
+    matrix[0][3] = sum_xn[2];
+
+    matrix[3][1] = sum_xn[1];
+    matrix[2][2] = sum_xn[1];
+    matrix[1][3] = sum_xn[1];
+
+    matrix[3][2] = sum_xn[0];
+    matrix[2][3] = sum_xn[0];
+
+    matrix[3][3] = inputData->n;
+
+    // solve the system and get coefficients a..d
+    struct DVector res = SolveLinSystem(matrix, vector, 4);
+
+    free(vector);
+    for (integer i = 0; i < 4; ++i) {
+        free(matrix[i]);
+    }
+    free(matrix);
 
     return res;
+}
+
+floating_point power(floating_point x, integer n){
+    floating_point res = 1;
+    for (int i = 0; i < n; ++i) {
+        res *= x;
+    }
+
+    return res;
+}
+
+floating_point fabs(floating_point x){
+    if (x >= 0) {
+        return x;
+    } else {
+        return -1 * x;
+    }
+}
+
+struct DVector SolveLinSystem(floating_point** matrix,
+                              floating_point *vector,
+                              integer n){
+    struct DVector res = {n};
+    res.coordinates = (floating_point *) calloc(res.dim, sizeof(floating_point));
+
+    Jacobi(res.dim, matrix, vector, res.coordinates);
+
+    return res;
+}
+
+void Jacobi (integer n, floating_point** matrix, floating_point* f, floating_point* result)
+{
+    // n = dim(matrix) = dim(f); matrix[n][n] - left side, f[n] - right side vector-column,
+    // result[n] - answer
+
+    const floating_point eps = 0.1; // accuracy
+
+    floating_point *TempX = (floating_point *) calloc(n, sizeof(floating_point));
+    floating_point norm; // норма, определяемая как наибольшая разность компонент столбца иксов соседних итераций.
+
+    do {
+        for (integer i = 0; i < n; i++) {
+            TempX[i] = f[i];
+            for (integer g = 0; g < n; g++) {
+                if (i != g)
+                    TempX[i] -= matrix[i][g] * result[g];
+            }
+            TempX[i] /= matrix[i][i];
+        }
+        norm = fabs(result[0] - TempX[0]);
+        for (int h = 0; h < n; h++) {
+            if (fabs(result[h] - TempX[h]) > norm)
+                norm = fabs(result[h] - TempX[h]);
+            result[h] = TempX[h];
+        }
+    } while (norm > eps);
+    free(TempX);
 }
 
 //================ INPUT SECTION ==============
@@ -108,10 +221,10 @@ integer input(Input_Data *inputData){
             calloc(inputData->y->dim, sizeof(floating_point));
     for (integer i = 0; i < inputData->n; ++i) {
         printf("x[%i]=", i+1);
-        scanf("%f", &inputData->x->coordinates[i]);
+        scanf("%lf", &inputData->x->coordinates[i]);
 
         printf("y[%i]=", i+1);
-        scanf("%f", &inputData->y->coordinates[i]);
+        scanf("%lf", &inputData->y->coordinates[i]);
     }
 
     return 0;
@@ -157,14 +270,14 @@ integer inputTextFile(char *file, Input_Data *inputData) {
 
     for (int i = 0; i < inputData->n; ++i) {
         fseek(input_file, 1, SEEK_CUR);
-        fscanf(input_file, "%f", &inputData->x->coordinates[i]);
+        fscanf(input_file, "%lf", &inputData->x->coordinates[i]);
     }
 
     fseek(input_file, 1, SEEK_CUR);
 
     for (int i = 0; i < inputData->n; ++i) {
         fseek(input_file, 1, SEEK_CUR);
-        fscanf(input_file, "%f", &inputData->y->coordinates[i]);
+        fscanf(input_file, "%lf", &inputData->y->coordinates[i]);
     }
 
     fclose(input_file);

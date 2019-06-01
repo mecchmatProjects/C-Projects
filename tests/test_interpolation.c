@@ -94,7 +94,7 @@ int main(){
         printf("Please write a filename:\n");
         scanf("%s", filename);
         outputTextFile(filename, &ans_linear);
-//        outputTextFile(filename, *ans_cubic);
+//        outputTextFile(filename, &ans_cubic);
     }
 
     printf("Thanks for your attention. \n (c) Olga Moskanova, #0 coder (or no)");

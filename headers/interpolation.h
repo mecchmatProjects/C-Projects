@@ -15,7 +15,7 @@
 #define INTERPOLATION_MOSKANOVA_INTERPOLATION_H
 
 #define integer int
-#define floating_point float
+#define floating_point double
 #define character char
 #define file_t FILE*
 
@@ -50,6 +50,20 @@ struct DVector Calculate(const struct Input_Data *inputData);
 // result is still a vector (dim = 4)
 // polynome(x) = (sum, i from 0 to 3) result[3-i]*x^i :]
 struct DVector Interpolate(const struct Input_Data *inputData);
+
+// in Interpolate function we need to solve linear system,
+// so here are some functions for find roots using Jacobi method
+floating_point power(floating_point x, integer n);
+floating_point fabs(floating_point x); // abs for float :]
+void Jacobi(integer n, floating_point **matrix,
+            floating_point *f, floating_point *result);
+struct DVector SolveLinSystem(floating_point** matrix,
+        floating_point *vector, integer n); // this can only solve
+        // square linear system; augmented matrix
+        // it's like do-not-touch-my-rubbish meme
+        // it's like legacy
+        // SO DO NOT TOUCH THIS!
+///
 
 //================ INPUT SECTION ==============
 

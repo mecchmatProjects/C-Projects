@@ -17,3 +17,6 @@ tests:
 spline_tests_horbunov_kovaltchuk.c - Тестирование всех функций, описанных в файле spline_horbunov_kovaltchuk.c;
 
 ======================================================================================
+
+Original:
+https://github.com/mecchmatProjects/C-Projects/pull/19

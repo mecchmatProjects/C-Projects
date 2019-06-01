@@ -21,13 +21,13 @@
 /*
  * 0.1 Utility function in order to calculate powers of numbers
  */
-static float power(float x, unsigned r) { if (!r) return 1; else return x * power(x, r - 1); }
+static DType power(DType x, NType r) { if (!r) return 1; else return x * power(x, r - 1); }
 /*
  * 0.2 Utility function in order to sort numeric array
  */
-static void selection_sort(float *a, unsigned n) {
-    unsigned i, j, k;
-    float x;
+static void selection_sort(DType *a, NType n) {
+    NType i, j, k;
+    DType x;
     for (i = 0; i <= n - 2; i++) {
         j = i;
         for (k = i + 1; k <= n - 1; k++) if (a[k] <= a[j]) j = k;
@@ -38,14 +38,14 @@ static void selection_sort(float *a, unsigned n) {
 }
 /*
  * 1.0 Function that is used to check if there are the same elements in the net
- * IN - Defect struct OUT - short 0 or 1
+ * IN - Defect struct OUT - HType 0 or 1
  */
-static short check(Defect d) {
-    short cnt;
-    for (int i = 0; i < d.m; i++) {
+static HType check(Defect d) {
+    HType cnt;
+    for (IType i = 0; i < d.m; i++) {
         cnt = 0;
 
-        for (int j = 0; j < d.m; j++) {
+        for (IType j = 0; j < d.m; j++) {
             if (d.net[i] == d.net[j]) {
                 cnt++;
             }
@@ -68,8 +68,8 @@ void free_polynomial(Polynomial *p)
 static void copy_defect(Defect *to, Defect from)
 {
     to->m = from.m;
-    to->net = (float*)calloc(to->m, sizeof(float));
-    for(unsigned i=0; i<to->m; i++) to->net[i] = from.net[i];
+    to->net = (DType*)calloc(to->m, sizeof(DType));
+    for(NType i=0; i<to->m; i++) to->net[i] = from.net[i];
 }
 
 void free_defect(Defect *d)
@@ -79,11 +79,11 @@ void free_defect(Defect *d)
 }
 /*
  * 2.0 Function that is used to check if given nets from different Defect structures are the same or not
- * IN - Defect structures OUT - short 0 or 1
+ * IN - Defect structures OUT - HType 0 or 1
  */
-short is_same_defect_net(Defect d_0, Defect d_1) {
+HType is_same_defect_net(Defect d_0, Defect d_1) {
     if (d_0.m != d_1.m) return 0;
-    else for (unsigned i = 0; i < d_0.m; i++) if (d_0.net[i] != d_1.net[i]) return 0;
+    else for (NType i = 0; i < d_0.m; i++) if (d_0.net[i] != d_1.net[i]) return 0;
     return 1;
 }
 
@@ -92,9 +92,9 @@ short is_same_defect_net(Defect d_0, Defect d_1) {
 /*
  * 3.0 Function that is used to calculate tha value of polynomial
  */
-float calculate_polynomial(Polynomial x, float t) {
-    float result = 0;
-    for (unsigned i = 0; i < x.n; i++) { result += x.coefficients[i] * power(t, i); }
+DType calculate_polynomial(Polynomial x, DType t) {
+    DType result = 0;
+    for (NType i = 0; i < x.n; i++) { result += x.coefficients[i] * power(t, i); }
     return result;
 }
 
@@ -105,13 +105,13 @@ Polynomial add_polynomial(Polynomial x, Polynomial y) {
     Polynomial result;
 
     result.n = (x.n > y.n) ? x.n : y.n;
-    result.coefficients = (float *) calloc(result.n, sizeof(float));
+    result.coefficients = (DType *) calloc(result.n, sizeof(DType));
 
-    for (unsigned i = 0; i < result.n; i++) { result.coefficients[i] = 0; }
+    for (NType i = 0; i < result.n; i++) { result.coefficients[i] = 0; }
 
-    for (unsigned i = 0; i < x.n; i++) { result.coefficients[i] = x.coefficients[i]; }
+    for (NType i = 0; i < x.n; i++) { result.coefficients[i] = x.coefficients[i]; }
 
-    for (unsigned i = 0; i < y.n; i++) { result.coefficients[i] += y.coefficients[i]; }
+    for (NType i = 0; i < y.n; i++) { result.coefficients[i] += y.coefficients[i]; }
 
     return result;
 }
@@ -122,13 +122,13 @@ Polynomial sub_polynomial(Polynomial x, Polynomial y) {
     Polynomial result;
 
     result.n = (x.n > y.n) ? x.n : y.n;
-    result.coefficients = (float *) calloc(result.n, sizeof(float));
+    result.coefficients = (DType *) calloc(result.n, sizeof(DType));
 
-    for (unsigned i = 0; i < result.n; i++) { result.coefficients[i] = 0; }
+    for (NType i = 0; i < result.n; i++) { result.coefficients[i] = 0; }
 
-    for (unsigned i = 0; i < x.n; i++) { result.coefficients[i] = x.coefficients[i]; }
+    for (NType i = 0; i < x.n; i++) { result.coefficients[i] = x.coefficients[i]; }
 
-    for (unsigned i = 0; i < y.n; i++) { result.coefficients[i] -= y.coefficients[i]; }
+    for (NType i = 0; i < y.n; i++) { result.coefficients[i] -= y.coefficients[i]; }
 
     return result;
 }
@@ -139,12 +139,12 @@ Polynomial mul_polynomial(Polynomial x, Polynomial y) {
     Polynomial result;
 
     result.n = (x.n + y.n) - 1;
-    result.coefficients = (float *) calloc(result.n, sizeof(float));
+    result.coefficients = (DType *) calloc(result.n, sizeof(DType));
 
-    for (unsigned i = 0; i < result.n; i++) { result.coefficients[i] = 0; }
+    for (NType i = 0; i < result.n; i++) { result.coefficients[i] = 0; }
 
-    for (unsigned i = 0; i < x.n; i++) {
-        for (unsigned j = 0; j < y.n; j++) { result.coefficients[i + j] += x.coefficients[i] * y.coefficients[j]; }
+    for (NType i = 0; i < x.n; i++) {
+        for (NType j = 0; j < y.n; j++) { result.coefficients[i + j] += x.coefficients[i] * y.coefficients[j]; }
     }
 
     return result;
@@ -152,24 +152,24 @@ Polynomial mul_polynomial(Polynomial x, Polynomial y) {
 /*
  * 7.0 Multiplication by scalar value
  */
-Polynomial mul_polynomial_by_scalar(Polynomial x, float c) {
+Polynomial mul_polynomial_by_scalar(Polynomial x, DType c) {
     Polynomial result;
 
-    result.coefficients = (float *) calloc(result.n = x.n, sizeof(float));
+    result.coefficients = (DType *) calloc(result.n = x.n, sizeof(DType));
 
-    for (unsigned i = 0; i < result.n; i++) { result.coefficients[i] = x.coefficients[i] * c; }
+    for (NType i = 0; i < result.n; i++) { result.coefficients[i] = x.coefficients[i] * c; }
 
     return result;
 }
 /*
  * 8.0 Division by scalar value
  */
-Polynomial div_polynomial_by_scalar(Polynomial x, float c) {
+Polynomial div_polynomial_by_scalar(Polynomial x, DType c) {
     Polynomial result;
 
-    result.coefficients = (float *) calloc(result.n = x.n, sizeof(float));
+    result.coefficients = (DType *) calloc(result.n = x.n, sizeof(DType));
 
-    for (unsigned i = 0; i < result.n; i++) { result.coefficients[i] = x.coefficients[i] / c; }
+    for (NType i = 0; i < result.n; i++) { result.coefficients[i] = x.coefficients[i] / c; }
 
     return result;
 }
@@ -180,9 +180,9 @@ Polynomial div_polynomial_by_scalar(Polynomial x, float c) {
 Polynomial derivative_of_polynomial(Polynomial x) {
     Polynomial result;
 
-    result.coefficients = (float *) calloc(result.n = x.n - 1, sizeof(float));
+    result.coefficients = (DType *) calloc(result.n = x.n - 1, sizeof(DType));
 
-    for (unsigned i = 0; i < result.n; i++) { result.coefficients[i] = x.coefficients[i + 1] * (i + 1); }
+    for (NType i = 0; i < result.n; i++) { result.coefficients[i] = x.coefficients[i + 1] * (i + 1); }
 
     return result;
 }
@@ -190,12 +190,12 @@ Polynomial derivative_of_polynomial(Polynomial x) {
 /*
  * 10.0 Find the integral of given polynomial
  */
-Polynomial integral_of_polynomial(Polynomial x, float c) {
+Polynomial integral_of_polynomial(Polynomial x, DType c) {
     Polynomial result;
 
-    result.coefficients = (float *) calloc(result.n = x.n + 1, sizeof(float));
+    result.coefficients = (DType *) calloc(result.n = x.n + 1, sizeof(DType));
 
-    for (unsigned i = 1; i < result.n; i++) { result.coefficients[i] = x.coefficients[i-1] / (i); }
+    for (NType i = 1; i < result.n; i++) { result.coefficients[i] = x.coefficients[i-1] / (i); }
 
     result.coefficients[0] = c;
 
@@ -205,10 +205,10 @@ Polynomial integral_of_polynomial(Polynomial x, float c) {
 /*
  * 9.0 Calculate riemann integral of given polynomial
  */
-float riemann_integral_of_polynomial(Polynomial x, float a, float b) {
+DType riemann_integral_of_polynomial(Polynomial x, DType a, DType b) {
     Polynomial y = integral_of_polynomial(x, 0);
 
-    float result = calculate_polynomial(y, b) - calculate_polynomial(y, a);
+    DType result = calculate_polynomial(y, b) - calculate_polynomial(y, a);
 
     free_polynomial(&y);
 
@@ -223,7 +223,7 @@ float riemann_integral_of_polynomial(Polynomial x, float a, float b) {
  * Then free(net) from defect_struct
  */
 void free_spline(Spline *s) {
-    for (unsigned i = 0; i < s->defect_struct.m-1; i++)
+    for (NType i = 0; i < s->defect_struct.m-1; i++)
     {
         free_polynomial(&s->polynomial_array[i]);
     }
@@ -236,8 +236,8 @@ void free_spline(Spline *s) {
  * First of all, checking whether given dot belongs to given net or not
  * Finally, calculating the value using some polynomial from array
  */
-float calculate_spline(Spline s, float t) {
-    for (unsigned i = 0; i < s.defect_struct.m - 1; i++) {
+DType calculate_spline(Spline s, DType t) {
+    for (NType i = 0; i < s.defect_struct.m - 1; i++) {
         if ((s.defect_struct.net[i] <= t) && (t <= s.defect_struct.net[i + 1]))
             return calculate_polynomial(s.polynomial_array[i], t);
     }
@@ -258,7 +258,7 @@ Spline add_spline(Spline s_0, Spline s_1) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 add_polynomial(s_0.polynomial_array[i], s_1.polynomial_array[i]);
     }
@@ -277,7 +277,7 @@ Spline sub_spline(Spline s_0, Spline s_1) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 sub_polynomial(s_0.polynomial_array[i], s_1.polynomial_array[i]);
     }
@@ -287,7 +287,7 @@ Spline sub_spline(Spline s_0, Spline s_1) {
 /*
  * 14.0 -> 12.0
  */
-Spline mul_spline_by_scalar(Spline s_0, float c) {
+Spline mul_spline_by_scalar(Spline s_0, DType c) {
     Spline result;
 
     copy_defect(&result.defect_struct, s_0.defect_struct);
@@ -295,7 +295,7 @@ Spline mul_spline_by_scalar(Spline s_0, float c) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 mul_polynomial_by_scalar(s_0.polynomial_array[i], c);
     }
@@ -305,7 +305,7 @@ Spline mul_spline_by_scalar(Spline s_0, float c) {
 /*
  * 15.0 -> 12.0
  */
-Spline div_spline_by_scalar(Spline s_0, float c) {
+Spline div_spline_by_scalar(Spline s_0, DType c) {
     assert(c);
 
     Spline result;
@@ -315,7 +315,7 @@ Spline div_spline_by_scalar(Spline s_0, float c) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 div_polynomial_by_scalar(s_0.polynomial_array[i], c);
     }
@@ -336,7 +336,7 @@ Spline mul_spline(Spline s_0, Spline s_1)
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 mul_polynomial(s_0.polynomial_array[i], s_1.polynomial_array[i]);
     }
@@ -356,7 +356,7 @@ void un_add_spline(Spline *s_0, Spline s_1) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 add_polynomial(s_0->polynomial_array[i], s_1.polynomial_array[i]);
     }
@@ -376,7 +376,7 @@ void un_sub_spline(Spline *s_0, Spline s_1) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 sub_polynomial(s_0->polynomial_array[i], s_1.polynomial_array[i]);
     }
@@ -386,7 +386,7 @@ void un_sub_spline(Spline *s_0, Spline s_1) {
     *s_0 = result;
 }
 
-void un_mul_spline_by_scalar(Spline *s_0, float c) {
+void un_mul_spline_by_scalar(Spline *s_0, DType c) {
     Spline result;
 
     copy_defect(&result.defect_struct, s_0->defect_struct);
@@ -394,7 +394,7 @@ void un_mul_spline_by_scalar(Spline *s_0, float c) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 mul_polynomial_by_scalar(s_0->polynomial_array[i], c);
     }
@@ -404,7 +404,7 @@ void un_mul_spline_by_scalar(Spline *s_0, float c) {
     *s_0 = result;
 }
 
-void un_div_spline_by_scalar(Spline *s_0, float c) {
+void un_div_spline_by_scalar(Spline *s_0, DType c) {
     assert(c);
 
     Spline result;
@@ -414,7 +414,7 @@ void un_div_spline_by_scalar(Spline *s_0, float c) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 div_polynomial_by_scalar(s_0->polynomial_array[i], c);
     }
@@ -435,7 +435,7 @@ void un_mul_spline(Spline *s_0, Spline s_1)
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m - 1; i++) {
+    for (NType i = 0; i < result.defect_struct.m - 1; i++) {
         result.polynomial_array[i] =
                 mul_polynomial(s_0->polynomial_array[i], s_1.polynomial_array[i]);
     }
@@ -455,7 +455,7 @@ Spline derivative_of_spline(Spline s) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m -1 ; i++) {
+    for (NType i = 0; i < result.defect_struct.m -1 ; i++) {
         result.polynomial_array[i] =
                 derivative_of_polynomial(s.polynomial_array[i]);
     }
@@ -465,7 +465,7 @@ Spline derivative_of_spline(Spline s) {
 /*
  * 18.0 Like in 10.0, but with iterations
  */
-Spline integral_of_spline(Spline s, float c) {
+Spline integral_of_spline(Spline s, DType c) {
     Spline result;
 
     copy_defect(&result.defect_struct, s.defect_struct);
@@ -473,7 +473,7 @@ Spline integral_of_spline(Spline s, float c) {
 
     result.polynomial_array = (Polynomial *) calloc(result.defect_struct.m, sizeof(Polynomial));
 
-    for (unsigned i = 0; i < result.defect_struct.m; i++) {
+    for (NType i = 0; i < result.defect_struct.m; i++) {
         result.polynomial_array[i] =
                 integral_of_polynomial(s.polynomial_array[i], c);
     }
@@ -484,10 +484,10 @@ Spline integral_of_spline(Spline s, float c) {
  * 19.0 Dividing interval a,b into smaller parts, depends on the number of nodes,
  * that belong to the given interval
  */
-float riemann_integral_of_spline(Spline s, float a, float b) {
-    float result = 0;
-    float buf = a;
-    for(unsigned i=0; i<s.defect_struct.m - 1; i++)
+DType riemann_integral_of_spline(Spline s, DType a, DType b) {
+    DType result = 0;
+    DType buf = a;
+    for(NType i=0; i<s.defect_struct.m - 1; i++)
     {
         if((a <= s.defect_struct.net[i]) && (s.defect_struct.net[i] <= b))
         {
@@ -507,14 +507,14 @@ float riemann_integral_of_spline(Spline s, float a, float b) {
 /*
  * 20.0 - Output with given type, width and precision
  */
-void output_polynomial(Polynomial poly, int type, int width, int precision) {
+void output_polynomial(Polynomial poly, IType type, IType width, IType precision) {
     if ((type < 0) || (type > 2)) type = 0;
     char modes[3][4] = {"f", "g", "e"};
     char out[96] = "%", buf[64];
     sprintf(buf, "%d.%d", width, precision);
     strcat(out, buf);
     strcat(out, modes[type]);
-    for (int i = 0; i < poly.n; i++) {
+    for (IType i = 0; i < poly.n; i++) {
         if(poly.coefficients[i])
         {
             printf("(");
@@ -530,7 +530,7 @@ void output_polynomial(Polynomial poly, int type, int width, int precision) {
     printf("\n");
 }
 
-void output_defect(Defect defect, int type, int width, int precision) {
+void output_defect(Defect defect, IType type, IType width, IType precision) {
     if ((type < 0) || (type > 2)) type = 0;
     char modes[3][4] = {"f ", "g ", "e "};
     char out[96] = "%", buf[64];
@@ -538,17 +538,17 @@ void output_defect(Defect defect, int type, int width, int precision) {
     strcat(out, buf);
     strcat(out, modes[type]);
     printf("|| DEFECT OUTPUT ||\n");
-    for (int i = 0; i < defect.m; i++) {
+    for (IType i = 0; i < defect.m; i++) {
         printf(out, defect.net[i]);
     }
     printf("\n");
 }
 
-void output_spline(Spline spline, int type, int width, int precision) {
+void output_spline(Spline spline, IType type, IType width, IType precision) {
     if ((type < 0) || (type > 2)) type = 0;
     output_defect(spline.defect_struct, type, width, precision);
     printf("|| POLYNOMIAL SYSTEM OUTPUT ||\n");
-    for (unsigned i = 0; i < spline.defect_struct.m-1; i++)
+    for (NType i = 0; i < spline.defect_struct.m-1; i++)
     {
         printf("P_%i = ", i);
         output_polynomial(spline.polynomial_array[i], type, width, precision);
@@ -566,15 +566,15 @@ void write_spline(Spline s, FILE *f)
 
     fprintf(f, "%u %u\n", s.defect_struct.m, s.n);
 
-    for(unsigned i=0; i<s.defect_struct.m; i++)
+    for(NType i=0; i<s.defect_struct.m; i++)
     {
         fprintf(f, "%f ", s.defect_struct.net[i]);
     }
     fprintf(f, "\n");
 
-    for(unsigned j=0; j<s.defect_struct.m-1; j++)
+    for(NType j=0; j<s.defect_struct.m-1; j++)
     {
-        for(unsigned i=0; i<s.n; i++)
+        for(NType i=0; i<s.n; i++)
         {
             fprintf(f, "%f ", s.polynomial_array[j].coefficients[i]);
         }
@@ -601,29 +601,29 @@ void read_spline(Spline *s, FILE *f)
 
     printf("%u %u\n", s->defect_struct.m, s->n);
 
-    s->defect_struct.net = (float *) calloc(s->defect_struct.m, sizeof(float));
+    s->defect_struct.net = (DType *) calloc(s->defect_struct.m, sizeof(DType));
 
     s->polynomial_array = (Polynomial*)calloc(s->defect_struct.m-1, sizeof(Polynomial));
 
     getline(&line, &len, f);
 
     current = strtok(line, " ");
-    for(unsigned i=0; i<s->defect_struct.m; i++)
+    for(NType i=0; i<s->defect_struct.m; i++)
     {
         s->defect_struct.net[i] = strtof(current, NULL);
 
         current = strtok(NULL, " ");
     }
 
-    for(unsigned j=0; j<s->defect_struct.m-1; j++)
+    for(NType j=0; j<s->defect_struct.m-1; j++)
     {
         getline(&line, &len, f);
 
         s->polynomial_array[j].n = s->n;
-        s->polynomial_array[j].coefficients = (float *) calloc(s->n, sizeof(float));
+        s->polynomial_array[j].coefficients = (DType *) calloc(s->n, sizeof(DType));
 
         current = strtok(line, " ");
-        for(unsigned i=0; i<s->n; i++)
+        for(NType i=0; i<s->n; i++)
         {
             s->polynomial_array[j].coefficients[i] = strtof(current, NULL);
 
@@ -635,15 +635,15 @@ void read_spline(Spline *s, FILE *f)
 /*
  * 23.0 - For writing some data, given by user
  */
-void input_polynomial(Polynomial *p, unsigned len) {
+void input_polynomial(Polynomial *p, NType len) {
 
     p->n = len;
 
-    p->coefficients = (float *) calloc(p->n, sizeof(float));
+    p->coefficients = (DType *) calloc(p->n, sizeof(DType));
 
-    for (unsigned i = 0; i < p->n; i++) {
+    for (NType i = 0; i < p->n; i++) {
         printf("p[%i] = ", i);
-        scanf("%f", p->coefficients + i);
+        scanf("%lf", p->coefficients + i);
     }
 }
 
@@ -651,14 +651,14 @@ void input_polynomial(Polynomial *p, unsigned len) {
  * 24.0 mode is only used for tests
  * rand_spline makes a spline ( except not really ) with randomly generated polynomials
  */
-Spline rand_spline(unsigned len, short mode)
+Spline rand_spline(NType len, HType mode)
 {
-    int stime;
+    IType stime;
     long ltime;
 
     // It is generally used to "seed" the random number generator.
     ltime = time (NULL);
-    stime = (unsigned int)ltime/2;
+    stime = (NType)ltime/2;
 
     srand(stime);
 
@@ -668,27 +668,27 @@ Spline rand_spline(unsigned len, short mode)
 
     if(!mode)
     {
-        r.defect_struct.m = 2 + (int)(rand() / (RAND_MAX/(8 - 2)));
-        r.defect_struct.net = (float*)calloc(r.defect_struct.m, sizeof(float));
-        for(unsigned i=0; i<r.defect_struct.m; i++) r.defect_struct.net[i] = (float)rand() / ((float)RAND_MAX + 1.0);
+        r.defect_struct.m = 2 + (IType)(rand() / (RAND_MAX/(8 - 2)));
+        r.defect_struct.net = (DType*)calloc(r.defect_struct.m, sizeof(DType));
+        for(NType i=0; i<r.defect_struct.m; i++) r.defect_struct.net[i] = (DType)rand() / ((DType)RAND_MAX + 1.0);
         selection_sort(r.defect_struct.net, r.defect_struct.m);
     } else
         {
         r.defect_struct.m = 3;
-        r.defect_struct.net = (float*)calloc(r.defect_struct.m, sizeof(float));
-        for(unsigned i=0; i<r.defect_struct.m; i++) r.defect_struct.net[i] = i+1;
+        r.defect_struct.net = (DType*)calloc(r.defect_struct.m, sizeof(DType));
+        for(NType i=0; i<r.defect_struct.m; i++) r.defect_struct.net[i] = i+1;
         }
 
     r.polynomial_array = (Polynomial*)calloc(r.defect_struct.m-1, sizeof(Polynomial));
 
-    for(unsigned j=0; j<r.defect_struct.m-1; j++)
+    for(NType j=0; j<r.defect_struct.m-1; j++)
     {
         r.polynomial_array[j].n = r.n;
-        r.polynomial_array[j].coefficients = (float *) calloc(r.n, sizeof(float));
+        r.polynomial_array[j].coefficients = (DType *) calloc(r.n, sizeof(DType));
 
-        for(unsigned i=0; i<r.n; i++)
+        for(NType i=0; i<r.n; i++)
         {
-            r.polynomial_array[j].coefficients[i] = (float)rand() / ((float)RAND_MAX + 1.0);
+            r.polynomial_array[j].coefficients[i] = (DType)rand() / ((DType)RAND_MAX + 1.0);
         }
     }
 
@@ -707,11 +707,11 @@ void input_defect(Defect *d) {
 
     assert(d->m >= MIN_NET_ELEMENTS);
 
-    d->net = (float *) calloc(d->m, sizeof(float));
+    d->net = (DType *) calloc(d->m, sizeof(DType));
 
-    for (unsigned i = 0; i < d->m; i++) {
+    for (NType i = 0; i < d->m; i++) {
         printf("node[%i] = ", i);
-        scanf("%f", d->net + i);
+        scanf("%lf", d->net + i);
     }
 
     if (!check(*d)) {
@@ -740,7 +740,7 @@ void input_spline(Spline *s) {
 
     s->polynomial_array = (Polynomial*)calloc(s->defect_struct.m-1, sizeof(Polynomial));
 
-    for(unsigned i=0; i<s->defect_struct.m-1; i++)
+    for(NType i=0; i<s->defect_struct.m-1; i++)
     {
         input_polynomial(&s->polynomial_array[i], s->n);
     }

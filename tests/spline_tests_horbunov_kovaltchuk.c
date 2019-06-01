@@ -26,20 +26,20 @@ void err_msg()
            "\n");
 }
 
-void signal_sigsegv(int signum)
+void signal_sigsegv(IType signum)
 {
     err_msg();
     signal(signum, SIG_DFL);
     exit(ERR_SIGNAL);
 }
 
-void output_splines(Spline s1, Spline s2, int mode, int w, int p)
+void output_splines(Spline s1, Spline s2, IType mode, IType w, IType p)
 {
     output_spline(s1, mode, w, p);
     output_spline(s2, mode, w, p);
 }
 
-void Tests(short output_mode, short mode)
+void Tests(HType output_mode, HType mode)
 {
     signal(SIGSEGV, signal_sigsegv);
     signal(SIGABRT, signal_sigsegv);
@@ -104,7 +104,7 @@ void Tests(short output_mode, short mode)
 
     output_splines(integral_1, integral_2, output_mode, 4, 4);
 
-    float i_value_1, i_value_2;
+    DType i_value_1, i_value_2;
 
     i_value_1 = riemann_integral_of_spline(spline_1, 0, 1);
     i_value_2 = riemann_integral_of_spline(spline_2, 0, 1);
@@ -112,10 +112,10 @@ void Tests(short output_mode, short mode)
     printf("Integral[0, 1] of spline #1 is: %.4f\n", i_value_1);
     printf("Integral[0, 1] of spline #2 is: %.4f\n", i_value_2);
 
-    float t, calc_1, calc_2;
+    DType t, calc_1, calc_2;
 
     printf("Input value for calculation:\n");
-    scanf("%f", &t);
+    scanf("%lf", &t);
 
     calc_1 = calculate_spline(spline_1, t);
     calc_2 = calculate_spline(spline_2, t);
@@ -146,10 +146,10 @@ void Tests(short output_mode, short mode)
     printf("Multiplication of splines:\n");
     output_spline(mul_of_splines, output_mode, 4, 4);
 
-    float c;
+    DType c;
 
     printf("Input scalar:\n");
-    scanf("%f", &c);
+    scanf("%lf", &c);
 
     Spline spline_mul_by_scalar;
 
@@ -217,7 +217,7 @@ void Tests(short output_mode, short mode)
 
 int main()
 {
-    short m, out_m;
+    HType m, out_m;
 
     printf("Choose mode:\n"
            "1 - read splines from console\n"

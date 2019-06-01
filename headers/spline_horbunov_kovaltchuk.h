@@ -32,6 +32,7 @@ THE SOFTWARE.
 #define SPLINE_HORBUNOV_KOVALTCHUK_SPLINE_HORBUNOV_KOVALTCHUK_H
 
 #include <stdio.h>
+#include "common.h"
 
 /*
  * 1.0 Defining Polynomial structure:
@@ -41,8 +42,8 @@ THE SOFTWARE.
 
 typedef struct
 {
-    unsigned n;
-    float *coefficients;
+    NType n;
+    DType *coefficients;
 }
         Polynomial;
 
@@ -54,8 +55,8 @@ typedef struct
 
 typedef struct
 {
-    unsigned m;
-    float *net;
+    NType m;
+    DType *net;
 }
         Defect;
 
@@ -68,7 +69,7 @@ typedef struct
 
 typedef struct
 {
-    unsigned n;
+    NType n;
     Defect defect_struct;
     Polynomial *polynomial_array;
 }
@@ -76,23 +77,23 @@ typedef struct
 
 extern void free_polynomial(Polynomial *p);
 
-extern void input_polynomial(Polynomial *p, unsigned len);
+extern void input_polynomial(Polynomial *p, NType len);
 
 extern void free_defect(Defect *d);
 
 extern void input_defect(Defect *d);
 
-extern short is_same_defect_net(Defect d_0, Defect d_1);
+extern HType is_same_defect_net(Defect d_0, Defect d_1);
 
-extern float calculate_polynomial(Polynomial x, float t);
+extern DType calculate_polynomial(Polynomial x, DType t);
 
 extern void un_add_spline(Spline *s_0, Spline s_1);
 
 extern void un_sub_spline(Spline *s_0, Spline s_1);
 
-extern void un_mul_spline_by_scalar(Spline *s_0, float c);
+extern void un_mul_spline_by_scalar(Spline *s_0, DType c);
 
-extern void un_div_spline_by_scalar(Spline *s_0, float c);
+extern void un_div_spline_by_scalar(Spline *s_0, DType c);
 
 extern void un_mul_spline(Spline *s_0, Spline s_1);
 
@@ -102,45 +103,45 @@ extern Polynomial sub_polynomial(Polynomial x, Polynomial y);
 
 extern Polynomial mul_polynomial(Polynomial x, Polynomial y);
 
-extern Polynomial mul_polynomial_by_scalar(Polynomial x, float c);
+extern Polynomial mul_polynomial_by_scalar(Polynomial x, DType c);
 
-extern Polynomial div_polynomial_by_scalar(Polynomial x, float c);
+extern Polynomial div_polynomial_by_scalar(Polynomial x, DType c);
 
 extern Polynomial derivative_of_polynomial(Polynomial x);
 
-extern Polynomial integral_of_polynomial(Polynomial x, float c);
+extern Polynomial integral_of_polynomial(Polynomial x, DType c);
 
-extern float riemann_integral_of_polynomial(Polynomial x, float a, float b);
+extern DType riemann_integral_of_polynomial(Polynomial x, DType a, DType b);
 
 extern void input_spline(Spline *s);
 
 extern void free_spline(Spline *s);
 
-float calculate_spline(Spline s, float t);
+DType calculate_spline(Spline s, DType t);
 
 extern Spline add_spline(Spline s_0, Spline s_1);
 
 extern Spline sub_spline(Spline s_0, Spline s_1);
 
-extern Spline mul_spline_by_scalar(Spline s_0, float c);
+extern Spline mul_spline_by_scalar(Spline s_0, DType c);
 
-extern Spline div_spline_by_scalar(Spline s_0, float c);
+extern Spline div_spline_by_scalar(Spline s_0, DType c);
 
 extern Spline mul_spline(Spline s_0, Spline s_1);
 
 extern Spline derivative_of_spline(Spline s);
 
-extern Spline integral_of_spline(Spline s, float c);
+extern Spline integral_of_spline(Spline s, DType c);
 
-extern float riemann_integral_of_spline(Spline s, float a, float b);
+extern DType riemann_integral_of_spline(Spline s, DType a, DType b);
 
-extern void output_polynomial(Polynomial poly, int type, int width, int precision);
+extern void output_polynomial(Polynomial poly, IType type, IType width, IType precision);
 
-extern void output_defect(Defect defect, int type, int width, int precision);
+extern void output_defect(Defect defect, IType type, IType width, IType precision);
 
-extern void output_spline(Spline spline, int type, int width, int precision);
+extern void output_spline(Spline spline, IType type, IType width, IType precision);
 
-extern Spline rand_spline(unsigned len, short mode);
+extern Spline rand_spline(NType len, HType mode);
 
 extern void write_spline(Spline s, FILE *f);
 

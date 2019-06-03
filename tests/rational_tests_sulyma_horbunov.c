@@ -1,3 +1,10 @@
+/*
+ * rational_tests_sulyma_horbunov.c
+ * by Sulyma Mariia
+ * project: Rational #4
+ * email: marysulyma@gmail.com
+ */
+
 #include "../headers/rational_sulyma_horbunov.h"
 
 #define ERR_INVALID_INPUT 1

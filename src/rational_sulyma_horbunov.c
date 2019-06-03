@@ -1,3 +1,10 @@
+/*
+ * rational_sulyma_horbunov.c
+ * by Sulyma Mariia
+ * project: Rational #4
+ * email: marysulyma@gmail.com
+ */
+
 #define _POSITIVE_TYPE 0
 #define _NEGATIVE_TYPE 1
 #define _NORMAL 0
@@ -15,37 +22,64 @@
 #include <time.h>
 #include <math.h>
 
+// !!! INFO !!!
+// For easier comprehension of things that are happening here,
+// read comments in rational_sulyma_horbunov.h first
+
+/*
+ * Releasing memory, used for elements of dynamic array of given structure (1)
+ */
 void free_FractionArray(FractionArray f)
 {
     free(f.array);
 }
 
+/*
+ * Same as (1)
+ */
 void free_ChainFraction(ChainFraction f)
 {
     free(f.components);
 }
 
+/*
+ * Extra function: returns absolute value of long int type number
+ */
 static NType _int_abs(IType x)
 {
     return (x < 0) ? -x : x;
 }
 
+/*
+ * Extra function: returns absolute value of double type number
+ */
 static DType _float_abs(DType x)
 {
     return (x < 0) ? -x : x;
 }
 
+/*
+ * Extra function: calculates power of the given number
+ */
 static DType _power(DType x, NType n)
 {
     if(!n) return 1;
     return _power(x, n-1) * x;
 }
 
+/*
+ * Extra function: returns whole part of double type number
+ * Behaves like floor() from <math.h>
+ */
 static NType _whole_part(DType x)
 {
     return _int_abs((IType)x);
 }
 
+/*
+ * Extra function: returns greatest number divisor
+ * of positive integers a, b
+ */
 static IType _gcd(IType a, IType b)
 {
     IType q=1;
@@ -60,22 +94,45 @@ static IType _gcd(IType a, IType b)
     return q;
 }
 
+/*
+ * Extra function:
+ * Calculate accuracy.
+ * Don't know why that was implemented, but anyway
+ */
 static DType _get_epsilon(DType x, DType y)
 {
     return _float_abs(x - y)/x;
 }
 
+/*
+ * Extra function:
+ * Defining whether given fraction is positive or negative one
+ * Based on nominator and denominator values comparison
+ */
 static void _define_sign(Fraction *f)
 {
     ((f->nominator * f->denominator) >= 0) ? (f->sign = _POSITIVE_TYPE) : (f->sign = _NEGATIVE_TYPE);
     f->nominator = _int_abs(f->nominator); f->denominator = _int_abs(f->denominator);
 }
 
+/*
+ * Extra function:
+ * Defining whether given fraction is normal one or not
+ * Based on denominator value check
+ */
 static void _define_type(Fraction *f)
 {
     (f->denominator) ? (f->type = _NORMAL) : (f->type = _INFINITE);
 }
 
+/*
+ * Basic function for initialising values of Fraction structure
+ * Steps:
+ * - Assign given values to Fraction.nominator and Fraction.denominator
+ * - Define sign of given fraction
+ * - Define the type of fraction
+ * - Reducing nominator and denominator values using gcd function
+ */
 Fraction fraction(IType a, IType b)
 {
     Fraction out;
@@ -100,6 +157,13 @@ Fraction fraction(IType a, IType b)
     return out;
 }
 
+/*
+ * Returns a positive-defined fraction
+ * Steps:
+ * - 'Seeding' random number generator
+ * - Abusing rand() function
+ * - Making random fraction
+ */
 Fraction generate_random_fraction()
 {
     IType s_time;
@@ -113,16 +177,27 @@ Fraction generate_random_fraction()
     return fraction(rand() % 100, rand() % 100);
 }
 
+/*
+ * Used for transforming integer value
+ * into fraction structure
+ */
 Fraction int_to_fraction(IType x)
 {
     return fraction(x, 1);
 }
 
+/*
+ * Calculate float value of fraction,
+ * dividing nominator by denominator
+ */
 DType to_float(Fraction r)
 {
     return (r.sign ? -1 : 1) * r.nominator/(r.denominator * 1.);
 }
 
+/*
+ * lines 201 - 313 : Basic arithmetic described for fractions
+ */
 Fraction binary_add(Fraction a, Fraction b)
 {
     return fraction((a.sign ? -1 : 1) * a.nominator * b.denominator +
@@ -240,6 +315,9 @@ IType binary_div_mod(Fraction r)
     if(r.type == _NORMAL) return r.nominator % r.denominator;
 }
 
+/*
+ * lines 321 - 359 : Describing boolean functions for fractions
+ */
 bool eq_fractions(Fraction a, Fraction b)
 {
     return to_float(a) == to_float(b);
@@ -295,6 +373,9 @@ void stream_print_fractions(FILE *stream, FractionArray f)
     }
 }
 
+/*
+ * Basic function for reading fraction data from console
+ */
 Fraction console_read_fraction()
 {
     IType a, b;
@@ -308,6 +389,10 @@ Fraction console_read_fraction()
     return fraction(a, b);
 }
 
+/*
+ * Basic function for reading fraction data from text file
+ * (Actually works for stdin, but we're not going to use it for console input)
+ */
 Fraction stream_read_fraction(FILE *stream)
 {
     assert(stream != NULL);
@@ -321,6 +406,9 @@ Fraction stream_read_fraction(FILE *stream)
     return fraction(((sign == '-') ? -1 : 1) * n, d);
 }
 
+/*
+ * Initialise FractionArray with given number of fractions and fraction structure objects
+ */
 void create(FractionArray *array, NType len, ...)
 {
     array->len = len;
@@ -339,6 +427,9 @@ void create(FractionArray *array, NType len, ...)
     va_end(fractions);
 }
 
+/*
+ * Appending fractions to existing, initialised FractionArray object
+ */
 void insert(FractionArray *array, NType len, ...)
 {
     array->len += len;
@@ -357,6 +448,10 @@ void insert(FractionArray *array, NType len, ...)
     va_end(fractions);
 }
 
+/*
+ * Get float type value by doing some primitive math
+ * Yes, nothing special
+ */
 DType calculate_chain_fraction(ChainFraction r)
 {
     DType result = 0;
@@ -368,6 +463,9 @@ DType calculate_chain_fraction(ChainFraction r)
     return result;
 }
 
+/*
+ * Create ChainFraction based on the init number of components
+ */
 ChainFraction create_N(DType x, NType n)
 {
     ChainFraction r;
@@ -394,6 +492,9 @@ ChainFraction create_N(DType x, NType n)
     return r;
 }
 
+/*
+ * Create ChainFraction based on the init accuracy
+ */
 ChainFraction create_E(DType x, DType eps)
 {
     ChainFraction r;
@@ -422,6 +523,9 @@ ChainFraction create_E(DType x, DType eps)
     return r;
 }
 
+/*
+ * Text file / console output of data from ChainFraction structure object
+ */
 void stream_output_chain_fraction(FILE *stream, ChainFraction r)
 {
     assert(stream != NULL);
@@ -434,6 +538,9 @@ void stream_output_chain_fraction(FILE *stream, ChainFraction r)
     }
 }
 
+/*
+ * Text file / console input of data from ChainFraction structure object
+ */
 void stream_input_chain_fraction(FILE *stream, ChainFraction *r)
 {
     assert(stream != NULL);
@@ -449,6 +556,10 @@ void stream_input_chain_fraction(FILE *stream, ChainFraction *r)
     }
 }
 
+/*
+ * Representation of ChainFraction structure data as chain fraction
+ * F_V = A_0 + 1 / ( A_1 + 1 / ( ( ... ( A_N-1 + 1 / A_N ) ... ) ) )
+ */
 void console_output_as_fraction(ChainFraction r)
 {
     fprintf(stdout, "%.4f ≈ ", r.x);
@@ -470,16 +581,26 @@ void console_output_as_fraction(ChainFraction r)
     fprintf(stdout, "\n");
 }
 
+/*
+ * Return the ChainFraction.x value
+ */
 DType get_value(ChainFraction r)
 {
     return r.x;
 }
 
+/*
+ * Get current accuracy of ChainFraction structure object
+ */
 DType get_epsilon(ChainFraction r)
 {
     return r.eps;
 }
 
+/*
+ * Get fraction of ChainFraction structure object,
+ * based on diophantine approximation algorithm
+ */
 Fraction get_fraction(ChainFraction r)
 {
     Fraction result;
@@ -495,6 +616,11 @@ Fraction get_fraction(ChainFraction r)
     return result;
 }
 
+/*
+ * Why not
+ * Actually calculates approximate value of PI/4,
+ * based on the number of components for the function below
+ */
 DType gregory_formula(NType N)
 {
     DType result = 0;

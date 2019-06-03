@@ -1,3 +1,32 @@
+/*
+The MIT License (MIT)
+Copyright (c) 2019 Sulyma Mariia (marysulyma@gmail.com)
+01.06.2019
+This module is designed for equation solving to support basic math into the project.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*
+ * rational_sulyma_horbunov.h
+ * by Sulyma Mariia
+ * project: Rational #4
+ * email: marysulyma@gmail.com
+ */
+
 #ifndef RATIONAL_SULYMA_HORBUNOV_RATIONAL_SULYMA_HORBUNOV_H
 #define RATIONAL_SULYMA_HORBUNOV_RATIONAL_SULYMA_HORBUNOV_H
 
@@ -5,6 +34,12 @@
 #include <stdio.h>
 #include "common.h"
 
+/*
+ * Defining Fraction structure
+ * type whether a normal fraction or represents infinity
+ * sign value defines if fraction value is positive or negative
+ * nominator and denominator declaration here is trivial
+ */
 typedef struct
 {
     bool type;
@@ -14,6 +49,11 @@ typedef struct
 }
         Fraction;
 
+/*
+ * Defining FractionArray structure
+ * for easier use
+ * contains pointer and length of given array
+ */
 typedef struct
 {
     NType len;
@@ -21,6 +61,13 @@ typedef struct
 }
         FractionArray;
 
+/*
+ * Defining ChainFraction structure
+ * x - given value for approximation using chain fraction
+ * eps - accuracy
+ * components - pointer to array of coefficients of chain fraction
+ * len - length of components array
+ */
 typedef struct
 {
     DType x;
@@ -30,6 +77,11 @@ typedef struct
 }
         ChainFraction;
 
+/*
+ * Defining ChainFractionArray structure
+ * for easier use
+ * contains pointer and length of given array
+ */
 typedef struct
 {
     NType len;

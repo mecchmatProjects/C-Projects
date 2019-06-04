@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/geometry2d_nobok_kormushka.dir/src/geometry2d_nobok_kormushka.c.o CMakeFiles/geometry2d_nobok_kormushka.dir/tests/geometry2d_nobok_kormushka.c.o  -o geometry2d_nobok_kormushka -lm 

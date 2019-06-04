@@ -1,0 +1,3 @@
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/cmake-build-debug/CMakeFiles/geometry2d_nobok_kormushka.dir
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/cmake-build-debug/CMakeFiles/edit_cache.dir

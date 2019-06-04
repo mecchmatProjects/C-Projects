@@ -257,6 +257,17 @@ void console_output_sides(Triangle2D t)
     free(a);
 }
 
+void console_output_angles(Triangle2D t, bool radian_form)
+{
+    float *a = get_angles(t);
+    for (int i = 0; i < 3; ++i)
+    {
+        printf("%.4f\t", radian_form ? a[i] : convert_to_degrees(a[i]));
+    }
+    printf("\n");
+    free(a);
+}
+
 bool intersect_line_line(Line2D p, Line2D q)
 {
     assert(!collinear_vectors(vector2D_from_line(p), vector2D_from_line(q)));
@@ -427,6 +438,8 @@ void stream_input_triangle2d_data(FILE *f, Triangle2D *t)
     getline(&init_line, &len, f);
 
     assert(!strcmp(init_line, "TRIANGLE2D\n"));
+
+    fscanf(f, "%hi\n", &t->_type);
 
     for(int i=0; i<3; i++)
     {

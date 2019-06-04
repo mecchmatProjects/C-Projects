@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/headers/common.h
+
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/headers/geometry2d_nobok_kormushka.h
+stdbool.h
+-
+stdio.h
+-
+common.h
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/headers/common.h
+
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/src/geometry2d_nobok_kormushka.c
+../headers/geometry2d_nobok_kormushka.h
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/headers/geometry2d_nobok_kormushka.h
+assert.h
+-
+stdbool.h
+-
+stdio.h
+-
+string.h
+-
+math.h
+-
+malloc.h
+-
+
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/tests/geometry2d_nobok_kormushka.c
+../headers/geometry2d_nobok_kormushka.h
+/home/cstat/CLionProjects/geometry2d_nobok_kormushka/headers/geometry2d_nobok_kormushka.h
+stdlib.h
+-
+

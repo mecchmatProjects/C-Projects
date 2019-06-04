@@ -122,6 +122,8 @@ extern float calculate_area(Triangle2D t);
 
 extern void console_output_sides(Triangle2D t);
 
+extern void console_output_angles(Triangle2D t, bool radian_form);
+
 extern bool intersect_line_line(Line2D p, Line2D q);
 
 extern bool intersect_line_segment(Line2D p, Segment2D q);

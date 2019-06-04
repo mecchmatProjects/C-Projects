@@ -45,13 +45,146 @@ void TestVectorOperations()
 }
 
 void TestTriangleOperations()
-{}
+{
+    Point2D array[3];
+
+    for(int i=0; i<3; i++) console_input_point2d_data(array+i);
+
+    Triangle2D t;
+
+    t = triangle2D_from_points(array[0], array[1], array[2]);
+
+    stream_output_triangle2d_data(stdout, t, 1, 1, 1);
+
+    printf("TYPE:\n");
+    console_output_type(t);
+
+    printf("SIDES:\n");
+    console_output_sides(t);
+
+    printf("ANGLES:\n");
+
+    printf("Rational:\n");
+    console_output_angles(t, 0);
+
+    printf("Degrees:\n");
+    console_output_angles(t, 1);
+
+    printf("Area:\n");
+    printf("S = %.4f\n", calculate_area(t));
+}
 
 void TestIntersectOperations()
-{}
+{
+
+}
 
 void TestTextOperations()
-{}
+{
+    FILE *test_stream;
+
+    printf("POINT2D FILE OPERATIONS:\n");
+
+    Point2D p, q;
+
+    p = point2D_standard(1, 2);
+
+    test_stream = fopen("../test_point2d_write.txt", "w");
+    stream_output_point2d_data(test_stream, p, 1, 1, 1);
+    fclose(test_stream);
+
+    test_stream = fopen("../test_point2d_write.txt", "r");
+    stream_input_point2d_data(test_stream, &q);
+    fclose(test_stream);
+
+    stream_output_point2d_data(stdout, q, 1, 1, 1);
+
+    printf("LINE2D FILE OPERATIONS:\n");
+
+    Line2D l, t;
+
+    l = line2D_standard(point2D_standard(0, 1), point2D_standard(1, 0));
+
+    test_stream = fopen("../test_line2d_write.txt", "w");
+    stream_output_line2d_data(test_stream, l, 1, 1, 1);
+    fclose(test_stream);
+
+    test_stream = fopen("../test_line2d_write.txt", "r");
+    stream_input_line2d_data(test_stream, &t);
+    fclose(test_stream);
+
+    stream_output_line2d_data(stdout, t, 1, 1, 1);
+
+    printf("SEGMENT2D FILE OPERATIONS:\n");
+
+    Segment2D v, w;
+
+    v = segment2D_standard(point2D_standard(0, 1), point2D_standard(1, 0));
+
+    test_stream = fopen("../test_segment2d_write.txt", "w");
+    stream_output_segment2d_data(test_stream, v, 1, 1, 1);
+    fclose(test_stream);
+
+    test_stream = fopen("../test_segment2d_write.txt", "r");
+    stream_input_segment2d_data(test_stream, &w);
+    fclose(test_stream);
+
+    stream_output_segment2d_data(stdout, w, 1, 1, 1);
+
+    printf("VECTOR2D FILE OPERATIONS:\n");
+
+    Vector2D i, j;
+
+    i = vector2D_standard(4, 6);
+
+    test_stream = fopen("../test_vector2d_write.txt", "w");
+    stream_output_vector2d_data(test_stream, i, 1, 1, 1);
+    fclose(test_stream);
+
+    test_stream = fopen("../test_vector2d_write.txt", "r");
+    stream_input_vector2d_data(test_stream, &j);
+    fclose(test_stream);
+
+    stream_output_vector2d_data(stdout, j, 1, 1, 1);
+
+    printf("TRIANGLE2D FILE OPERATIONS:\n");
+
+    Triangle2D f, g;
+
+    f = triangle2D_from_points(
+            point2D_standard(0, 0),
+            point2D_standard(1, 0),
+            point2D_standard(0, 1)
+            );
+
+    test_stream = fopen("../test_triangle2d_write.txt", "w");
+    stream_output_triangle2d_data(test_stream, f, 1, 1, 1);
+    fclose(test_stream);
+
+    test_stream = fopen("../test_triangle2d_write.txt", "r");
+    stream_input_triangle2d_data(test_stream, &g);
+    fclose(test_stream);
+
+    stream_output_triangle2d_data(stdout, g, 1, 1, 1);
+
+    printf("CIRCLE2D FILE OPERATIONS:\n");
+
+    Circle2D h, y;
+
+    h.center = point2D_standard(0, 0);
+
+    h.radius = 1.5;
+
+    test_stream = fopen("../test_circle2d_write.txt", "w");
+    stream_output_circle2d_data(test_stream, h, 1, 1, 1);
+    fclose(test_stream);
+
+    test_stream = fopen("../test_circle2d_write.txt", "r");
+    stream_input_circle2d_data(test_stream, &y);
+    fclose(test_stream);
+
+    stream_output_circle2d_data(stdout, y, 1, 1, 1);
+}
 
 int main()
 {

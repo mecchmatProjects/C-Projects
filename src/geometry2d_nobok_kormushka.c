@@ -444,6 +444,43 @@ Point2D center(Triangle2D t)
     return get_intersect_segment_segment(m1, m2);
 }
 
+Circle2D inner_tr(Triangle2D t)
+{
+    Circle2D r;
+
+    float *sides, p;
+
+    sides = get_sides(t);
+
+    p = (sides[0] + sides[1] + sides[2]) / 2.;
+
+    r.radius = calculate_area(t) / p;
+
+    r.center = point2D_standard(0, 0); // < -- finish
+
+    free(sides);
+
+    return r;
+}
+
+Circle2D outer_tr(Triangle2D t)
+{
+    Circle2D r;
+
+    float *sides;
+
+    sides = get_sides(t);
+
+    r.radius = (sides[0] * sides[1] * sides[2]) /
+            (4 * calculate_area(t));
+
+    r.center = point2D_standard(0, 0); // < -- finish
+
+    free(sides);
+
+    return r;
+}
+
 void stream_output_point2d_data(FILE *f, Point2D p, int type, int width, int precision)
 {
     assert(f != NULL);

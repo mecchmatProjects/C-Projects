@@ -152,6 +152,10 @@ extern Segment2D get_median(Triangle2D t, unsigned i);
 
 extern Point2D center(Triangle2D t);
 
+extern Circle2D inner_tr(Triangle2D t);
+
+extern Circle2D outer_tr(Triangle2D t);
+
 extern void stream_output_point2d_data(FILE *f, Point2D p, int type, int width, int precision);
 
 extern void stream_output_line2d_data(FILE *f, Line2D l, int type, int width, int precision);

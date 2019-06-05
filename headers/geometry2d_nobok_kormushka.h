@@ -29,17 +29,17 @@ THE SOFTWARE.
 
 typedef struct
 {
-    short _type;
-    float _x;
-    float _y;
+    HType _type;
+    DType _x;
+    DType _y;
 }
         Point2D;
 
 typedef struct
 {
-    float _a;
-    float _b;
-    float _c;
+    DType _a;
+    DType _b;
+    DType _c;
 }
         Line2D;
 
@@ -51,34 +51,34 @@ typedef struct
 
 typedef struct
 {
-    float _x;
-    float _y;
+    DType _x;
+    DType _y;
 }
         Vector2D;
 
 typedef struct
 {
     Point2D _list[3];
-    short _type;
+    HType _type;
 }
         Triangle2D;
 
 typedef struct
 {
     Point2D center;
-    float radius;
+    DType radius;
 }
         Circle2D;
 
-extern Point2D point2D_standard(float a, float b);
+extern Point2D point2D_standard(DType a, DType b);
 
-extern Line2D line2D_standard(float a, float b, float c);
+extern Line2D line2D_standard(DType a, DType b, DType c);
 
 extern Line2D line2D_from_points(Point2D a, Point2D b);
 
 extern Segment2D segment2D_standard(Point2D a, Point2D b);
 
-extern Vector2D vector2D_standard(float a, float b);
+extern Vector2D vector2D_standard(DType a, DType b);
 
 extern Vector2D vector2D_from_points(Point2D a, Point2D b);
 
@@ -94,11 +94,11 @@ extern void unary_sum_vectors(Vector2D *a, Vector2D b);
 
 extern void unary_sub_vectors(Vector2D *a, Vector2D b);
 
-extern float binary_mul_vectors(Vector2D a, Vector2D b);
+extern DType binary_mul_vectors(Vector2D a, Vector2D b);
 
-extern float binary_mul_scalar_vectors(Vector2D a, Vector2D b);
+extern DType binary_mul_scalar_vectors(Vector2D a, Vector2D b);
 
-extern float norm_of_vector(Vector2D v);
+extern DType norm_of_vector(Vector2D v);
 
 extern bool collinear_vectors(Vector2D a, Vector2D b);
 
@@ -108,21 +108,21 @@ extern bool normed_vector(Vector2D v);
 
 extern bool compare_segments(Segment2D a, Segment2D b);
 
-extern short check_points_of_triangle(Triangle2D t);
+extern HType check_points_of_triangle(Triangle2D t);
 
 extern Triangle2D triangle2D_from_points(Point2D a, Point2D b, Point2D c);
 
-extern float calc_angle_in_radians(float a, float b, float c);
+extern DType calc_angle_in_radians(DType a, DType b, DType c);
 
-extern float convert_to_degrees(float r);
+extern DType convert_to_degrees(DType r);
 
-extern float convert_to_radians(float r);
+extern DType convert_to_radians(DType r);
 
-extern float *get_sides(Triangle2D t);
+extern DType *get_sides(Triangle2D t);
 
-extern float *get_angles(Triangle2D t);
+extern DType *get_angles(Triangle2D t);
 
-extern float calculate_area(Triangle2D t);
+extern DType calculate_area(Triangle2D t);
 
 extern void console_output_sides(Triangle2D t);
 
@@ -148,7 +148,7 @@ extern Point2D *get_intersect_line_triangle(Line2D p, Triangle2D t);
 
 extern Point2D *get_intersect_segment_triangle(Segment2D p, Triangle2D t);
 
-extern Segment2D get_median(Triangle2D t, unsigned i);
+extern Segment2D get_median(Triangle2D t, NType i);
 
 extern Point2D center(Triangle2D t);
 
@@ -156,17 +156,17 @@ extern Circle2D inner_tr(Triangle2D t);
 
 extern Circle2D outer_tr(Triangle2D t);
 
-extern void stream_output_point2d_data(FILE *f, Point2D p, int type, int width, int precision);
+extern void stream_output_point2d_data(FILE *f, Point2D p, IType type, IType width, IType precision);
 
-extern void stream_output_line2d_data(FILE *f, Line2D l, int type, int width, int precision);
+extern void stream_output_line2d_data(FILE *f, Line2D l, IType type, IType width, IType precision);
 
-extern void stream_output_segment2d_data(FILE *f, Segment2D s, int type, int width, int precision);
+extern void stream_output_segment2d_data(FILE *f, Segment2D s, IType type, IType width, IType precision);
 
-extern void stream_output_vector2d_data(FILE *f, Vector2D v, int type, int width, int precision);
+extern void stream_output_vector2d_data(FILE *f, Vector2D v, IType type, IType width, IType precision);
 
-extern void stream_output_triangle2d_data(FILE *f, Triangle2D t, int type, int width, int precision);
+extern void stream_output_triangle2d_data(FILE *f, Triangle2D t, IType type, IType width, IType precision);
 
-extern void stream_output_circle2d_data(FILE *f, Circle2D c, int type, int width, int precision);
+extern void stream_output_circle2d_data(FILE *f, Circle2D c, IType type, IType width, IType precision);
 
 extern void stream_input_point2d_data(FILE *f, Point2D *p);
 

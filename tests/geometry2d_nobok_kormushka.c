@@ -48,7 +48,7 @@ void TestTriangleOperations()
 {
     Point2D array[3];
 
-    for(int i=0; i<3; i++) console_input_point2d_data(array+i);
+    for(IType i=0; i<3; i++) console_input_point2d_data(array+i);
 
     Triangle2D t;
 
@@ -118,13 +118,13 @@ void TestIntersectOperations()
     // !!!
     printf("LINE-TRIANGLE:\n");
     Point2D *result_1 = get_intersect_line_triangle(a, t);
-    for(int i=0; i<3; i++)
+    for(IType i=0; i<3; i++)
     {
         stream_output_point2d_data(stdout, result_1[i], 1, 1, 1);
     }
     printf("SEGMENT-TRIANGLE:\n");
     Point2D *result_2 = get_intersect_segment_triangle(d, t);
-    for(int i=0; i<3; i++)
+    for(IType i=0; i<3; i++)
     {
         stream_output_point2d_data(stdout, result_1[i], 1, 1, 1);
     }
@@ -238,7 +238,7 @@ void TestTextOperations()
     stream_output_circle2d_data(stdout, y, 1, 1, 1);
 }
 
-int main()
+IType main()
 {
     short m;
     printf("Enter your mode:\n"

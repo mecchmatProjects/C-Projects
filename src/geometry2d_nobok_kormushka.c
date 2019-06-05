@@ -17,7 +17,7 @@
 #include <math.h>
 #include <malloc.h>
 
-Point2D point2D_standard(float a, float b)
+Point2D point2D_standard(DType a, DType b)
 {
     Point2D r;
     r._x = a;
@@ -30,7 +30,7 @@ Point2D point2D_standard(float a, float b)
     return r;
 }
 
-Line2D line2D_standard(float a, float b, float c)
+Line2D line2D_standard(DType a, DType b, DType c)
 {
     Line2D r;
     r._a = a; r._b = b; r._c = c;
@@ -53,7 +53,7 @@ Segment2D segment2D_standard(Point2D a, Point2D b)
     return r;
 }
 
-Vector2D vector2D_standard(float a, float b)
+Vector2D vector2D_standard(DType a, DType b)
 {
     Vector2D r;
     r._x = a;
@@ -99,17 +99,17 @@ void unary_sub_vectors(Vector2D *a, Vector2D b)
     *a = binary_sub_vectors(*a, b);
 }
 
-float binary_mul_vectors(Vector2D a, Vector2D b)
+DType binary_mul_vectors(Vector2D a, Vector2D b)
 {
     return a._x * b._y  - a._y * b._x;
 }
 
-float binary_mul_scalar_vectors(Vector2D a, Vector2D b)
+DType binary_mul_scalar_vectors(Vector2D a, Vector2D b)
 {
     return a._x * b._x + a._y * b._y;
 }
 
-float norm_of_vector(Vector2D v)
+DType norm_of_vector(Vector2D v)
 {
     return sqrt(v._x * v._x + v._y * v._y);
 }
@@ -131,7 +131,7 @@ bool normed_vector(Vector2D v)
 
 bool compare_segments(Segment2D a, Segment2D b)
 {
-    for(int i=0; i<2; i++)
+    for(IType i=0; i<2; i++)
     {
         if(a._list[i]._x != b._list[i]._x) return 0;
         if(a._list[i]._y != b._list[i]._y) return 0;
@@ -139,11 +139,11 @@ bool compare_segments(Segment2D a, Segment2D b)
     return 1;
 }
 
-short check_points_of_triangle(Triangle2D t)
+HType check_points_of_triangle(Triangle2D t)
 {
     Segment2D s1, s2, s3;
-    float a, b, c;
-    float z;
+    DType a, b, c;
+    DType z;
 
     s1 = segment2D_standard(t._list[0], t._list[1]);
     s2 = segment2D_standard(t._list[1], t._list[2]);
@@ -200,25 +200,25 @@ Triangle2D triangle2D_from_points(Point2D a, Point2D b, Point2D c)
     return r;
 }
 
-float calc_angle_in_radians(float a, float b, float c)
+DType calc_angle_in_radians(DType a, DType b, DType c)
 {
     return acos((b * b + c * c - a * a)/(2 * b *c));
 }
 
-float convert_to_degrees(float r)
+DType convert_to_degrees(DType r)
 {
     return r * (180/M_PI);
 }
 
-float convert_to_radians(float r)
+DType convert_to_radians(DType r)
 {
     return r * (M_PI/180);
 }
 
-float *get_sides(Triangle2D t)
+DType *get_sides(Triangle2D t)
 {
-    float *array;
-    array = (float*)calloc(3, sizeof(float));
+    DType *array;
+    array = (DType*)calloc(3, sizeof(DType));
 
     array[0] = norm_of_vector(vector2D_from_points(t._list[0], t._list[1]));
     array[1] = norm_of_vector(vector2D_from_points(t._list[1], t._list[2]));
@@ -227,14 +227,14 @@ float *get_sides(Triangle2D t)
     return array;
 }
 
-float *get_angles(Triangle2D t)
+DType *get_angles(Triangle2D t)
 {
-    float *array;
-    array = (float*)calloc(3, sizeof(float));
+    DType *array;
+    array = (DType*)calloc(3, sizeof(DType));
 
-    float a = norm_of_vector(vector2D_from_points(t._list[0], t._list[1]));
-    float b = norm_of_vector(vector2D_from_points(t._list[1], t._list[2]));
-    float c = norm_of_vector(vector2D_from_points(t._list[0], t._list[2]));
+    DType a = norm_of_vector(vector2D_from_points(t._list[0], t._list[1]));
+    DType b = norm_of_vector(vector2D_from_points(t._list[1], t._list[2]));
+    DType c = norm_of_vector(vector2D_from_points(t._list[0], t._list[2]));
 
     array[0] = calc_angle_in_radians(a, b, c);
     array[1] = calc_angle_in_radians(b, c, a);
@@ -253,20 +253,20 @@ Segment2D *get_segments(Triangle2D t)
     return r;
 }
 
-float calculate_area(Triangle2D t)
+DType calculate_area(Triangle2D t)
 {
-    float a = norm_of_vector(vector2D_from_points(t._list[0], t._list[1]));
-    float b = norm_of_vector(vector2D_from_points(t._list[1], t._list[2]));
-    float c = norm_of_vector(vector2D_from_points(t._list[0], t._list[2]));
+    DType a = norm_of_vector(vector2D_from_points(t._list[0], t._list[1]));
+    DType b = norm_of_vector(vector2D_from_points(t._list[1], t._list[2]));
+    DType c = norm_of_vector(vector2D_from_points(t._list[0], t._list[2]));
 
-    float p = (a + b + c)/2.;
+    DType p = (a + b + c)/2.;
     return sqrt(p * (p - a) * (p - b) * (p - c));
 }
 
 void console_output_sides(Triangle2D t)
 {
-    float *a = get_sides(t);
-    for (int i = 0; i < 3; ++i)
+    DType *a = get_sides(t);
+    for (IType i = 0; i < 3; ++i)
     {
         printf("%.4f\t", a[i]);
     }
@@ -276,8 +276,8 @@ void console_output_sides(Triangle2D t)
 
 void console_output_angles(Triangle2D t, bool radian_form)
 {
-    float *a = get_angles(t);
-    for (int i = 0; i < 3; ++i)
+    DType *a = get_angles(t);
+    for (IType i = 0; i < 3; ++i)
     {
         printf("%.4f\t", radian_form ? a[i] : convert_to_degrees(a[i]));
     }
@@ -304,7 +304,7 @@ bool intersect_line_triangle(Line2D p, Triangle2D t)
 {
     Segment2D *array = get_segments(t);
 
-    for(int i=0; i<3; i++)
+    for(IType i=0; i<3; i++)
     {
         if(intersect_line_segment(p, array[i])) return 1;
     }
@@ -318,7 +318,7 @@ bool intersect_segment_triangle(Segment2D p, Triangle2D t)
 {
     Segment2D *array = get_segments(t);
 
-    for(int i=0; i<3; i++)
+    for(IType i=0; i<3; i++)
     {
         if(intersect_segment_segment(p, array[i])) return 1;
     }
@@ -332,7 +332,7 @@ Point2D get_intersect_line_line(Line2D p, Line2D q)
 {
     if (intersect_line_line(p, q))
     {
-        float values[2];
+        DType values[2];
         values[0] = ((p._c*q._b-q._c*p._b)/p._b) * (p._b/(q._a*p._b-p._a*q._b));
         values[1] = (-(p._c+p._a*values[0]))/p._b;
         return point2D_standard(values[0], values[1]);
@@ -346,7 +346,7 @@ Point2D get_intersect_line_segment(Line2D p, Segment2D q)
 {
     if (intersect_line_segment(p, q))
     {
-        float values[2];
+        DType values[2];
         Line2D q_l = line2D_from_points(q._list[0], q._list[1]);
         values[0] = ((p._c*q_l._b-q_l._c*p._b)/p._b) * (p._b/(q_l._a*p._b-p._a*q_l._b));
         values[1] = (-(p._c+p._a*values[0]))/p._b;
@@ -361,7 +361,7 @@ Point2D get_intersect_segment_segment(Segment2D p, Segment2D q)
 {
     if (intersect_segment_segment(p, q))
     {
-        float values[2];
+        DType values[2];
         Line2D p_l = line2D_from_points(p._list[0], p._list[1]);
         Line2D q_l = line2D_from_points(q._list[0], q._list[1]);
         values[0] = ((p_l._c*q_l._b-q_l._c*p_l._b)/p_l._b) * (p_l._b/(q_l._a*p_l._b-p_l._a*q_l._b));
@@ -383,21 +383,21 @@ Point2D *get_intersect_line_triangle(Line2D p, Triangle2D t)
         Segment2D *s_a;
         s_a = get_segments(t);
 
-        for(int i=0; i<3; i++)
+        for(IType i=0; i<3; i++)
         {
             r[i] = get_intersect_line_segment(p, s_a[i]);
         }
         free(s_a);
     } else
     {
-        for(int i=0; i<3; i++)
+        for(IType i=0; i<3; i++)
         {
             r[i] = point2D_standard(_INF, -_INF);
         }
     }
 
     // there -- fix: 'cause finding intersection of lines, not segments
-    for(int i=0; i<3; i++)
+    for(IType i=0; i<3; i++)
     {
 
     }
@@ -416,7 +416,7 @@ static Point2D central(Segment2D s)
             (s._list[0]._y + s._list[1]._y) / 2.);
 }
 
-Segment2D get_median(Triangle2D t, unsigned i)
+Segment2D get_median(Triangle2D t, NType i)
 {
     assert(i<3);
 
@@ -448,7 +448,7 @@ Circle2D inner_tr(Triangle2D t)
 {
     Circle2D r;
 
-    float *sides, p;
+    DType *sides, p;
 
     sides = get_sides(t);
 
@@ -467,7 +467,7 @@ Circle2D outer_tr(Triangle2D t)
 {
     Circle2D r;
 
-    float *sides;
+    DType *sides;
 
     sides = get_sides(t);
 
@@ -481,53 +481,62 @@ Circle2D outer_tr(Triangle2D t)
     return r;
 }
 
-void stream_output_point2d_data(FILE *f, Point2D p, int type, int width, int precision)
+void stream_output_point2d_data(FILE *f, Point2D p, IType type, IType width, IType precision)
 {
     assert(f != NULL);
+/*
+    if ((type < 0) || (type > 2)) type = 0;
+    char modes[3][4] = {"f ", "g ", "e "};
+    char out[96] = "%", buf[64];
+    // implement this l8r
+    sprintf(buf, "%d.%d", width, precision);
+    strcat(out, buf);
+    strcat(out, modes[type]);
+*/
     fprintf(f, "POINT2D\n");
-    fprintf(f, "%i %f %f\n", p._type, p._x, p._y);
+    fprintf(f, "%i %lf %lf\n", p._type, p._x, p._y);
 }
 
-void stream_output_line2d_data(FILE *f, Line2D l, int type, int width, int precision)
+void stream_output_line2d_data(FILE *f, Line2D l, IType type, IType width, IType precision)
 {
     assert(f != NULL);
     fprintf(f, "LINE2D\n");
-    fprintf(f, "%f %f %f\n", l._a, l._b, l._c);
+    fprintf(f, "%lf %lf %lf\n", l._a, l._b, l._c);
 };
 
-void stream_output_segment2d_data(FILE *f, Segment2D s, int type, int width, int precision)
+void stream_output_segment2d_data(FILE *f, Segment2D s, IType type, IType width, IType precision)
 {
     assert(f != NULL);
     fprintf(f, "SEGMENT2D\n");
-    for(int i=0; i<2; i++)
+    for(IType i=0; i<2; i++)
     {
         stream_output_point2d_data(f, s._list[i], type, width, precision);
     }
 }
 
-void stream_output_vector2d_data(FILE *f, Vector2D v, int type, int width, int precision)
+void stream_output_vector2d_data(FILE *f, Vector2D v, IType type, IType width, IType precision)
 {
     assert(f != NULL);
     fprintf(f, "VECTOR2D\n");
-    fprintf(f, "%f %f\n", v._x, v._y);
+    fprintf(f, "%lf %lf\n", v._x, v._y);
 }
 
-void stream_output_triangle2d_data(FILE *f, Triangle2D t, int type, int width, int precision)
+void stream_output_triangle2d_data(FILE *f, Triangle2D t, IType type, IType width, IType precision)
 {
     assert(f != NULL);
     fprintf(f, "TRIANGLE2D\n");
     fprintf(f, "%i\n", t._type);
-    for(int i=0; i<3; i++)
+    for(IType i=0; i<3; i++)
     {
         stream_output_point2d_data(f, t._list[i], type, width, precision);
     }
 }
 
-void stream_output_circle2d_data(FILE *f, Circle2D c, int type, int width, int precision)
+void stream_output_circle2d_data(FILE *f, Circle2D c, IType type, IType width, IType precision)
 {
     assert(f != NULL);
     fprintf(f, "CIRCLE2D\n");
-    fprintf(f, "%f\n", c.radius);
+    fprintf(f, "%lf\n", c.radius);
     stream_output_point2d_data(f, c.center, type, width, precision);
 }
 
@@ -535,14 +544,14 @@ void stream_input_point2d_data(FILE *f, Point2D *p)
 {
     assert(f != NULL);
 
-    char *init_line = NULL;
+    CType *init_line = NULL;
     size_t len = 0;
 
     getline(&init_line, &len, f);
 
     assert(!strcmp(init_line, "POINT2D\n"));
 
-    fscanf(f, "%hi %f %f\n",
+    fscanf(f, "%hi %lf %lf\n",
            &p->_type, &p->_x, &p->_y);
 
     free(init_line);
@@ -552,14 +561,14 @@ void stream_input_line2d_data(FILE *f, Line2D *l)
 {
     assert(f != NULL);
 
-    char *init_line = NULL;
+    CType *init_line = NULL;
     size_t len = 0;
 
     getline(&init_line, &len, f);
 
     assert(!strcmp(init_line, "LINE2D\n"));
 
-    fscanf(f, "%f %f %f\n", &l->_a, &l->_b, &l->_c);
+    fscanf(f, "%lf %lf %lf\n", &l->_a, &l->_b, &l->_c);
 
     free(init_line);
 }
@@ -568,14 +577,14 @@ void stream_input_segment2d_data(FILE *f, Segment2D *s)
 {
     assert(f != NULL);
 
-    char *init_line = NULL;
+    CType *init_line = NULL;
     size_t len = 0;
 
     getline(&init_line, &len, f);
 
     assert(!strcmp(init_line, "SEGMENT2D\n"));
 
-    for(int i=0; i<2; i++)
+    for(IType i=0; i<2; i++)
     {
         stream_input_point2d_data(f, &s->_list[i]);
     }
@@ -587,14 +596,14 @@ void stream_input_vector2d_data(FILE *f, Vector2D *v)
 {
     assert(f != NULL);
 
-    char *init_line = NULL;
+    CType *init_line = NULL;
     size_t len = 0;
 
     getline(&init_line, &len, f);
 
     assert(!strcmp(init_line, "VECTOR2D\n"));
 
-    fscanf(f, "%f %f\n", &v->_x, &v->_y);
+    fscanf(f, "%lf %lf\n", &v->_x, &v->_y);
 
     free(init_line);
 }
@@ -603,7 +612,7 @@ void stream_input_triangle2d_data(FILE *f, Triangle2D *t)
 {
     assert(f != NULL);
 
-    char *init_line = NULL;
+    CType *init_line = NULL;
     size_t len = 0;
 
     getline(&init_line, &len, f);
@@ -612,7 +621,7 @@ void stream_input_triangle2d_data(FILE *f, Triangle2D *t)
 
     fscanf(f, "%hi\n", &t->_type);
 
-    for(int i=0; i<3; i++)
+    for(IType i=0; i<3; i++)
     {
         stream_input_point2d_data(f, &t->_list[i]);
     }
@@ -624,14 +633,14 @@ void stream_input_circle2d_data(FILE *f, Circle2D *c)
 {
     assert(f != NULL);
 
-    char *init_line = NULL;
+    CType *init_line = NULL;
     size_t len = 0;
 
     getline(&init_line, &len, f);
 
     assert(!strcmp(init_line, "CIRCLE2D\n"));
 
-    fscanf(f, "%f\n", &c->radius);
+    fscanf(f, "%lf\n", &c->radius);
 
     stream_input_point2d_data(f, &c->center);
 
@@ -640,18 +649,18 @@ void stream_input_circle2d_data(FILE *f, Circle2D *c)
 
 void console_input_point2d_data(Point2D *p)
 {
-    fscanf(stdin, "%hi %f %f\n",
+    fscanf(stdin, "%hi %lf %lf\n",
            &p->_type, &p->_x, &p->_y);
 }
 
 void console_input_line2d_data(Line2D *l)
 {
-    fscanf(stdin, "%f %f %f\n", &l->_a, &l->_b, &l->_c);
+    fscanf(stdin, "%lf %lf %lf\n", &l->_a, &l->_b, &l->_c);
 }
 
 void console_input_segment2d_data(Segment2D *s)
 {
-    for(int i=0; i<2; i++)
+    for(IType i=0; i<2; i++)
     {
         console_input_point2d_data(&s->_list[i]);
     }
@@ -659,14 +668,14 @@ void console_input_segment2d_data(Segment2D *s)
 
 void console_input_vector2d_data(Vector2D *v)
 {
-    fscanf(stdin, "%f %f\n",
+    fscanf(stdin, "%lf %lf\n",
             &v->_x, &v->_y);
 }
 
 void console_input_triangle2d_data(Triangle2D *t)
 {
     Point2D array[3];
-    for(int i=0; i<3; i++)
+    for(IType i=0; i<3; i++)
     {
         console_input_point2d_data(&array[i]);
     }
@@ -675,7 +684,7 @@ void console_input_triangle2d_data(Triangle2D *t)
 
 void console_input_circle2d_data(Circle2D *c)
 {
-    fscanf(stdin, "%f\n", &c->radius);
+    fscanf(stdin, "%lf\n", &c->radius);
 
     console_input_point2d_data(&c->center);
 }

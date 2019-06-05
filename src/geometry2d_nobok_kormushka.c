@@ -385,7 +385,7 @@ Point2D *get_intersect_line_triangle(Line2D p, Triangle2D t)
 
         for(int i=0; i<3; i++)
         {
-            r[0] = get_intersect_line_segment(p, s_a[i]);
+            r[i] = get_intersect_line_segment(p, s_a[i]);
         }
         free(s_a);
     } else
@@ -394,13 +394,54 @@ Point2D *get_intersect_line_triangle(Line2D p, Triangle2D t)
         {
             r[i] = point2D_standard(_INF, -_INF);
         }
-        return r;
     }
+
+    // there -- fix: 'cause finding intersection of lines, not segments
+    for(int i=0; i<3; i++)
+    {
+
+    }
+
+    return r;
 }
 
 Point2D *get_intersect_segment_triangle(Segment2D p, Triangle2D t)
 {
     return get_intersect_line_triangle(line2D_from_points(p._list[0], p._list[1]), t);
+}
+
+static Point2D central(Segment2D s)
+{
+    return point2D_standard((s._list[0]._x + s._list[1]._x) / 2.,
+            (s._list[0]._y + s._list[1]._y) / 2.);
+}
+
+Segment2D get_median(Triangle2D t, unsigned i)
+{
+    assert(i<3);
+
+    Segment2D *array, side;
+
+    array = get_segments(t); side = array[i];
+
+    Point2D c;
+
+    c = central(side);
+
+    free(array);
+
+    return segment2D_standard(c, t._list[(i+2)%3]);
+}
+
+Point2D center(Triangle2D t)
+{
+    Point2D r;
+
+    Segment2D m1, m2;
+
+    m1 = get_median(t, 0); m2 = get_median(t, 1);
+
+    return get_intersect_segment_segment(m1, m2);
 }
 
 void stream_output_point2d_data(FILE *f, Point2D p, int type, int width, int precision)

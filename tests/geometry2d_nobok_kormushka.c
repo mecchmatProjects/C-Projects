@@ -72,6 +72,17 @@ void TestTriangleOperations()
 
     printf("Area:\n");
     printf("S = %.4f\n", calculate_area(t));
+
+    Triangle2D q;
+
+    q = triangle2D_from_points(
+            point2D_standard(0, 0),
+            point2D_standard(2, 0),
+            point2D_standard(0, 3)
+    );
+    stream_output_triangle2d_data(stdout, q, 1, 1, 1);
+    printf("Center for this triangle:\n");
+    stream_output_point2d_data(stdout, center(q), 1, 1, 1);
 }
 
 void TestIntersectOperations()
@@ -87,6 +98,14 @@ void TestIntersectOperations()
     Segment2D d;
     d = segment2D_standard(point2D_standard(0, -1), point2D_standard(1, 1));
 
+    Triangle2D t;
+
+    t = triangle2D_from_points(
+            point2D_standard(0, 0),
+            point2D_standard(2, 0),
+            point2D_standard(0, 3)
+    );
+
     printf("LINE-LINE:\n");
     stream_output_point2d_data(stdout, get_intersect_line_line(a, b), 1, 1, 1);
 
@@ -95,6 +114,21 @@ void TestIntersectOperations()
 
     printf("SEGMENT-SEGMENT:\n");
     stream_output_point2d_data(stdout, get_intersect_segment_segment(c, d), 1, 1, 1);
+
+    // !!!
+    printf("LINE-TRIANGLE:\n");
+    Point2D *result_1 = get_intersect_line_triangle(a, t);
+    for(int i=0; i<3; i++)
+    {
+        stream_output_point2d_data(stdout, result_1[i], 1, 1, 1);
+    }
+    printf("SEGMENT-TRIANGLE:\n");
+    Point2D *result_2 = get_intersect_segment_triangle(d, t);
+    for(int i=0; i<3; i++)
+    {
+        stream_output_point2d_data(stdout, result_1[i], 1, 1, 1);
+    }
+    free(result_1); free(result_2);
 }
 
 void TestTextOperations()

@@ -2,7 +2,7 @@
 #include < stdlib.h >
 
 
-int compar()
+int compar(int *a, int*b, int N)
 {
     int c = 0;
     for (int i = 0; i < N; ++i) {

@@ -2,7 +2,7 @@
 #include < stdlib.h >
 
 
-int count_c()
+int compar()
 {
     int c = 0;
     for (int i = 0; i < N; ++i) {

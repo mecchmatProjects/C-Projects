@@ -1,0 +1,3 @@
+function cmp:
+  takes two independent arrays as input and uses methods:
+    arr_unequal and arr_equal to compare that arrays for identity

@@ -6,3 +6,8 @@ gcc Interpolation_Tyshchenko_C/tests/interpolation_tyshchenko_test.c Interpolati
 then run cproject and cppproject
 
 //you have to be in Interpolation_Tyshchenko folder in terminal//
+
+to compile cross test file:
+
+g++ cross_test_interpolation -o cross
+

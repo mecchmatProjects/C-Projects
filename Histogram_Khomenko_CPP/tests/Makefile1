@@ -1,0 +1,8 @@
+output: Histogram.o Histogram_Khomenko_cross_test.o
+	g++ Histogram.o Histogram_Khomenko_cross_test.o -o Histogram_Khomenko_cross_test
+
+Histogram.o: ../src/Histogram.cpp
+	g++ -c ../src/Histogram.cpp
+
+Histogram_Khomenko_cross_test.o: Histogram_Khomenko_cross_test.cpp
+	g++ -c Histogram_Khomenko_cross_test.cpp

@@ -11,6 +11,8 @@ int main(){
     string Cstr, Cppstr;
     getline(Cfile, Cstr);
     getline(Cppfile, Cppstr);
+    Cfile.close();
+    Cppfile.close();
     cout << "Answer from C program: ";
     cout << Cstr << endl;
     cout << "Answer from C++ program: ";

@@ -1,4 +1,5 @@
-#include "../src/Bit_fields.cpp"
+//#include "../src/Bit_fields.cpp"
+#include "../src/Bit_fields.h"
 int main()
 {
     unsigned short x,y;
@@ -64,4 +65,6 @@ int main()
     cout3 << c.year << " " << c.month << " " << c.day << " " << c.hour << " " << c.minute << " " << c.second << " " <<endl;
     cout3.close();
     file.close();
+    cout << "Press any button to exit..." << endl;
+    getc(stdin);
 }

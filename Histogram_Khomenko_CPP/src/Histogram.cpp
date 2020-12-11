@@ -17,6 +17,7 @@ IType equal_strs(const char str1[], const char str2[])
     return 1;
 }
 
+
 /*
 читає з консолі рядок довільної довжини(до знаку  '\n') та повертає його
 */
@@ -452,7 +453,7 @@ mode = "new_Histogram" || "used_Historgam"
 mode == "new_Histogram": Histogram H is not after using any functions
 mode == "used_Histogram": Histogram H have some elements and is after using function 'update_Histogram' with mode == "first_start"
 */
-IType Histrogram::inputTextFile_Historgam(char* file, const char mode[])
+IType Histrogram::inputTextFile_Historgam(const char* file, const char mode[])
 {
     FILE* f = fopen(file, "r");
     if (!f){
@@ -535,7 +536,7 @@ mode = "new_Histogram" || "used_Historgam"
 mode == "new_Histogram": Histogram H is not after using any functions
 mode == "used_Histogram": Histogram H have some elements and is after using function 'update_Histogram' with mode == "first_start"
 */
-IType Histrogram::inputBinaryFile_Histogram(char* file, const char mode[])
+IType Histrogram::inputBinaryFile_Histogram(const char* file, const char mode[])
 {
     FILE* f = fopen(file, "rb");
     if (!f){
@@ -594,7 +595,7 @@ type = 0 : output numebr in basic double style
 type = 1 : output number in scientific style
 mode = "w" || "at"
 */
-IType Histrogram::outputTextFile_Histogram(char* file, IType type, IType width, IType precision, char mode[])
+IType Histrogram::outputTextFile_Histogram(const char* file, IType type, IType width, IType precision, const char mode[])
 {
     FILE* f = fopen(file, mode);
     if (!f){
@@ -626,7 +627,7 @@ IType Histrogram::outputTextFile_Histogram(char* file, IType type, IType width, 
     return 0;
 }
 
-IType Histrogram::outputBinaryFile_Histogram(char* file)
+IType Histrogram::outputBinaryFile_Histogram(const char* file)
 {
     FILE* f = fopen(file, "wb");
     if (!f){

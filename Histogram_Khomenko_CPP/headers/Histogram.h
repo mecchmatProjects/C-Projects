@@ -97,14 +97,14 @@ class Histrogram
         mode == "new_Histogram": Histogram H is not after using any functions
         mode == "used_Histogram": Histogram H have some elements and is after using function 'update_Histogram' with mode == "first_start"
         */
-        IType inputTextFile_Historgam(char* file, const char mode[]);
+        IType inputTextFile_Historgam(const char* file, const char mode[]);
 
         /*
         mode = "new_Histogram" || "used_Historgam"
         mode == "new_Histogram": Histogram H is not after using any functions
         mode == "used_Histogram": Histogram H have some elements and is after using function 'update_Histogram' with mode == "first_start"
         */
-        IType inputBinaryFile_Histogram(char* file, const char mode[]);
+        IType inputBinaryFile_Histogram(const char* file, const char mode[]);
 
         /*
         type = 0 : output numebr in basic double style
@@ -116,9 +116,9 @@ class Histrogram
         type = 0 : output numebr in basic double style
         type = 1 : output number in scientific style
         */
-        IType outputTextFile_Histogram(char* file, IType type, IType width, IType precision, char mode[]);
+        IType outputTextFile_Histogram(const char* file, IType type, IType width, IType precision, const char mode[]);
 
-        IType outputBinaryFile_Histogram(char* file);
+        IType outputBinaryFile_Histogram(const char* file);
 
         /*
         кількість елементів в гісторгамі

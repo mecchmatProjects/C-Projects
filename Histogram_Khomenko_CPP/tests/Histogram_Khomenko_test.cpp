@@ -128,6 +128,7 @@ IType ioput_test1()
     fputs("\n#inputTextFile_Historgam, outputTextFile_Histogram\n",f);
     fclose(f);
     //
+    return 0;
 }
 
 IType Histogram_numbers_input_test()
@@ -299,6 +300,7 @@ IType Histogram_numbers_input_test1()
     fputs("\n#addbatch mode 'change'\n",f);
     fclose(f);
     //
+    return 0;
 }
 
 IType Histogram_properties_test()

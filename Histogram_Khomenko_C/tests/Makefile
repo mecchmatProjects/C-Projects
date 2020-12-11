@@ -9,3 +9,6 @@ input_funcs.o: ../src/input_funcs.c
 
 Histogram_Khomenko_test.o: Histogram_Khomenko_test.c
 	gcc -c Histogram_Khomenko_test.c
+
+clean: 
+	del *.o Histogram_Khomenko_test.exe

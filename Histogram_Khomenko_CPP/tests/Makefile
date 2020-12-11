@@ -6,3 +6,6 @@ Histogram.o: ../src/Histogram.cpp
 
 Histogram_Khomenko_test.o: Histogram_Khomenko_test.cpp
 	g++ -c Histogram_Khomenko_test.cpp
+
+clean: 
+	del *.o Histogram_Khomenko_test.exe Histogram_Khomenko_cross_test.exe

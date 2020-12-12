@@ -820,6 +820,22 @@ DType Histrogram::variance()
     return variance_val;
 }
 
+/*
+мода гістограми(стовпчик з найбільшою частотою) виводиться індекс стовпчика
+*/
+NType Histrogram::fash()
+{
+    IType req_idx = 0;
+    NType max_freq = frequency[0];
+    for (int i = 0; i < M; i++){
+        if (frequency[i] > max_freq){
+            max_freq = frequency[i];
+            req_idx = i;
+        }
+
+    }
+    return req_idx;
+}
 
 /*
 int main()

@@ -305,6 +305,22 @@ DType variance(Histrogram* H)
     return variance_val;
 }
 
+/*
+мода гістограми(стовпчик з найбільшою частотою) виводиться індекс стовпчика
+*/
+NType fash(Histrogram* H)
+{
+    IType req_idx = 0;
+    NType max_freq = H->frequency[0];
+    for (int i = 0; i < H->M; i++){
+        if (H->frequency[i] > max_freq){
+            max_freq = H->frequency[i];
+            req_idx = i;
+        }
+
+    }
+    return req_idx;
+}
 
 /*
 присвоює динамічним массивам певний вказівник та робить ці динамічні массиви спроможними до зміни пам'яті (realloc)

@@ -115,6 +115,11 @@ DType access(Histrogram* H);
 DType variance(Histrogram* H);
 
 /*
+мода гістограми(стовпчик з найбільшою частотою) виводиться індекс стовпчика
+*/
+NType fash(Histrogram* H);
+
+/*
 присвоює динамічним массивам певний вказівник та робить ці динамічні массиви спроможними до зміни пам'яті (realloc)
 */
 void prepare_Histogram(Histrogram* H);

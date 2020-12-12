@@ -388,7 +388,14 @@ IType Histogram_properties_test()
     fputs(res_str, f);
     //
     printf("variance coefficient of all numbers in Histogram: %.3f\n\n", variance(&H));
+
+    res_type1 = fash(&H);
+    //write cross_test file
+    sprintf(res_str, "\n%d\n#fashion\n", res_type1);
+    fputs(res_str, f);
+    //
     fclose(f);
+    printf("fashion of Histogram is column with index %d\n\n", fash(&H));
 }
 
 IType main()

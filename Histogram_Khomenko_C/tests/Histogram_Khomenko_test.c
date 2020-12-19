@@ -331,7 +331,7 @@ IType Histogram_properties_test()
     sprintf(res_str, "\n%.4f\n#dispersion\n", res_type2);
     fputs(res_str, f);
     //
-    printf("root mean square value of all numbers in Histogram: %.3f\n\n", res_type2);
+    printf("root mean square value(dispersion) of all numbers in Histogram: %.3f\n\n", res_type2);
 
     res_type2 = median(&H);
     //write cross_test file

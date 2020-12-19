@@ -1,5 +1,7 @@
 #include "../headers/Histogram.h"
 
+//#include "input_funcs.c"
+
 #define Max_elems_in_column 1024
 
 /*
@@ -149,16 +151,17 @@ IType numHist(Histrogram* H, IType i)
 }
 
 /*
-середнє значення гісторгами
+вибіркове середнє гісторгами
 */
 DType mean(Histrogram* H)
 {
-    DType numbers_sum = 0.0;
+    DType sample_mean = 0.0;
     for (int i = 0; i < H->M; i++){
-        for (int j = 0; j < H->cols[i].N; j++)
-            numbers_sum += H->cols[i].elems[j];
+        sample_mean += ( (H->cols[i].left_bord + H->cols[i].right_bord) / 2.0 ) * H->frequency[i];
     }
-    return numbers_sum / (DType)num(H);
+    
+    sample_mean /= (DType)num(H);
+    return sample_mean;
 }
 
 /*
@@ -167,11 +170,10 @@ DType mean(Histrogram* H)
 DType dispersion(Histrogram* H)
 {
     DType dispersion_part_val = 0.0, dispersion_val = 0.0, mean_val = mean(H);
-    NType n = num(H);
+    IType n = 0;
     for (int i = 0; i < H->M; i++){
-        for (int j = 0; j < H->cols[i].N; j++){
-           dispersion_part_val += pow(H->cols[i].elems[j], 2);
-        }
+        dispersion_part_val += pow( (H->cols[i].left_bord + H->cols[i].right_bord) / 2.0 , 2) * H->frequency[i];
+        n += H->frequency[i];
     }
     dispersion_val = (dispersion_part_val / (DType)n) - pow(mean_val, 2);
     return dispersion_val;
@@ -182,9 +184,11 @@ DType dispersion(Histrogram* H)
 */
 DType median(Histrogram* H)
 {
+    DType med_val;
     DType* sorted_numbers = (DType*)malloc(0);
     DType* numbers = (DType*)malloc(0);
     NType sorted_numbers_len = 0, numbers_len = 0;
+    IType num_val = num(H);
 
     for (int i = 0; i < H->M; i++){
         for (int j = 0; j < H->cols[i].N; j++){
@@ -209,11 +213,65 @@ DType median(Histrogram* H)
         //printf("%f ", sorted_numbers[sorted_numbers_len - 1]);
     }
     //printf("\n");
+    DType med_interval_left_bord, med_interval_len, med_interval_freq, prev_med_interval_acum_freq;
     IType idx = sorted_numbers_len / 2;
-    if (sorted_numbers_len % 2 == 0)
-        return (sorted_numbers[idx] + sorted_numbers[idx - 1]) / (DType)2;
-    else
-        return sorted_numbers[idx];
+    if (sorted_numbers_len % 2 == 0){
+        DType search_numbs[] = {sorted_numbers[idx], sorted_numbers[idx - 1] }, curr_elem;
+        NType search_cols_idx[2], search_cols_numb = 0;
+        prev_med_interval_acum_freq = 0;
+        for (int i = 0; i < H->M; i++){
+            for (int j = 0; j < H->cols[i].N; j++){
+                curr_elem = H->cols[i].elems[j];
+                if (curr_elem == search_numbs[0] || curr_elem == search_numbs[1]){
+                    search_cols_numb++;
+                    search_cols_idx[search_cols_numb - 1] = i;
+                }
+                if (search_cols_numb == 2){
+                    break;
+                }
+            }
+            if (search_cols_numb == 2){
+                    break;
+            }
+            if (search_cols_numb == 0){
+                prev_med_interval_acum_freq += H->frequency[i];
+            }
+        }
+        if (search_cols_idx[0] != search_cols_idx[1]){
+            med_interval_left_bord = H->cols[search_cols_idx[0]].left_bord;
+            med_interval_len = 2 * ( H->cols[search_cols_idx[0]].right_bord - H->cols[search_cols_idx[0]].left_bord );
+            med_interval_freq = H->frequency[search_cols_idx[0]] + H->frequency[search_cols_idx[1]];
+        }
+        else{
+            med_interval_left_bord = H->cols[search_cols_idx[0]].left_bord;
+            med_interval_len = H->cols[search_cols_idx[0]].right_bord - H->cols[search_cols_idx[0]].left_bord;
+            med_interval_freq = H->frequency[search_cols_idx[0]];
+        }
+
+    }        
+    else{
+        NType search_col_numb = 0, search_col_idx;
+        prev_med_interval_acum_freq = 0;
+        for (int i = 0; i < H->M; i++){
+            for (int j = 0; j < H->cols[i].N; j++){
+            
+                if (H->cols[i].elems[j] == sorted_numbers[idx]){
+                    search_col_numb++;
+                    search_col_idx = i;
+                    break;
+                }
+            }
+            if (search_col_numb == 1){
+                break;
+            }
+            prev_med_interval_acum_freq += H->frequency[i];
+        }
+        med_interval_left_bord = H->cols[search_col_idx].left_bord;
+        med_interval_len = H->cols[search_col_idx].right_bord - H->cols[search_col_idx].left_bord;
+        med_interval_freq = H->frequency[search_col_idx];
+    }
+    med_val = med_interval_left_bord + med_interval_len * (0.5 * (DType)num_val - prev_med_interval_acum_freq) / med_interval_freq;
+    return med_val;
 }
 
 /*
@@ -232,13 +290,12 @@ DType dev(Histrogram* H)
 }
 
 /*
-середнє квадратичне відхилення значень гістограми
+середнє квадратичне відхилення значень гістограми(не виправлене)
 */
 DType dev_squared(Histrogram* H)
 {
-    NType n = num(H);
     DType S = dispersion(H), dev_squared_val;
-    dev_squared_val = sqrt( ( (DType)n / (DType)(n - 1) ) * pow(S, 2));
+    dev_squared_val = sqrt(S);
     return dev_squared_val;
 }
 
@@ -247,12 +304,11 @@ DType dev_squared(Histrogram* H)
 */
 DType centr_empiric_moment4(Histrogram* H)
 {
-    DType centr_empiric_moment4_val, centr_empiric_moment4_part_val = 0.0, mean_val = mean(H);
+    DType centr_empiric_moment4_val, centr_empiric_moment4_part_val = 0.0, mean_val = mean(H), interval_centr;
     NType n = num(H);
     for (int i = 0; i < H->M; i++){
-        for (int j = 0; j < H->cols[i].N; j++){
-            centr_empiric_moment4_part_val += pow(H->cols[i].elems[j] - mean_val, 4);
-        }
+        interval_centr = ( H->cols[i].left_bord + H->cols[i].right_bord ) / 2.0;
+        centr_empiric_moment4_part_val += pow(interval_centr - mean_val, 4) * H->frequency[i];
     }
     centr_empiric_moment4_val = centr_empiric_moment4_part_val / (DType)n;
     return centr_empiric_moment4_val;
@@ -263,12 +319,11 @@ DType centr_empiric_moment4(Histrogram* H)
 */
 DType centr_empiric_moment3(Histrogram* H)
 {
-    DType centr_empiric_moment3_val, centr_empiric_moment3_part_val = 0.0, mean_val = mean(H);
+    DType centr_empiric_moment3_val, centr_empiric_moment3_part_val = 0.0, mean_val = mean(H), interval_centr;
     NType n = num(H);
     for (int i = 0; i < H->M; i++){
-        for (int j = 0; j < H->cols[i].N; j++){
-            centr_empiric_moment3_part_val += pow(H->cols[i].elems[j] - mean_val, 3);
-        }
+        interval_centr = ( H->cols[i].left_bord + H->cols[i].right_bord ) / 2.0;
+        centr_empiric_moment3_part_val += pow(interval_centr - mean_val, 3) * H->frequency[i];
     }
     centr_empiric_moment3_val = centr_empiric_moment3_part_val / (DType)n;
     return centr_empiric_moment3_val;
@@ -301,7 +356,7 @@ DType access(Histrogram* H)
 DType variance(Histrogram* H)
 {
     DType variance_val, dev_squared_val = dev_squared(H), mean_val = mean(H);
-    variance_val = dev_squared_val / mean_val;
+    variance_val = ( dev_squared_val / mean_val ) * 100;
     return variance_val;
 }
 
@@ -716,13 +771,13 @@ IType outputBinaryFile_Histogram(char* file, Histrogram H)
     }
     return 0;
 }
-
-/*int main()
+/*
+int main()
 {
-    char str[] = "abcdefg";
-    char str1[50];
-    int h = -1;
-    Histrogram H;*/
+    Histrogram H;
+    inputTextFile_Historgam("Histogram_input_test.txt", &H, "new_Histogram");
+    output_Histogram(H, 0, 5, 2);
+    printf("%f\n", mean(&H));*/
 /*
     setMax(2.4, &H, "not_change");
     setMin(-2.4, &H, "not_change");
@@ -749,5 +804,5 @@ IType outputBinaryFile_Histogram(char* file, Histrogram H)
     //printf("\n%f, %f, %f,\n", centr_empiric_moment4(&H), access(&H), asymmetry(&H));
     //printf("sizeof(H): %d\n", sizeof(H));
     
-    //return 0;
+//    return 0;
 //}

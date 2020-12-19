@@ -668,12 +668,13 @@ IType Histrogram::numHist(IType i)
 */
 DType Histrogram::mean()
 {
-    DType numbers_sum = 0.0;
+    DType sample_mean = 0.0;
     for (int i = 0; i < M; i++){
-        for (int j = 0; j < cols[i].N; j++)
-            numbers_sum += cols[i].elems[j];
+        sample_mean += ( (cols[i].left_bord + cols[i].right_bord) / 2.0 ) * frequency[i];
     }
-    return numbers_sum / (DType)num();
+    
+    sample_mean /= (DType)num();
+    return sample_mean;
 }
 
 /*
@@ -682,11 +683,10 @@ DType Histrogram::mean()
 DType Histrogram::dispersion()
 {
     DType dispersion_part_val = 0.0, dispersion_val = 0.0, mean_val = mean();
-    NType n = num();
+    IType n = 0;
     for (int i = 0; i < M; i++){
-        for (int j = 0; j < cols[i].N; j++){
-           dispersion_part_val += pow(cols[i].elems[j], 2);
-        }
+        dispersion_part_val += pow( (cols[i].left_bord + cols[i].right_bord) / 2.0 , 2) * frequency[i];
+        n += frequency[i];
     }
     dispersion_val = (dispersion_part_val / (DType)n) - pow(mean_val, 2);
     return dispersion_val;
@@ -697,9 +697,11 @@ DType Histrogram::dispersion()
 */
 DType Histrogram::median()
 {
+    DType med_val;
     DType* sorted_numbers = (DType*)malloc(0);
     DType* numbers = (DType*)malloc(0);
     NType sorted_numbers_len = 0, numbers_len = 0;
+    IType num_val = num();
 
     for (int i = 0; i < M; i++){
         for (int j = 0; j < cols[i].N; j++){
@@ -724,11 +726,65 @@ DType Histrogram::median()
         //printf("%f ", sorted_numbers[sorted_numbers_len - 1]);
     }
     //printf("\n");
+    DType med_interval_left_bord, med_interval_len, med_interval_freq, prev_med_interval_acum_freq;
     IType idx = sorted_numbers_len / 2;
-    if (sorted_numbers_len % 2 == 0)
-        return (sorted_numbers[idx] + sorted_numbers[idx - 1]) / (DType)2;
-    else
-        return sorted_numbers[idx];
+    if (sorted_numbers_len % 2 == 0){
+        DType search_numbs[] = {sorted_numbers[idx], sorted_numbers[idx - 1] }, curr_elem;
+        NType search_cols_idx[2], search_cols_numb = 0;
+        prev_med_interval_acum_freq = 0;
+        for (int i = 0; i < M; i++){
+            for (int j = 0; j < cols[i].N; j++){
+                curr_elem = cols[i].elems[j];
+                if (curr_elem == search_numbs[0] || curr_elem == search_numbs[1]){
+                    search_cols_numb++;
+                    search_cols_idx[search_cols_numb - 1] = i;
+                }
+                if (search_cols_numb == 2){
+                    break;
+                }
+            }
+            if (search_cols_numb == 2){
+                    break;
+            }
+            if (search_cols_numb == 0){
+                prev_med_interval_acum_freq += frequency[i];
+            }
+        }
+        if (search_cols_idx[0] != search_cols_idx[1]){
+            med_interval_left_bord = cols[search_cols_idx[0]].left_bord;
+            med_interval_len = 2 * ( cols[search_cols_idx[0]].right_bord - cols[search_cols_idx[0]].left_bord );
+            med_interval_freq = frequency[search_cols_idx[0]] + frequency[search_cols_idx[1]];
+        }
+        else{
+            med_interval_left_bord = cols[search_cols_idx[0]].left_bord;
+            med_interval_len = cols[search_cols_idx[0]].right_bord - cols[search_cols_idx[0]].left_bord;
+            med_interval_freq = frequency[search_cols_idx[0]];
+        }
+
+    }        
+    else{
+        NType search_col_numb = 0, search_col_idx;
+        prev_med_interval_acum_freq = 0;
+        for (int i = 0; i < M; i++){
+            for (int j = 0; j < cols[i].N; j++){
+            
+                if (cols[i].elems[j] == sorted_numbers[idx]){
+                    search_col_numb++;
+                    search_col_idx = i;
+                    break;
+                }
+            }
+            if (search_col_numb == 1){
+                break;
+            }
+            prev_med_interval_acum_freq += frequency[i];
+        }
+        med_interval_left_bord = cols[search_col_idx].left_bord;
+        med_interval_len = cols[search_col_idx].right_bord - cols[search_col_idx].left_bord;
+        med_interval_freq = frequency[search_col_idx];
+    }
+    med_val = med_interval_left_bord + med_interval_len * (0.5 * (DType)num_val - prev_med_interval_acum_freq) / med_interval_freq;
+    return med_val;
 }
 
 /*
@@ -747,13 +803,12 @@ DType Histrogram::dev()
 }
 
 /*
-середнє квадратичне відхилення значень гістограми
+середнє квадратичне відхилення значень гістограми(не виправлене)
 */
 DType Histrogram::dev_squared()
 {
-    NType n = num();
     DType S = dispersion(), dev_squared_val;
-    dev_squared_val = sqrt( ( (DType)n / (DType)(n - 1) ) * pow(S, 2));
+    dev_squared_val = sqrt(S);
     return dev_squared_val;
 }
 
@@ -762,12 +817,11 @@ DType Histrogram::dev_squared()
 */
 DType Histrogram::centr_empiric_moment4()
 {
-    DType centr_empiric_moment4_val, centr_empiric_moment4_part_val = 0.0, mean_val = mean();
+    DType centr_empiric_moment4_val, centr_empiric_moment4_part_val = 0.0, mean_val = mean(), interval_centr;
     NType n = num();
     for (int i = 0; i < M; i++){
-        for (int j = 0; j < cols[i].N; j++){
-            centr_empiric_moment4_part_val += pow(cols[i].elems[j] - mean_val, 4);
-        }
+        interval_centr = ( cols[i].left_bord + cols[i].right_bord ) / 2.0;
+        centr_empiric_moment4_part_val += pow(interval_centr - mean_val, 4) * frequency[i];
     }
     centr_empiric_moment4_val = centr_empiric_moment4_part_val / (DType)n;
     return centr_empiric_moment4_val;
@@ -778,12 +832,11 @@ DType Histrogram::centr_empiric_moment4()
 */
 DType Histrogram::centr_empiric_moment3()
 {
-    DType centr_empiric_moment3_val, centr_empiric_moment3_part_val = 0.0, mean_val = mean();
+    DType centr_empiric_moment3_val, centr_empiric_moment3_part_val = 0.0, mean_val = mean(), interval_centr;
     NType n = num();
     for (int i = 0; i < M; i++){
-        for (int j = 0; j < cols[i].N; j++){
-            centr_empiric_moment3_part_val += pow(cols[i].elems[j] - mean_val, 3);
-        }
+        interval_centr = ( cols[i].left_bord + cols[i].right_bord ) / 2.0;
+        centr_empiric_moment3_part_val += pow(interval_centr - mean_val, 3) * frequency[i];
     }
     centr_empiric_moment3_val = centr_empiric_moment3_part_val / (DType)n;
     return centr_empiric_moment3_val;
@@ -816,7 +869,7 @@ DType Histrogram::access()
 DType Histrogram::variance()
 {
     DType variance_val, dev_squared_val = dev_squared(), mean_val = mean();
-    variance_val = dev_squared_val / mean_val;
+    variance_val = ( dev_squared_val / mean_val ) * 100;
     return variance_val;
 }
 

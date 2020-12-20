@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    int choice; cout << "Enter 1 for keyboard data or 2 for txt file data: "; cin >> choice;
+    int choice; cout << "Enter 1 for keyboard data or 2 for txt file data: "; cin >> choice; //Выбор файлового или консольного ввода
     if (choice == 1)
     {
         FILE* f = fopen("output.txt", "w");

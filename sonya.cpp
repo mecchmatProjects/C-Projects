@@ -19,11 +19,11 @@ void SetConsole(const wchar_t* pszTitle = NULL, BOOL bFullScreen = FALSE)
 	CONSOLE_FONT_INFOEX font;
 	HANDLE hStdOut = NULL;
 
-	// кодовая страница
+	// РєРѕРґРѕРІР°СЏ СЃС‚СЂР°РЅРёС†Р°
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	// шрифт
+	// С€СЂРёС„С‚
 	font.cbSize = sizeof font;
 	font.nFont = 1;
 	font.dwFontSize = { 9, 18 };
@@ -31,12 +31,12 @@ void SetConsole(const wchar_t* pszTitle = NULL, BOOL bFullScreen = FALSE)
 	font.FontWeight = FW_NORMAL;
 	wcscpy_s(font.FaceName, LF_FACESIZE, L"Lucida Console");
 
-	// установка шрифта
+	// СѓСЃС‚Р°РЅРѕРІРєР° С€СЂРёС„С‚Р°
 	hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (!SetCurrentConsoleFontEx(hStdOut, FALSE, &font))
 		cout << "No";
 
-	// заголовок и полный экран...
+	// Р·Р°РіРѕР»РѕРІРѕРє Рё РїРѕР»РЅС‹Р№ СЌРєСЂР°РЅ...
 	if (pszTitle)
 		SetConsoleTitleW(pszTitle);
 	if (bFullScreen)
@@ -44,43 +44,43 @@ void SetConsole(const wchar_t* pszTitle = NULL, BOOL bFullScreen = FALSE)
 		ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 }
 //------------------------------------------------------------------
-//Функция, которая проверяет, принадлежит ли буква множеству
-//гласных букв
+//Р¤СѓРЅРєС†РёСЏ, РєРѕС‚РѕСЂР°СЏ РїСЂРѕРІРµСЂСЏРµС‚, РїСЂРёРЅР°РґР»РµР¶РёС‚ Р»Рё Р±СѓРєРІР° РјРЅРѕР¶РµСЃС‚РІСѓ
+//РіР»Р°СЃРЅС‹С… Р±СѓРєРІ
 bool IsVowel(char letter) {
 	char l = tolower(letter);
-	TString a = "аоєиуеіїюя";
+	TString a = "Р°РѕС”РёСѓРµС–С—СЋСЏ";
 	for (size_t i = 0; i < a.length(); i++)
 		if (a[i] == l) return true;
 	return false;
 }
 //------------------------------------------------------------------
-//Функция, которая проверяет, принадлежит ли буква множеству
-//согласных букв
+//Р¤СѓРЅРєС†РёСЏ, РєРѕС‚РѕСЂР°СЏ РїСЂРѕРІРµСЂСЏРµС‚, РїСЂРёРЅР°РґР»РµР¶РёС‚ Р»Рё Р±СѓРєРІР° РјРЅРѕР¶РµСЃС‚РІСѓ
+//СЃРѕРіР»Р°СЃРЅС‹С… Р±СѓРєРІ
 bool IsConsonant(char letter) {
 	char l = tolower(letter);
-	TString a = "бвгдйжзклмнпрстфхцчшщ";
+	TString a = "Р±РІРіРґР№Р¶Р·РєР»РјРЅРїСЂСЃС‚С„С…С†С‡С€С‰";
 	for (size_t i = 0; i < a.length(); i++)
 		if (a[i] == l) return true;
 	return false;
 }
 //------------------------------------------------------------------
-//Функция, которая проверяет, принадлежит ли буква множеству
+//Р¤СѓРЅРєС†РёСЏ, РєРѕС‚РѕСЂР°СЏ РїСЂРѕРІРµСЂСЏРµС‚, РїСЂРёРЅР°РґР»РµР¶РёС‚ Р»Рё Р±СѓРєРІР° РјРЅРѕР¶РµСЃС‚РІСѓ
 bool IsLetter(char letter) {
 	char l = tolower(letter);
-	TString a = "абвгдеєжзиіїйклмнопрстуфхцчшщьюя";
+	TString a = "Р°Р±РІРіРґРµС”Р¶Р·РёС–С—Р№РєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰СЊСЋСЏ";
 	for (size_t i = 0; i < a.length(); i++)
 		if (a[i] == l) return true;
 	return false;
 }
 //------------------------------------------------------------------
-//Функция, которая проверяет наличие гласной буквы в строке
+//Р¤СѓРЅРєС†РёСЏ, РєРѕС‚РѕСЂР°СЏ РїСЂРѕРІРµСЂСЏРµС‚ РЅР°Р»РёС‡РёРµ РіР»Р°СЃРЅРѕР№ Р±СѓРєРІС‹ РІ СЃС‚СЂРѕРєРµ
 bool ContainVowel(TString str) {
 	for (size_t k = 0; k < str.length(); k++)
 		if (IsVowel(str[k])) return true;
 	return false;
 }
 //------------------------------------------------------------------
-//Функция, которая выделяет из текста слово
+//Р¤СѓРЅРєС†РёСЏ, РєРѕС‚РѕСЂР°СЏ РІС‹РґРµР»СЏРµС‚ РёР· С‚РµРєСЃС‚Р° СЃР»РѕРІРѕ
 TString GetWord(TString str) {
 	TString word;
 	size_t i = 0, n = str.length();
@@ -96,13 +96,13 @@ TString GetWord(TString str) {
 	return word;
 }
 //------------------------------------------------------------------
-//Функция, которая разбивает слово на слоги
+//Р¤СѓРЅРєС†РёСЏ, РєРѕС‚РѕСЂР°СЏ СЂР°Р·Р±РёРІР°РµС‚ СЃР»РѕРІРѕ РЅР° СЃР»РѕРіРё
 TString SplitWord(TString str) {
 	TString split, syll;
 	size_t len = str.length(), i = 0;
-	//Идем вдоль слова
+	//РРґРµРј РІРґРѕР»СЊ СЃР»РѕРІР°
 	while (i < len) {
-		//Проверка 1-го критерия
+		//РџСЂРѕРІРµСЂРєР° 1-РіРѕ РєСЂРёС‚РµСЂРёСЏ
 		if (IsConsonant(str[i]) && IsVowel(str[i + 1]) && IsVowel(str[i + 2])) {
 			if (i + 3 < len) {
 				syll = str.substr(i, 2);
@@ -112,7 +112,7 @@ TString SplitWord(TString str) {
 			}
 		}
 		else
-			//Проверка 1-го критерия не прошла, проверяем 2-ой
+			//РџСЂРѕРІРµСЂРєР° 1-РіРѕ РєСЂРёС‚РµСЂРёСЏ РЅРµ РїСЂРѕС€Р»Р°, РїСЂРѕРІРµСЂСЏРµРј 2-РѕР№
 			if (IsVowel(str[i]) && IsConsonant(str[i + 1]) && IsConsonant(str[i + 2])) {
 				if (i + 3 < len)
 					if (ContainVowel(str.substr(i + 3))) {
@@ -123,7 +123,7 @@ TString SplitWord(TString str) {
 					}
 			}
 			else
-				//Проверка 2-го критерия не прошла, проверяем 3-й
+				//РџСЂРѕРІРµСЂРєР° 2-РіРѕ РєСЂРёС‚РµСЂРёСЏ РЅРµ РїСЂРѕС€Р»Р°, РїСЂРѕРІРµСЂСЏРµРј 3-Р№
 			{
 				size_t m = i;
 
@@ -139,7 +139,7 @@ TString SplitWord(TString str) {
 			}
 		split += str[i];
 		i++;
-		//Дополнительное условие для некоторых случаев
+		//Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРµ СѓСЃР»РѕРІРёРµ РґР»СЏ РЅРµРєРѕС‚РѕСЂС‹С… СЃР»СѓС‡Р°РµРІ
 		if (IsVowel(str[i - 1]) && i < len)
 			if (ContainVowel(str.substr(i)))
 				split += '-';
@@ -150,16 +150,16 @@ TString SplitWord(TString str) {
 TString Processing(TString str) {
 	size_t start, end = str.length();
 	TString text, word;
-	//а-на-нас
+	//Р°-РЅР°-РЅР°СЃ
 	for (size_t i = 0; i < end; i++) {
 		start = i;
-		//Получение очередного слова
+		//РџРѕР»СѓС‡РµРЅРёРµ РѕС‡РµСЂРµРґРЅРѕРіРѕ СЃР»РѕРІР°
 		word = GetWord(str.substr(start, end));
 		i += word.length();
-		//Разбивка на слоги
+		//Р Р°Р·Р±РёРІРєР° РЅР° СЃР»РѕРіРё
 		text.append(SplitWord(word));
-		//Конец разбивки на слоги
-		//Вставка знаков препинания
+		//РљРѕРЅРµС† СЂР°Р·Р±РёРІРєРё РЅР° СЃР»РѕРіРё
+		//Р’СЃС‚Р°РІРєР° Р·РЅР°РєРѕРІ РїСЂРµРїРёРЅР°РЅРёСЏ
 		while (!IsLetter(str[i]) && i < end) {
 			text += str[i];
 			i++;
@@ -184,99 +184,99 @@ int check(TString checking) {
 	TString ent = checking;
 	TString get;
 	for (size_t i = 0; i < ent.length(); i++) {
-		if (ent[i] == 'б' && ent[i + 1] == 'е' && ent[i + 2] == 'з') {
-			cout << "Префікс: без" << endl;
+		if (ent[i] == 'Р±' && ent[i + 1] == 'Рµ' && ent[i + 2] == 'Р·') {
+			cout << "РџСЂРµС„С–РєСЃ: Р±РµР·" << endl;
 			if (ent.length() > 5) {
-				if (ent[i + 3] == 'р' && ent[i + 4] == 'о' && ent[i + 5] == 'з') cout << "Префікс (2): роз" << endl;
-				if (ent[i + 3] == 'в' && ent[i + 4] == 'і' && ent[i + 5] == 'д') cout << "Префікс (2): від" << endl;
-				if (ent[i + 3] == 'п' && ent[i + 4] == 'і' && ent[i + 5] == 'д') cout << "Префікс (2): під" << endl;
-				if (ent[i + 3] == 'п' && ent[i + 4] == 'р' && ent[i + 5] == 'е') cout << "Префікс (2): пре" << endl;
-				if (ent[i + 3] == 'п' && ent[i + 4] == 'р' && ent[i + 5] == 'и') cout << "Префікс (2): при" << endl;
+				if (ent[i + 3] == 'СЂ' && ent[i + 4] == 'Рѕ' && ent[i + 5] == 'Р·') cout << "РџСЂРµС„С–РєСЃ (2): СЂРѕР·" << endl;
+				if (ent[i + 3] == 'РІ' && ent[i + 4] == 'С–' && ent[i + 5] == 'Рґ') cout << "РџСЂРµС„С–РєСЃ (2): РІС–Рґ" << endl;
+				if (ent[i + 3] == 'Рї' && ent[i + 4] == 'С–' && ent[i + 5] == 'Рґ') cout << "РџСЂРµС„С–РєСЃ (2): РїС–Рґ" << endl;
+				if (ent[i + 3] == 'Рї' && ent[i + 4] == 'СЂ' && ent[i + 5] == 'Рµ') cout << "РџСЂРµС„С–РєСЃ (2): РїСЂРµ" << endl;
+				if (ent[i + 3] == 'Рї' && ent[i + 4] == 'СЂ' && ent[i + 5] == 'Рё') cout << "РџСЂРµС„С–РєСЃ (2): РїСЂРё" << endl;
 			}
 			return false;
 		}
-		else if (ent[i] == 'р' && ent[i + 1] == 'о' && ent[i + 2] == 'з') return true;
-		else if (ent[i] == 'ч' && ent[i + 1] == 'е' && ent[i + 2] == 'р' && ent[i + 3] == 'е' && ent[i + 4] == 'з') return true;
-		else if (ent[i] == 'в' && ent[i + 1] == 'і' && ent[i + 2] == 'д') return true;
-		else if (ent[i] == 'о' && ent[i + 1] == 'д') return true;
-		else if (ent[i] == 'м' && ent[i + 1] == 'і' && ent[i + 2] == 'ж') return true;
-		else if (ent[i] == 'н' && ent[i + 1] == 'а' && ent[i + 2] == 'д') return true;
-		else if (ent[i] == 'о' && ent[i + 1] == 'б') return true;
-		else if (ent[i] == 'п' && ent[i + 1] == 'е' && ent[i + 2] == 'р' && ent[i + 3] == 'е' && ent[i + 4] == 'д') return true;
-		else if (ent[i] == 'п' && ent[i + 1] == 'і' && ent[i + 2] == 'д') return true;
-		else if (ent[i] == 'п' && ent[i + 1] == 'о' && ent[i + 2] == 'н' && ent[i + 3] == 'а' && ent[i + 4] == 'д') return true;
-		else if (ent[i] == 'п' && ent[i + 1] == 'р' && ent[i + 2] == 'е' && ent[i + 3] == 'д') return true;
-		else if (ent[i] == 'ч' && ent[i + 1] == 'е' && ent[i + 2] == 'р' && ent[i + 3] == 'е' && ent[i + 4] == 'з') return true;
-		else if (ent[i] == 'п' && ent[i + 1] == 'р' && ent[i + 2] == 'е') return true;
-		else if (ent[i] == 'п' && ent[i + 1] == 'р' && ent[i + 2] == 'и') return true;
-		else if (ent[i] == 'п' && ent[i + 1] == 'р' && ent[i + 2] == 'і') return true;
-		else if (ent[i] == 'а' && ent[i + 1] == 'р' && ent[i + 2] == 'х' && ent[i + 3] == 'і') return true;
-		else if (ent[i] == 'з' && ent[i + 1] == 'і') return true;
-		else if (ent[i] == 'з' && ent[i + 1] == 'о') return true;
-		else if (ent[i] == 'і' && ent[i + 1] == 'з') return true;
-		else if (ent[i] == 'з') return true;
-		else if (ent[i] == 'с') return true;
-		else cout << "Префікса немає" << endl;
+		else if (ent[i] == 'СЂ' && ent[i + 1] == 'Рѕ' && ent[i + 2] == 'Р·') return true;
+		else if (ent[i] == 'С‡' && ent[i + 1] == 'Рµ' && ent[i + 2] == 'СЂ' && ent[i + 3] == 'Рµ' && ent[i + 4] == 'Р·') return true;
+		else if (ent[i] == 'РІ' && ent[i + 1] == 'С–' && ent[i + 2] == 'Рґ') return true;
+		else if (ent[i] == 'Рѕ' && ent[i + 1] == 'Рґ') return true;
+		else if (ent[i] == 'Рј' && ent[i + 1] == 'С–' && ent[i + 2] == 'Р¶') return true;
+		else if (ent[i] == 'РЅ' && ent[i + 1] == 'Р°' && ent[i + 2] == 'Рґ') return true;
+		else if (ent[i] == 'Рѕ' && ent[i + 1] == 'Р±') return true;
+		else if (ent[i] == 'Рї' && ent[i + 1] == 'Рµ' && ent[i + 2] == 'СЂ' && ent[i + 3] == 'Рµ' && ent[i + 4] == 'Рґ') return true;
+		else if (ent[i] == 'Рї' && ent[i + 1] == 'С–' && ent[i + 2] == 'Рґ') return true;
+		else if (ent[i] == 'Рї' && ent[i + 1] == 'Рѕ' && ent[i + 2] == 'РЅ' && ent[i + 3] == 'Р°' && ent[i + 4] == 'Рґ') return true;
+		else if (ent[i] == 'Рї' && ent[i + 1] == 'СЂ' && ent[i + 2] == 'Рµ' && ent[i + 3] == 'Рґ') return true;
+		else if (ent[i] == 'С‡' && ent[i + 1] == 'Рµ' && ent[i + 2] == 'СЂ' && ent[i + 3] == 'Рµ' && ent[i + 4] == 'Р·') return true;
+		else if (ent[i] == 'Рї' && ent[i + 1] == 'СЂ' && ent[i + 2] == 'Рµ') return true;
+		else if (ent[i] == 'Рї' && ent[i + 1] == 'СЂ' && ent[i + 2] == 'Рё') return true;
+		else if (ent[i] == 'Рї' && ent[i + 1] == 'СЂ' && ent[i + 2] == 'С–') return true;
+		else if (ent[i] == 'Р°' && ent[i + 1] == 'СЂ' && ent[i + 2] == 'С…' && ent[i + 3] == 'С–') return true;
+		else if (ent[i] == 'Р·' && ent[i + 1] == 'С–') return true;
+		else if (ent[i] == 'Р·' && ent[i + 1] == 'Рѕ') return true;
+		else if (ent[i] == 'С–' && ent[i + 1] == 'Р·') return true;
+		else if (ent[i] == 'Р·') return true;
+		else if (ent[i] == 'СЃ') return true;
+		else cout << "РџСЂРµС„С–РєСЃР° РЅРµРјР°С”" << endl;
 	}
 	return true;
 }
 void other_check(TString geti) {
 	TString get = geti;
-	if (get == "без" || get == "роз" || get == "через" || get == "від" || get == "од" || get == "між" || get == "над" || get == "об"
-		|| get == "перед" || get == "під" || get == "понад" || get == "пред" || get == "через"
-		|| get == "пре" || get == "при" || get == "прі" || get == "архі" || get == "зі" || get == "зо" || get == "із"
-		|| get == "з" || get == "с") {
+	if (get == "Р±РµР·" || get == "СЂРѕР·" || get == "С‡РµСЂРµР·" || get == "РІС–Рґ" || get == "РѕРґ" || get == "РјС–Р¶" || get == "РЅР°Рґ" || get == "РѕР±"
+		|| get == "РїРµСЂРµРґ" || get == "РїС–Рґ" || get == "РїРѕРЅР°Рґ" || get == "РїСЂРµРґ" || get == "С‡РµСЂРµР·"
+		|| get == "РїСЂРµ" || get == "РїСЂРё" || get == "РїСЂС–" || get == "Р°СЂС…С–" || get == "Р·С–" || get == "Р·Рѕ" || get == "С–Р·"
+		|| get == "Р·" || get == "СЃ") {
 	}
 	else {
-		cout << "Такого префікса не існує";
+		cout << "РўР°РєРѕРіРѕ РїСЂРµС„С–РєСЃР° РЅРµ С–СЃРЅСѓС”";
 		exit(0);
 	}
 }
 void EnterChar() {
 	TString pref = "p", corin = "c", suf = "s", ending = "e";
 	int number_pref;
-	cout << "Скільки префіксів? (0-3): ";
+	cout << "РЎРєС–Р»СЊРєРё РїСЂРµС„С–РєСЃС–РІ? (0-3): ";
 	cin >> number_pref;
 	if (number_pref == 1) {
-		cout << "Префікс: ";
+		cout << "РџСЂРµС„С–РєСЃ: ";
 		cin >> pref;
 		other_check(pref);
 	}
 	else if (number_pref == 2) {
 		TString pref1;
-		cout << "Префікс (1): ";
+		cout << "РџСЂРµС„С–РєСЃ (1): ";
 		cin >> pref;
 		other_check(pref);
-		cout << "Префікс (2): ";
+		cout << "РџСЂРµС„С–РєСЃ (2): ";
 		cin >> pref1;
 		other_check(pref1);
 		pref += pref1;
 	}
 	else if (number_pref == 3) {
 		TString pref1, pref2;
-		cout << "Префікс (1): ";
+		cout << "РџСЂРµС„С–РєСЃ (1): ";
 		cin >> pref;
 		other_check(pref);
-		cout << "Префікс (2): ";
+		cout << "РџСЂРµС„С–РєСЃ (2): ";
 		cin >> pref1;
 		other_check(pref1);
-		cout << "Префікс (3): ";
+		cout << "РџСЂРµС„С–РєСЃ (3): ";
 		cin >> pref2;
 		other_check(pref2);
 		pref += pref1 + pref2;
 	}
-	cout << "Корінь: ";
+	cout << "РљРѕСЂС–РЅСЊ: ";
 	cin >> corin;
 	if (corin == "p") {
-		cout << "У слово має бути хоча б один корінь";
+		cout << "РЈ СЃР»РѕРІРѕ РјР°С” Р±СѓС‚Рё С…РѕС‡Р° Р± РѕРґРёРЅ РєРѕСЂС–РЅСЊ";
 		return EnterChar();
 	}
-	cout << "Суфікс: ";
+	cout << "РЎСѓС„С–РєСЃ: ";
 	cin >> suf;
-	cout << "Закінчення: ";
+	cout << "Р—Р°РєС–РЅС‡РµРЅРЅСЏ: ";
 	cin >> ending;
-	if (number_pref == 0) cout << "Слово: " << corin << suf << ending << endl;
-	else cout << "Слово: " << pref << corin << suf << ending << endl;
+	if (number_pref == 0) cout << "РЎР»РѕРІРѕ: " << corin << suf << ending << endl;
+	else cout << "РЎР»РѕРІРѕ: " << pref << corin << suf << ending << endl;
 }
 void ReloadSlovo(TString slovo) {
 	TString word = slovo;
@@ -287,17 +287,17 @@ int main(int argc, char* argv[]) {
 	setlocale(LC_ALL, "Rus");
 	SetConsole();
 	TString text, text1, t1, slovo;
-	cout << "Текст: ";
+	cout << "РўРµРєСЃС‚: ";
 	getline(cin, text);
-	cout << "Розбиття: " << Processing(text) << endl;
+	cout << "Р РѕР·Р±РёС‚С‚СЏ: " << Processing(text) << endl;
 	cout << "-----------------------------------------" << endl;
-	cout << "Текст: ";
+	cout << "РўРµРєСЃС‚: ";
 	getline(cin, text1);
 	remove_copy(text1.begin(), text1.end(), back_inserter(t1), '-');
-	cout << "Злиття: " << t1 << endl;
+	cout << "Р—Р»РёС‚С‚СЏ: " << t1 << endl;
 	cout << "-----------------------------------------" << endl;
 	EnterChar();
-	cout << "Слово для виведення по частинах: ";
+	cout << "РЎР»РѕРІРѕ РґР»СЏ РІРёРІРµРґРµРЅРЅСЏ РїРѕ С‡Р°СЃС‚РёРЅР°С…: ";
 	cin >> slovo;
 	ReloadSlovo(slovo);
 	system("pause");

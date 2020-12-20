@@ -1,5 +1,5 @@
 #include "../headers/Data_Comparison_Falendysh.h"
-
+//Консольное создание первой структуры
 struct res create()
 {
     int size;
@@ -25,7 +25,7 @@ struct res create()
     return Arrays;
 }
 
-
+//Консольное создание второй структуры
 struct res1 create1()
 {
     int size1;
@@ -50,7 +50,7 @@ struct res1 create1()
 
     return Arrays1;
 }
-
+//Консольное создание третьей структуры
 struct res2 create2()
 {
     int size;
@@ -80,7 +80,7 @@ struct res2 create2()
 
     return Arrays2;
 }
-
+//Файловое создание первой структуры
 struct res data_from_txt()
 {
     struct res Arrays;
@@ -107,7 +107,7 @@ struct res data_from_txt()
     }
     return Arrays;
 }
-
+//Файловое создание второй структуры
 struct res1 data_from_txt1()
 {
     struct res1 Arrays1;
@@ -134,7 +134,7 @@ struct res1 data_from_txt1()
     }
     return Arrays1;
 }
-
+//Файловое создание третьей структуры
 struct res2 data_from_txt2()
 {
     struct res2 Arrays2;
@@ -165,7 +165,7 @@ struct res2 data_from_txt2()
     Arrays2.R2clone2 = (double*)malloc((Arrays2.n)*sizeof(double));
     return Arrays2;
 }
-
+//Расстояние между результатами
 int dist(struct res Arrays)
 {
     int evkl = 0;
@@ -176,7 +176,7 @@ int dist(struct res Arrays)
     evkl = sqrt(evkl);
     return evkl;
 }
-
+//Корреляция результатов
 int corr(struct res Arrays)
 {
     double R1Av = 0, R2Av = 0, cov = 0, sx = 0, sy = 0, kcor;
@@ -201,7 +201,7 @@ int corr(struct res Arrays)
     return kcor;
 }
 
-
+//True Positive
 void TP(struct res1 Arrays1, FILE* file)
 {
     for (int i = 0; i < Arrays1.n; i++)
@@ -218,7 +218,7 @@ void TP(struct res1 Arrays1, FILE* file)
         }
     }
 }
-
+//True Negative
 void TN(struct res1 Arrays1, FILE* file)
 {
     for (int i = 0; i < Arrays1.n; i++)
@@ -236,7 +236,7 @@ void TN(struct res1 Arrays1, FILE* file)
     }
 }
 
-
+//False Positive
 void FP(struct res1 Arrays1, FILE* file)
 {
     for (int i = 0; i < Arrays1.n; i++)
@@ -254,7 +254,7 @@ void FP(struct res1 Arrays1, FILE* file)
     }
 }
 
-
+//False Negative
 void FN(struct res1 Arrays1, FILE* file)
 {
     for (int i = 0; i < Arrays1.n; i++)
@@ -271,7 +271,7 @@ void FN(struct res1 Arrays1, FILE* file)
         }
     }
 }
-
+//True Positive Rate
 int TPR(struct res1 Arrays1)
 {
     int tp = 0, ay = 0, tpr;
@@ -289,7 +289,7 @@ int TPR(struct res1 Arrays1)
     tpr = tp / ay;
     return tpr;
 }
-
+//False Positive Rate
 int FPR(struct res1 Arrays1)
 {
     int fp = 0, an = 0, fpr;
@@ -307,7 +307,7 @@ int FPR(struct res1 Arrays1)
     fpr = fp / an;
     return fpr;
 }
-
+//Accuracy
 int ACC(struct res1 Arrays1)
 {
     int tp = 0, tn = 0, acc;
@@ -325,7 +325,7 @@ int ACC(struct res1 Arrays1)
     acc = (tp + tn) / (Arrays1.n);
     return acc;
 }
-
+//Positive predictive value
 int PPV(struct res1 Arrays1)
 {
     int tp = 0, fp = 0, ppv;
@@ -343,7 +343,7 @@ int PPV(struct res1 Arrays1)
     ppv = (tp) / (tp + fp);
     return ppv;
 }
-
+//Negative predictive value
 int NPV(struct res1 Arrays1)
 {
     int tn = 0, fn = 0, npv;
@@ -361,7 +361,7 @@ int NPV(struct res1 Arrays1)
     npv = (tn) / (tn + fn);
     return npv;
 }
-
+//False Negative Rate
 int FNR(struct res1 Arrays1)
 {
     int fn = 0, ay = 0, fnr;
@@ -379,7 +379,7 @@ int FNR(struct res1 Arrays1)
     fnr = fn / ay;
     return fnr;
 }
-
+//False discovery rate
 int FDR(struct res1 Arrays1)
 {
     int fp = 0, tp = 0, fdr;
@@ -397,7 +397,7 @@ int FDR(struct res1 Arrays1)
     fdr = (fp) / (fp + tp);
     return fdr;
 }
-
+//False omission rate
 int FOR(struct res1 Arrays1)
 {
     int fn = 0, tn = 0, forr;
@@ -415,7 +415,7 @@ int FOR(struct res1 Arrays1)
     forr = (fn) / (fn + tn);
     return forr;
 }
-
+//F1 score
 int F1(struct res1 Arrays1)
 {
     int fp = 0, tp = 0, fn = 0, f1;
@@ -440,7 +440,7 @@ int F1(struct res1 Arrays1)
     free(Arrays1.R2);
     return f1;
 }
-
+//Первое распределение
 double func_distr(struct res2 Arrays2)
 {
     for (int i = 0; i < Arrays2.n; i++)
@@ -450,7 +450,7 @@ double func_distr(struct res2 Arrays2)
     }
     return 0;
 }
-
+//Второе распределение
 double func_loss(struct res2 Arrays2)
 {
     for (int i = 0; i < Arrays2.n; i++)
@@ -461,7 +461,7 @@ double func_loss(struct res2 Arrays2)
     return 0;
 }
 
-
+//Расстояние между результатами после использования первого распределения
 double dist_f(struct res2 Arrays2)
 {
     double distf = 0;
@@ -472,7 +472,7 @@ double dist_f(struct res2 Arrays2)
     distf = sqrt(distf);
     return distf;
 }
-
+//Расстояние между результатами после использования второго распределения
 double loss(struct res2 Arrays2)
 {
     double loss = 0;
@@ -483,7 +483,7 @@ double loss(struct res2 Arrays2)
     loss = sqrt(loss);
     return loss;
 }
-
+//Расстояние между результатами после использования первого и второго распределения
 void dist_f_loss(struct res2 Arrays2, FILE* file)
 {
     double dist1 = 0;

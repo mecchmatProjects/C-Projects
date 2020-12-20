@@ -7,21 +7,21 @@
 #define FALSE 0
 #ifndef MAIN_C_DATA_COMPARISON_FALENDYSH_H
 #define MAIN_C_DATA_COMPARISON_FALENDYSH_H
-struct res
+struct res  //Первая структура для методов dist и corr
 {
     size_t n;
     int* R1;
     int* R2;
 };
 
-struct res1
+struct res1  //Вторая структура для матрицы путаницы
 {
     size_t n;
     int* R1;
     int* R2;
 };
 
-struct res2
+struct res2  //Третья структура для методов распределения
 {
     size_t n;
     double* R1;

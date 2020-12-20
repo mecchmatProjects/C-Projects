@@ -235,8 +235,8 @@ IType Histogram_numbers_input_test1()
     printf("\n");
     printf("function 'addNumber'\n");
     printf("\n");
-    printf("add number '-0.6' to Histogram that belong Histogram range [-2.5, 2.5]\n");
-    H.addNumber(-0.6, "not_change");
+    printf("add number '0.6' to Histogram that belong Histogram range [0, 5]\n");
+    H.addNumber(0.6, "not_change");
     printf("your Histogram\n");
     H.output_Histogram(0, 5, 2);
 
@@ -248,7 +248,7 @@ IType Histogram_numbers_input_test1()
     //
 
     printf("\n");
-    printf("add number '-2.6' (without changing Histogram) to Histogram, number is not belong Histogram range [-2.5, 2.5]\n");
+    printf("add number '-2.6' (without changing Histogram) to Histogram, number is not belong Histogram range [0, 5]\n");
     H.addNumber(-2.6, "not_change");
     printf("your Histogram\n");
     H.output_Histogram(0, 5, 2);
@@ -261,7 +261,7 @@ IType Histogram_numbers_input_test1()
     //
 
     printf("\n");
-    printf("add number '-2.6' (with changing Histogram) to Histogram, number is not belong Histogram range [-2.5, 2.5]\n");
+    printf("add number '-2.6' (with changing Histogram) to Histogram, number is not belong Histogram range [0, 5]\n");
     H.addNumber(-2.6, "change");
     printf("your Histogram\n");
     H.output_Histogram(0, 5, 2);
@@ -274,7 +274,7 @@ IType Histogram_numbers_input_test1()
     //
 
     printf("\n");
-    printf("addbatch (numbers) {-2.7, 3.4, -1.4} (without changing Histogram) to Histogram, Histogram range [-2.5, 2.5]\n");
+    printf("addbatch (numbers) {-2.7, 3.4, -1.4} (without changing Histogram) to Histogram, Histogram range [-2.6, 5]\n");
     DType numbers[] = {-2.7, 3.4, -1.4};
     H.addbatch(numbers, 3, "not_change");
     printf("your Histogram\n");
@@ -288,7 +288,7 @@ IType Histogram_numbers_input_test1()
     //
 
     printf("\n");
-    printf("addbatch (numbers) {-2.5, -1.4, -0.45, 2.5} (with changing Histogram) to Histogram, Histogram range [-2.5, 2.5]\n");
+    printf("addbatch (numbers) {-2.5, -1.4, -0.45, 2.5} (with changing Histogram) to Histogram, Histogram range [-2.6, 5]\n");
     DType numbers1[] = {-2.5, -1.4, -0.45, 2.5};
     H.addbatch(numbers1, 4, "change");
     printf("your Histogram\n");

@@ -2,7 +2,7 @@
 #include "../Data_Comparison_Falendysh/Header.h"
 
 using namespace std;
-
+//Создание первой структуры(для методов dist и corr).
 res create()
 {
     int size;
@@ -14,17 +14,17 @@ res create()
 
     for (int i = 0; i < size; i++)
     {
-        cout << "R1 elem � " << i + 1 << " = "; cin >> Arrays.R1[i];
+        cout << "R1 elem ¹ " << i + 1 << " = "; cin >> Arrays.R1[i];
     }
 
     for (int j = 0; j < size; j++)
     {
-        cout << "R2 elem � " << j + 1 << " = "; cin >> Arrays.R2[j];
+        cout << "R2 elem ¹ " << j + 1 << " = "; cin >> Arrays.R2[j];
     }
     return Arrays;
 }
 
-
+//Создание второй структуры(для матрицы путаницы).
 res1 create1()
 {
     int size;
@@ -36,17 +36,17 @@ res1 create1()
 
     for (int i = 0; i < size; i++)
     {
-        cout << "R1 elem � " << i + 1 << " = "; cin >> Arrays1.R1[i];
+        cout << "R1 elem ¹ " << i + 1 << " = "; cin >> Arrays1.R1[i];
     }
 
     for (int j = 0; j < size; j++)
     {
-        cout << "R2 elem � " << j + 1 << " = "; cin >> Arrays1.R2[j];
+        cout << "R2 elem ¹ " << j + 1 << " = "; cin >> Arrays1.R2[j];
     }
 
     return Arrays1;
 }
-
+//Создание третьей структуры(для методов распределения).
 res2 create2()
 {
     int size;
@@ -58,12 +58,12 @@ res2 create2()
 
     for (int i = 0; i < size; i++)
     {
-        cout << "R1 elem � " << i + 1 << " = "; cin >> Arrays2.R1[i];
+        cout << "R1 elem ¹ " << i + 1 << " = "; cin >> Arrays2.R1[i];
     }
 
     for (int j = 0; j < size; j++)
     {
-        cout << "R2 elem � " << j + 1 << " = "; cin >> Arrays2.R2[j];
+        cout << "R2 elem ¹ " << j + 1 << " = "; cin >> Arrays2.R2[j];
     }
 
     Arrays2.R1clone1 = new double[size];
@@ -72,7 +72,7 @@ res2 create2()
     Arrays2.R2clone2 = new double[size];
     return Arrays2;
 }
-
+//Чтение первой структуры из файла.
 res data_from_txt()
 {
     res Arrays;
@@ -94,7 +94,7 @@ res data_from_txt()
     }
     return Arrays;
 }
-
+//Чтение второй структуры из файла.
 res1 data_from_txt1()
 {
     res1 Arrays1;
@@ -116,7 +116,7 @@ res1 data_from_txt1()
     }
     return Arrays1;
 }
-
+//Чтение третьей структуры из файла.
 res2 data_from_txt2()
 {
     res2 Arrays2;
@@ -143,7 +143,7 @@ res2 data_from_txt2()
     Arrays2.R2clone2 = new double[Arrays2.n];
     return Arrays2;
 }
-
+//Метод подсчета расстояния между результатами.
 int dist(res Arrays)
 {
     int evkl = 0;
@@ -154,7 +154,7 @@ int dist(res Arrays)
     evkl = sqrt(evkl);
     return evkl;
 }
-
+//Метод корреляции.
 int corr(res Arrays)
 {
     float R1Av = 0.0, R2Av = 0.0, cov = 0.0, sx = 0.0, sy = 0.0, kcor;
@@ -179,7 +179,7 @@ int corr(res Arrays)
     return kcor;
 }
 
-
+//True Positive
 void TP(res1 Arrays1, FILE* file)
 {
     for (int i = 0; i < Arrays1.n; i++)
@@ -196,7 +196,7 @@ void TP(res1 Arrays1, FILE* file)
         }
     }
 }
-
+//True Negative
 void TN(res1 Arrays1, FILE* file)
 {
     for (int i = 0; i < Arrays1.n; i++)
@@ -214,7 +214,7 @@ void TN(res1 Arrays1, FILE* file)
     }
 }
 
-
+//False Positive
 void FP(res1 Arrays1, FILE* file)
 {
     for (int i = 0; i < Arrays1.n; i++)
@@ -232,7 +232,7 @@ void FP(res1 Arrays1, FILE* file)
     }
 }
 
-
+//False Negative
 void FN(res1 Arrays1, FILE* file)
 {
     for (int i = 0; i < Arrays1.n; i++)
@@ -249,7 +249,7 @@ void FN(res1 Arrays1, FILE* file)
         }
     }
 }
-
+//True Positive Rate
 int TPR(res1 Arrays1)
 {
     int tp = 0, ay = 0, tpr;
@@ -267,7 +267,7 @@ int TPR(res1 Arrays1)
     tpr = tp / ay;
     return tpr;
 }
-
+//False Positive Rate
 int FPR(res1 Arrays1)
 {
     int fp = 0, an = 0, fpr;
@@ -285,7 +285,7 @@ int FPR(res1 Arrays1)
     fpr = fp / an;
     return fpr;
 }
-
+//Accuracy
 int ACC(res1 Arrays1)
 {
     int tp = 0, tn = 0, acc;
@@ -303,7 +303,7 @@ int ACC(res1 Arrays1)
     acc = (tp + tn) / (Arrays1.n);
     return acc;
 }
-
+//Positive predictive value
 int PPV(res1 Arrays1)
 {
     int tp = 0, fp = 0, ppv;
@@ -321,7 +321,7 @@ int PPV(res1 Arrays1)
     ppv = (tp) / (tp + fp);
     return ppv;
 }
-
+//Negative predictive value
 int NPV(res1 Arrays1)
 {
     int tn = 0, fn = 0, npv;
@@ -339,7 +339,7 @@ int NPV(res1 Arrays1)
     npv = (tn) / (tn + fn);
     return npv;
 }
-
+//False negative rate
 int FNR(res1 Arrays1)
 {
     int fn = 0, ay = 0, fnr;
@@ -357,7 +357,7 @@ int FNR(res1 Arrays1)
     fnr = fn / ay;
     return fnr;
 }
-
+//False discovery rate
 int FDR(res1 Arrays1)
 {
     int fp = 0, tp = 0, fdr;
@@ -375,7 +375,7 @@ int FDR(res1 Arrays1)
     fdr = (fp) / (fp + tp);
     return fdr;
 }
-
+//False omission rate
 int FOR(res1 Arrays1)
 {
     int fn = 0, tn = 0, forr;
@@ -393,7 +393,7 @@ int FOR(res1 Arrays1)
     forr = (fn) / (fn + tn);
     return forr;
 }
-
+//F1 score
 int F1(res1 Arrays1)
 {
     int fp = 0, tp = 0, fn = 0, f1;
@@ -418,7 +418,7 @@ int F1(res1 Arrays1)
     delete[] Arrays1.R2;
     return f1;
 }
-
+//Первый метод распределения
 double func_distr(res2 Arrays2)
 {
     for (int i = 0; i < Arrays2.n; i++)
@@ -428,7 +428,7 @@ double func_distr(res2 Arrays2)
     }
     return 0;
 }
-
+//Второй метод распределения
 double func_loss(res2 Arrays2)
 {
     for (int i = 0; i < Arrays2.n; i++)
@@ -439,7 +439,7 @@ double func_loss(res2 Arrays2)
     return 0;
 }
 
-
+//Расстояние между результатами после использования первого распределения
 double dist_f(struct res2 Arrays2)
 {
     double distf = 0;
@@ -450,7 +450,7 @@ double dist_f(struct res2 Arrays2)
     distf = sqrt(distf);
     return distf;
 }
-
+//Расстояние между результатами после использования второго распределения
 double loss(struct res2 Arrays2)
 {
     double loss = 0;
@@ -461,7 +461,7 @@ double loss(struct res2 Arrays2)
     loss = sqrt(loss);
     return loss;
 }
-
+//Расстояние между результатами после использования первого и второго распределения
 void distfloss(struct res2 Arrays2, FILE* file)
 {
     double dist1 = 0;

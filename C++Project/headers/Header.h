@@ -1,20 +1,20 @@
 #ifndef ABC
 #define ABC
-
+//Структура для методов dist() и corr().
 struct res
 {
     size_t n;
     int* R1;
     int* R2;
 };
-
+//Структруа для матрицы путаницы.
 struct res1
 {
     size_t n;
     bool* R1;
     bool* R2;
 };
-
+//Структура для методов распределения
 struct res2
 {
     size_t n;

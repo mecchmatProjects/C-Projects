@@ -109,7 +109,12 @@ DType sphere_volume_Monte_Carlo_Random2D(Random2D* self, NType N, FILE* fout) {
     return vol;
 }
 
-void print_Random2D(FILE* fout, const char* text, double num) {
+void print_integer_Random2D(FILE* fout, const char* text, int num) {
+    printf(text, num);
+    fprintf(fout, text, num);
+}
+
+void print_double_Random2D(FILE* fout, const char* text, double num) {
     printf(text, num);
     fprintf(fout, text, num);
 }

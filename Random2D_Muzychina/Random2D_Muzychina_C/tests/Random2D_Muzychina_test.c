@@ -8,7 +8,6 @@ Date 09.12.2020 */
 // g++ Random2D_Muzychina_test.c ../src/Random2D_Muzychina.c -o test
 // test.exe
 
-
 int main() {
     // srand(time(NULL));
     Random2D test;

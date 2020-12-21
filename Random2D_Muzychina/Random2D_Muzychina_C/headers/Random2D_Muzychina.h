@@ -37,6 +37,8 @@ DType correlationCoefficient(DType* X, DType* Y, NType n, FILE* fout);
 
 DType sphere_volume_Monte_Carlo_Random2D(Random2D* self, NType N, FILE* fout);
 
-void print_Random2D(FILE* fout, const char* text, double num);
+void print_integer_Random2D(FILE* fout, const char* text, int num);
+
+void print_double_Random2D(FILE* fout, const char* text, double num);
 
 #endif

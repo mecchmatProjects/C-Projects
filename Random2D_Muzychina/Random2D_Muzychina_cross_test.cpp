@@ -3,14 +3,14 @@ Realization of cross test for Random2D (32) (C++)
 Done by Anna Muzychina (group comp. mat. 2)
 Date 09.12.2020 */
 
-#include<iostream>
-#include<fstream>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
 
 // Запустите тестовые файлы программ на С и С++ перед этим тестом
-int main(){
+int main() {
     ifstream cpp_output;
     ifstream c_output;
     cpp_output.open("Random2D_Muzychina_CPP/tests/output.txt");

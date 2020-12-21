@@ -10,7 +10,7 @@ Date 09.12.2020 */
 
 
 int main() {
-    srand(time(NULL));
+    // srand(time(NULL));
     Random2D test;
     generate_numbers_Random2D(&test);
     char c;

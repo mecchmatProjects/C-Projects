@@ -9,7 +9,7 @@ Date 09.12.2020 */
 // test.exe
 
 int main() {
-    srand(time(NULL));
+    // srand(time(NULL));
     Random2D test;
     char c;
     NType n = 0, m = 0;

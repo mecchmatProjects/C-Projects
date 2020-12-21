@@ -26,10 +26,10 @@ int main() {
     }
 
     FILE* fout = fopen("output.txt", "w");
-    print_Random2D(fout, "Next s_n: %u\n", next_s_n_Random2D(&test));
-    print_Random2D(fout, "Next r_n: %lf\n", next_r_n_Random2D(&test));
-    print_Random2D(fout, "Random integer: %i\n", generate_integer_Random2D(&test));
-    print_Random2D(fout, "Random real: %lf\n", generate_real_Random2D(&test));
+    print_integer_Random2D(fout, "Next s_n: %u\n", next_s_n_Random2D(&test));
+    print_double_Random2D(fout, "Next r_n: %lf\n", next_r_n_Random2D(&test));
+    print_integer_Random2D(fout, "Random integer: %i\n", generate_integer_Random2D(&test));
+    print_double_Random2D(fout, "Random real: %lf\n", generate_real_Random2D(&test));
     DType* v1_large = generate_vector_Random2D(&test, 1000);
     DType* v2_large = generate_vector_Random2D(&test, 1000);
     correlationCoefficient(v1_large, v2_large, 1000, fout);

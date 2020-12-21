@@ -10,21 +10,18 @@ using namespace std;
 
 
 // Запустите тестовые файлы программ на С и С++ перед этим тестом
-int main() {
+int main(){
     ifstream cpp_output;
     ifstream c_output;
     cpp_output.open("Random2D_Muzychina_CPP/tests/output.txt");
     c_output.open("Random2D_Muzychina_C/tests/output.txt");
     string cpp_line, c_line;
-    cout << "Result of the C++ program:" << endl;
     for (int i = 0; i < 9; i++) {
         getline(cpp_output, cpp_line);
-        cout << cpp_line << endl;
-    }
-    cout << "\nResult of the C program:" << endl;
-    for (int i = 0; i < 9; i++) {
         getline(c_output, c_line);
+        cout << cpp_line << endl;
         cout << c_line << endl;
+        cout << (cpp_line == c_line) << endl;
     }
     cpp_output.close();
     c_output.close();

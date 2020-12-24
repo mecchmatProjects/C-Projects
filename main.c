@@ -1,105 +1,64 @@
-#include <stdio.h>
-#include "headers/BigNumbers.h"
-
+#include "bigfloat.h"
+#define d "0.0"
 
 int main() {
 
-    SYMBOL *ans = (SYMBOL*) malloc(sizeof(SYMBOL));
-    printf("Do you want to load numbers from the input file?(y/n)\n--> ");
-    fgets(ans, 10, stdin);
-    BigInteger *num1;
-    BigInteger *num2;
+    printf("Please, enter the first Big Float number:  \n");
+    char line1[1024];
+    scanf("%1023[^\n]", line1);
+    getchar();
+    printf("Please, enter the second Big Float number:  \n");
+    char line2[1024];
+    scanf("%1023[^\n]", line2);
+    getchar();
+    printf("Please, enter the third Big Float number:  \n");
+    char line3[100];
 
-    if (ans[0] == 'y' || ans[0] == 'Y'){
-        FILE *file = fopen("../input.txt", "r");
-        if (file == NULL){
-            printf("Couldn't open the file. Exiting..");
-            exit(1);
-        }
-        num1 = readBigInt(file);
-        num2 = readBigInt(file);
-        fclose(file);
-    } else {
-        printf("please, enter 2 big numbers each at the new line:\n--> ");
-        num1 = inputBigInt();
-        printf("--> ");
-        num2 = inputBigInt();
+    //scanf("%1023[^\n]", line3);
+   // printf("\n");
+
+    BigFloat *X, *Y, *Z, *res1, *res2;
+
+    X = create(line1);
+    Y = create(line2);
+    Z = create(d);
+    read_from_file(line3);
+    Z = create(line3);
+    print(Z);
+
+    write_to_file(X);
+
+    res1 = create(d);
+    res2 = create(d);
+
+    printf("\n");
+    if (compare(X,Y) > 0){ // X>Y ?
+        printf("Yes\n\n");
     }
 
-    BigInteger *res_add = add(num1, num2);
+   printf("Solve the Linear Equation in One Variable for three Big Float numbers:  \n");
+    solve_y(X, Y, Z);
+   printf("\n");
 
-    print(num1);
-    print(num2);
-    printf("addition:\n");
-    print(res_add);
+   printf("Solve the quadratic equation: \n");
+   quadratic_equation(X, Y, Z);
+   printf("\n");
 
-    BigInteger *res_sub = sub(num1, num2);
-    printf("subtraction:\n");
-    print(res_sub);
+    printf("\n");
+    add(X,Y,res1);
+    printf("Sum of two Big Float numbers:  \n");
+    print(res1);
+    printf("\n");
 
-    BigInteger *res_mul = mul(num1, num2);
-    printf("multiplication:\n");
-    print(res_mul);
+    multiply(X,Y,res2);
+    printf("Multiplication of two Big Float numbers:  \n");
+    print(res2);
+    printf("\n");
 
-    BigInteger *res_div = divide(num1, num2);
-    printf("division:\n");
-    print(res_div);
-
-    BigInteger *tmp = mul(res_div, num2);
-    BigInteger *remainder = sub(num1, tmp);
-    printf("remainder:\n");
-    print(remainder);
-
-    BigInteger **res_xgcd = xgcd(num1, num2);
-    printf("gcd(a, b) = xa + yb\n");
-
-    printf("gcd(a, b):\n");
-    print(gcd(num1, num2));
-    printf("x:\n");
-    print(res_xgcd[0]);
-    printf("y\n");
-    print(res_xgcd[1]);
-
-    printf("lcm(a, b):\n");
-    print(lcm(num1, num2));
-
-    printf("please, enter the number in binary system:\n--> ");
-    BigInteger *num3 = inputAnyBigInt(2);
-    print(num3);
-
-    printf("please, enter the number in hexadecimal system:\n--> ");
-    BigInteger *num4 = inputAnyBigInt(16);
-    print(num4);
-
-    FILE *ofile = fopen("../output.txt", "w");
-    if (ofile == NULL){
-        printf("Couldn't open output file");
-        return 0;
-    } else {
-        printf("please, wait, saving the output to the outfile...");
-        fprint(ofile, num1);
-        fprint(ofile, num2);
-        fprintf(ofile, "addition:\n");
-        fprint(ofile, res_add);
-        fprintf(ofile, "subtraction:\n");
-        fprint(ofile, res_sub);
-        fprintf(ofile, "multiplication:\n");
-        fprint(ofile, res_mul);
-        fprintf(ofile, "division:\n");
-        fprint(ofile, res_div);
-
-        fprintf(ofile, "gcd(a, b) = xa + yb\n");
-
-        fprintf(ofile, "gcd(a, b):\n");
-        fprint(ofile, gcd(num1, num2));
-        fprintf(ofile, "x:\n");
-        fprint(ofile, res_xgcd[0]);
-        fprintf(ofile, "y\n");
-        fprint(ofile, res_xgcd[1]);
-
-        fprintf(ofile, "lcm(a, b):\n");
-        fprint(ofile, lcm(num1, num2));
-        fclose(ofile);
-    }
+    freeBigFloat(X);
+    freeBigFloat(Y);
+    freeBigFloat(Z);
+    freeBigFloat(res1);
+    freeBigFloat(res2);
     return 0;
 }

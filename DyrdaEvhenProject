@@ -1,0 +1,87 @@
+\\DataComparison project
+
+#include <iostream>
+
+
+using namespace std;
+
+enum cmp { arr_unequal, arr_equal };
+cmp arrcmp(int *a, int la, int*b, int lb)
+{
+
+    if (la == lb)
+    {
+        for (int i = 0; i < la; i++)
+        {
+            if (a[i] != b[i]) return arr_unequal;
+        }
+        return arr_equal;
+    }
+
+    int *lMax = nullptr, *lMin = nullptr, *arrBig = nullptr, *arrSmall = nullptr;
+    int count = 0;
+
+    if (la < lb)
+    {
+        lMax = &lb;
+        arrBig = b;
+        lMin = &la;
+        arrSmall = a;
+
+    }
+    else
+    {
+        lMax = &la;
+        arrBig = a;
+        lMin = &lb;
+        arrSmall = b;
+    }
+    for (int i = 0; i < *lMax; i++)
+    {
+
+
+        if (arrBig[i] != arrSmall[count])
+        {
+            count = 0;
+            continue;
+        }
+        else
+        {
+            count++;
+            continue;
+        }
+
+    }
+    if (count == *lMin) return arr_insert;
+    return arr_unequal;
+}
+
+
+
+int main()
+{
+    setlocale(LC_ALL, "");
+    int a[10];
+    for (int i = 0; i < 10; i++) {
+            cout << "[" << i + 1 << "]" << ": ";
+            cin >> a[i];
+        }
+
+    int b[2];
+    for (int i = 0; i < 2; i++) {
+            cout << "[" << i + 1 << "]" << ": ";
+            cin >> b[i];
+        }
+
+    switch (arrcmp(a, 10, b, 2))
+    {
+    case arr_unequal: cout << "Масиви не співпадають" << endl;
+        break;
+    case arr_equal: cout << "массивы співпадають" << endl;
+        break;
+    }
+    system("pause");
+    return 0;
+}
+
+}

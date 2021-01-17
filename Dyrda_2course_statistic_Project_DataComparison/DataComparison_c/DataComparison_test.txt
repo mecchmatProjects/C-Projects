@@ -1,0 +1,4 @@
+function compar:
+  takes two independent arrays as input and compares that arrays for identity
+  if element[i] from array1 is not equal to element[j = i] from array2 returns difference:
+        abs(element[i](from array1) - element[i](from array2))

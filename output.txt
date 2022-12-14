@@ -1,0 +1,44 @@
+****test 1: finding the length between two points on a plane:
+
+The length between points (1, 1) (1, 10) is 9
+
+****test 2: printing cost:
+
+Your value is 15 kopecs.
+
+And in hryvnia and kopecs: 
+Your value is 0 hryvnia and 15 kopecs.
+
+Your value is 100 hryvnia and 50 kopecs.
+
+And in kopecs: 
+Your value is 10050 kopecs.
+
+****test 3: is 3 vectors colinear: 
+Vectors: (0, -2), (0, -2) and (0, -2) are colinear
+
+****test 4: finding the length between two points in a space:
+
+The length between points (1, 1, 1) (10, 1, 1) is 9
+
+****test 5: perimeters and areas of figures:
+
+Your figure is a square with side of length 5
+Perimeter is equal to 20
+Area is equal to 25
+
+Your figure is a triangle with sides of length 3, 4 and 5
+Perimeter is equal to 12
+Area is equal to 6
+
+Your figure is a rectangle with sides of length 5 and 6
+Perimeter is equal to 22
+Area is equal to 30
+
+Your figure is a trapezium with sides of length 5, 5 (sides), 5 and 11 (bases)
+Perimeter is equal to 26
+Area is equal to 32
+
+Your figure is a circle with radius of length 10
+Perimeter is equal to 62.8319
+Area is equal to 314.159

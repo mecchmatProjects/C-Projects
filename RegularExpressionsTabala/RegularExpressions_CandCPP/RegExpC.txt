@@ -1,0 +1,35 @@
+Hypertext: https://www.example.com
+Hypertext: http://www.example.net/page
+Paths: https://www.example.com/home
+Paths: https://www.example.com/products/item
+Parameters: https://www.example.com/search?q=term
+Parameters: https://www.example.com/page?id=123&type=article
+(HTTPS): https://www.example.com/login
+(HTTPS): https://www.example.com/user/profile
+
+Original date: 05.05.1000 -> Uniform date: 1000 May 5
+Original date: 05.06.2042 -> Uniform date: 2042 June 5
+Original date: 21.08.2050 -> Uniform date: 2050 August 21
+Original date: 10.05.2023 -> Uniform date: 2023 May 10
+Original date: 05.01.2017 -> Uniform date: 2017 January 5
+Original date: 01.01.2001 -> Uniform date: 2001 January 1
+Original date: 06/11/1934 -> Uniform date: 1934 November 6
+Original date: 06.02.12 -> Uniform date: 2012 February 6
+Original date: 29/10/22 -> Uniform date: 2022 October 29
+Original date: 2001.07.05 -> Uniform date: 2001 July 5
+
+9.0000, 353635.3523, 7377373.2329, 834.3300, 68383.0032, 935.9300, 1000.0000, 
+
+2023 December 8; 2023 December 8; 
+15:07:11; 
+2023 December 8; 
+2023 December 8; 15:07:11; 
+2023 December 8; 
+2023 December 8; 
+2023 December 8; 
+2023 December 8; 
+2023 December 8; 
+2023 December 8; 
+15:07; 
+15:07; 
+15:07; 

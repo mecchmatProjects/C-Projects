@@ -1,0 +1,1 @@
+CMakeFile розсташований у підпапці "EnvironmentVariables_CandCPP"

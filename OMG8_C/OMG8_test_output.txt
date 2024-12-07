@@ -1,0 +1,49 @@
+//
+// OMG8
+// Created by Ю. Петрова
+// Комп мат 1
+// OMG8.c test output txt file
+//
+
+please enter lengths of 2 strings, enter their elemens:
+2 3
+1 2
+3 4 5
+here input strings:
+1 2
+3 4 5
+
+please enter index and value to insert
+1
+9
+inserting 9 at index 1
+1 9 2
+
+enter index and replacement value
+0
+7
+replacing element at index 0 with 7
+7 2
+
+please enter merge index
+1
+merging structures at index 1
+1 3 4 5 2
+
+secondary string locating in primary (index):
+-1
+
+input extraction start and end indices
+5
+extracted subset from index 0 to 5:
+1 2 0 33 3
+
+encoding primary structure
+1 2
+
+coding bytes
+1 2
+1 2
+
+
+Process finished with exit code 0
